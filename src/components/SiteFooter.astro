@@ -1,0 +1,44 @@
+---
+import { navigation, socials } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="grid gap-10 border-b border-white/18 py-12 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-16">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3 focus-ring" aria-label="Mochiko home">
+          <span class="grid size-14 place-items-center bg-white">
+            <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="h-12 w-12 object-contain" width="1254" height="1254" loading="lazy" />
+          </span>
+          <span class="font-display text-3xl font-bold italic">Mochiko</span>
+        </a>
+        <p class="mt-5 max-w-sm text-base leading-relaxed text-white/62">Gaming, singing, and small cozy moments in English, German, and Russian.</p>
+      </div>
+
+      <div>
+        <p class="footer-label">Explore</p>
+        <nav class="mt-4 grid gap-2" aria-label="Footer navigation">
+          {navigation.map((item) => <a class="footer-link" href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+
+      <div>
+        <p class="footer-label">Follow</p>
+        <div class="mt-4 grid gap-2">
+          {socials.map((social) => (
+            <a class="footer-link flex items-center gap-2" href={social.href} target="_blank" rel="noreferrer">
+              <i class:list={["ph", social.icon]} aria-hidden="true"></i>{social.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3 py-6 text-sm font-bold text-white/42 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} Mochiko</p>
+      <p>Illustration by klokwark</p>
+    </div>
+  </div>
+</footer>

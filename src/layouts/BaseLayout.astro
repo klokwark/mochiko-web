@@ -1,6 +1,8 @@
 ---
 import "@phosphor-icons/web/regular";
 import "@phosphor-icons/web/fill";
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/plus-jakarta-sans";
 import "../styles/global.css";
 
 interface Props {
@@ -12,7 +14,7 @@ interface Props {
 
 const {
   title = "Mochiko | VTuber",
-  description = "The official home of Mochiko, a child-like catgirl VTuber streaming in English, German, and Russian.",
+  description = "The official home of Mochiko, a child-like catgirl VTuber sharing games, songs, and cozy chaos in English, German, and Russian.",
   image = "/assets/og-image.jpg",
   robots = "index, follow",
 } = Astro.props;
@@ -37,7 +39,8 @@ const {
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen overflow-x-clip bg-cream text-ink antialiased">
+  <body class="min-h-screen overflow-x-clip bg-paper text-ink antialiased">
+    <div class="page-line" aria-hidden="true"></div>
     <slot />
   </body>
 </html>

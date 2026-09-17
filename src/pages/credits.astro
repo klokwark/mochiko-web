@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+---
+
+<BaseLayout title="Credits | Mochiko" description="Creative credits for Mochiko.">
+  <SiteHeader />
+  <main>
+    <PageIntro eyebrow="Creative credits" title="Made with" accent="a lot of care." description="A thank you to the artist behind the details, expressions, and visual world that make me feel like me." index="04" />
+
+    <section class="credits-stage border-t-2 border-ink bg-white">
+      <div class="shell grid min-w-0 gap-12 py-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center lg:py-20">
+        <div class="credits-card">
+          <span class="credits-card__label">Illustrator</span>
+          <h2>klokwark</h2>
+          <p>Character illustration and the visual details that bring Mochiko to life.</p>
+          <div class="credits-card__line" aria-hidden="true"></div>
+          <i class="ph ph-paint-brush-broad" aria-hidden="true"></i>
+        </div>
+        <div class="credits-art">
+          <img src="/assets/credits.webp" alt="Mochiko character artwork" width="900" height="1125" fetchpriority="high" />
+          <span aria-hidden="true">♡</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

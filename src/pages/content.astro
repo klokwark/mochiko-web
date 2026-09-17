@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { contentCards } from "../data/site";
+---
+
+<BaseLayout title="Content | Mochiko" description="Watch Mochiko sing, play games, and share cozy conversations.">
+  <SiteHeader />
+  <main>
+    <PageIntro eyebrow="On the channel" title="Comfort meets" accent="chaos." description="Some days we sing. Some days we save the world. Some days we spend twenty minutes deciding what snack we would be." index="02" />
+
+    <section class="content-list border-t-2 border-ink bg-white">
+      {contentCards.map((card, index) => (
+        <article class="content-feature">
+          <div class="content-feature__image">
+            <img src={card.image} alt={card.alt} width="1100" height="825" loading={index === 0 ? "eager" : "lazy"} />
+            <span>{card.number}</span>
+          </div>
+          <div class="content-feature__copy">
+            <i class:list={["ph", card.icon]} aria-hidden="true"></i>
+            <h2>{card.title}</h2>
+            <p>{card.copy}</p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="cta-panel">
+      <div class="shell grid min-w-0 gap-8 py-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+        <h2 class="font-display max-w-3xl text-[clamp(2.8rem,8vw,6.8rem)] leading-[0.87] font-bold tracking-[-0.06em]">Ready for the next one?</h2>
+        <div class="flex flex-wrap gap-3 md:justify-end">
+          <a class="button button--paper" href="https://www.twitch.tv/mochikotv" target="_blank" rel="noreferrer">Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          <a class="button button--paper" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">YouTube <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

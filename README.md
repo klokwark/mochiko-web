@@ -1,6 +1,6 @@
 # Mochiko official website
 
-A mobile-first Astro website styled with Tailwind CSS v4 and Phosphor Icons.
+A mobile-first, multi-page Astro website styled with Tailwind CSS v4 and Phosphor Icons. The visual system uses self-hosted Fraunces and Plus Jakarta Sans variable fonts.
 
 ## Local development
 
@@ -18,7 +18,16 @@ npm run preview
 
 ## Editing content
 
-Page copy, navigation, content cards, and social links live in `src/pages/index.astro`. Shared metadata is in `src/layouts/BaseLayout.astro`, while colors and reusable visual styles are in `src/styles/global.css`.
+Shared navigation, social links, and content data live in `src/data/site.ts`. Page content lives in `src/pages/`, shared site chrome lives in `src/components/`, and reusable visual styles are in `src/styles/global.css`.
+
+Routes:
+
+- `/`
+- `/about`
+- `/content`
+- `/schedule`
+- `/credits`
+- `/404.html`
 
 Public images live in `public/assets/` and are referenced as `/assets/filename.ext`.
 
