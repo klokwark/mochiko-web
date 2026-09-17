@@ -1,0 +1,38 @@
+---
+import { navigation, socials } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell py-12 sm:py-16">
+    <div class="footer-card">
+      <div class="min-w-0">
+        <a href="/" class="inline-flex items-center gap-3 focus-ring" aria-label="Mochiko home">
+          <span class="grid size-14 place-items-center rounded-full bg-white">
+            <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="h-12 w-12 object-contain" width="1254" height="1254" loading="lazy" />
+          </span>
+          <span class="font-display text-3xl font-semibold">Mochiko</span>
+        </a>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-white/72">games, giggles, cozy chats, and lots of pink ♡</p>
+      </div>
+
+      <nav class="flex flex-wrap gap-2" aria-label="Footer navigation">
+        {navigation.map((item) => <a class="footer-pill" href={item.href}>{item.label}</a>)}
+      </nav>
+
+      <div class="flex flex-wrap gap-2">
+        {socials.map((social) => (
+          <a class="footer-social" href={social.href} target="_blank" rel="noreferrer" aria-label={social.label}>
+            <i class:list={["ph", social.icon]} aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-5 flex flex-col gap-2 px-3 text-sm font-bold text-white/55 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} Mochiko</p>
+      <p>art by klokwark ୨୧</p>
+    </div>
+  </div>
+</footer>

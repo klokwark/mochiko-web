@@ -1,0 +1,190 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+---
+
+<BaseLayout title="Content | Mochiko" description="Watch Mochiko’s newest YouTube videos, latest Twitch VOD, and live stream.">
+  <SiteHeader />
+  <main>
+    <PageIntro eyebrow="watch with me" title="new stuff," accent="all in one place!" description="the newest videos, the latest stream, and whatever i’m doing live right now ♡" />
+
+    <section class="section-pad live-candy">
+      <div class="shell">
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">Twitch</p>
+            <h2 class="section-title mt-4">am i live<br /><em>right now?</em></h2>
+          </div>
+          <span class="live-status-pill" data-stream-status><i class="ph-fill ph-circle" aria-hidden="true"></i><span>checking...</span></span>
+        </div>
+
+        <div class="stream-card mt-9">
+          <div class="stream-card__player">
+            <iframe
+              src="https://player.twitch.tv/?channel=mochikolive&parent=mochikotv.com&parent=www.mochikotv.com&muted=true"
+              title="Mochiko’s Twitch stream"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="stream-card__side">
+            <span class="cute-chip cute-chip--white"><i class="ph ph-twitch-logo" aria-hidden="true"></i> Twitch</span>
+            <h3 data-stream-title>come see what i’m doing!</h3>
+            <p data-stream-copy>if i’m live, the stream will be right here. if not, Twitch will keep my spot cozy for next time.</p>
+            <a class="button button--ink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer">open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-white">
+      <div class="shell">
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">YouTube</p>
+            <h2 class="section-title mt-4">my latest<br /><em>four videos!</em></h2>
+          </div>
+          <a class="text-link" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">open my channel <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="video-grid mt-9" data-youtube-grid aria-live="polite">
+          {[0, 1, 2, 3].map(() => (
+            <div class="video-skeleton" aria-hidden="true"><span></span><b></b><i></i></div>
+          ))}
+        </div>
+        <div class="feed-fallback mt-6 hidden" data-youtube-fallback>
+          <i class="ph ph-youtube-logo" aria-hidden="true"></i>
+          <div><strong>my uploads live over here ♡</strong><span>tap through to see the newest videos</span></div>
+          <a href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">YouTube <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="shell">
+        <p class="section-kicker">latest Twitch VOD</p>
+        <h2 class="section-title mt-4">missed the stream?<br /><em>i saved it for u!</em></h2>
+        <div class="vod-card mt-9" data-vod-card aria-live="polite">
+          <div class="vod-card__placeholder"><i class="ph ph-spinner-gap" aria-hidden="true"></i></div>
+          <div class="vod-card__copy"><span class="cute-chip">loading the latest VOD...</span><h3>one tiny second ♡</h3></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+
+  <script>
+    type VideoItem = {
+      title: string;
+      url: string;
+      thumbnailUrl: string;
+      publishedAt: string;
+    };
+
+    const prettyDate = (value: string) => new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" }).format(new Date(value));
+
+    const makeVideoCard = (video: VideoItem) => {
+      const link = document.createElement("a");
+      link.className = "video-card";
+      link.href = video.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+
+      const imageWrap = document.createElement("span");
+      imageWrap.className = "video-card__image";
+      const image = document.createElement("img");
+      image.src = video.thumbnailUrl;
+      image.alt = "";
+      image.loading = "lazy";
+      imageWrap.append(image);
+
+      const copy = document.createElement("span");
+      copy.className = "video-card__copy";
+      const title = document.createElement("strong");
+      title.textContent = video.title;
+      const date = document.createElement("small");
+      date.textContent = prettyDate(video.publishedAt);
+      copy.append(title, date);
+
+      const arrow = document.createElement("i");
+      arrow.className = "ph ph-arrow-up-right";
+      arrow.setAttribute("aria-hidden", "true");
+      link.append(imageWrap, copy, arrow);
+      return link;
+    };
+
+    const loadYouTube = async () => {
+      const grid = document.querySelector("[data-youtube-grid]");
+      const fallback = document.querySelector("[data-youtube-fallback]");
+      if (!grid || !fallback) return;
+      try {
+        const response = await fetch("/api/youtube");
+        const data = await response.json();
+        if (!response.ok || !data.videos?.length) throw new Error("No videos available");
+        grid.replaceChildren(...data.videos.slice(0, 4).map(makeVideoCard));
+      } catch {
+        grid.classList.add("hidden");
+        fallback.classList.remove("hidden");
+      }
+    };
+
+    const loadTwitch = async () => {
+      const status = document.querySelector("[data-stream-status]");
+      const statusText = status?.querySelector("span");
+      const title = document.querySelector("[data-stream-title]");
+      const copy = document.querySelector("[data-stream-copy]");
+      const vodCard = document.querySelector("[data-vod-card]");
+      try {
+        const response = await fetch("/api/twitch");
+        const data = await response.json();
+        if (data.live?.isLive) {
+          status?.classList.add("is-live");
+          if (statusText) statusText.textContent = "live now!!";
+          if (title) title.textContent = data.live.title || "i’m live right now!!";
+          if (copy) copy.textContent = data.live.gameName ? `we’re playing ${data.live.gameName} ♡` : "come hang out with us ♡";
+        } else if (statusText) {
+          statusText.textContent = "offline for now";
+        }
+
+        if (vodCard && data.video) {
+          const link = document.createElement("a");
+          link.className = "vod-card__image";
+          link.href = data.video.url;
+          link.target = "_blank";
+          link.rel = "noreferrer";
+          const image = document.createElement("img");
+          image.src = data.video.thumbnailUrl;
+          image.alt = "";
+          image.loading = "lazy";
+          link.append(image);
+
+          const details = document.createElement("div");
+          details.className = "vod-card__copy";
+          const chip = document.createElement("span");
+          chip.className = "cute-chip";
+          chip.textContent = `latest VOD · ${prettyDate(data.video.publishedAt)}`;
+          const heading = document.createElement("h3");
+          heading.textContent = data.video.title;
+          const watch = document.createElement("a");
+          watch.className = "button button--pink";
+          watch.href = data.video.url;
+          watch.target = "_blank";
+          watch.rel = "noreferrer";
+          watch.textContent = "watch the VOD ♡";
+          details.append(chip, heading, watch);
+          vodCard.replaceChildren(link, details);
+        } else if (vodCard) {
+          vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">latest streams</span><h3>my newest VOD is waiting on Twitch!</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">see the VODs ♡</a></div>`;
+        }
+      } catch {
+        if (statusText) statusText.textContent = "check Twitch ♡";
+        if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">latest streams</span><h3>my newest VOD is waiting on Twitch!</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">see the VODs ♡</a></div>`;
+      }
+    };
+
+    loadYouTube();
+    loadTwitch();
+  </script>
+</BaseLayout>

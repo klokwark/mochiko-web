@@ -1,6 +1,6 @@
 # Mochiko official website
 
-A mobile-first Astro website styled with Tailwind CSS v4 and Phosphor Icons.
+A mobile-first, multi-page Astro website styled with Tailwind CSS v4 and Phosphor Icons. The visual system uses self-hosted Fredoka and Nunito variable fonts.
 
 ## Local development
 
@@ -9,19 +9,41 @@ npm install
 npm run dev
 ```
 
-The production build is generated in `dist/`:
+Create the production build with:
 
 ```bash
 npm run build
-npm run preview
 ```
 
 ## Editing content
 
-Page copy, navigation, content cards, and social links live in `src/pages/index.astro`. Shared metadata is in `src/layouts/BaseLayout.astro`, while colors and reusable visual styles are in `src/styles/global.css`.
+Shared navigation, social links, and content data live in `src/data/site.ts`. Page content lives in `src/pages/`, shared site chrome lives in `src/components/`, and reusable visual styles are in `src/styles/global.css`.
+
+Routes:
+
+- `/`
+- `/about`
+- `/content`
+- `/schedule`
+- `/404.html`
+
+API routes:
+
+- `/api/youtube`
+- `/api/twitch`
 
 Public images live in `public/assets/` and are referenced as `/assets/filename.ext`.
 
+## Live content
+
+Copy `.env.example` to `.env` for local development, then provide these values:
+
+- `YOUTUBE_API_KEY`
+- `TWITCH_CLIENT_ID`
+- `TWITCH_CLIENT_SECRET`
+
+Add the same names in Vercel Project Settings under Environment Variables. The public pages fall back to direct YouTube and Twitch links when the API variables are not configured.
+
 ## Vercel
 
-Import the GitHub repository in Vercel. The included `vercel.json` selects Astro, runs `npm run build`, publishes `dist/`, and adds production-minded cache and security headers.
+Import the GitHub repository in Vercel. The official Astro Vercel adapter builds the pages and live-data endpoints, while `vercel.json` adds cache and security headers.

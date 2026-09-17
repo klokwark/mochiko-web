@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+---
+
+<BaseLayout title="Schedule | Mochiko" description="See Mochiko’s upcoming Twitch streams.">
+  <SiteHeader />
+  <main>
+    <PageIntro eyebrow="stream schedule" title="when are we" accent="hanging out? ♡" description="this pulls my newest schedule from Twitch so you always get the latest plan." />
+
+    <section class="section-pad schedule-candy">
+      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-16">
+        <div class="schedule-art-soft">
+          <span class="sticker sticker--schedule">game time!!</span>
+          <img src="/assets/gaming-2.png" alt="Mochiko gaming with a controller" width="1200" height="1600" fetchpriority="high" />
+        </div>
+
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div><p class="section-kicker">coming up</p><h2 class="section-title mt-4">next streams!</h2></div>
+            <a class="text-link" href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">Twitch schedule <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+
+          <div class="schedule-list mt-8" data-schedule-list aria-live="polite">
+            {[0, 1, 2].map(() => <div class="schedule-skeleton" aria-hidden="true"><span></span><div><b></b><i></i></div></div>)}
+          </div>
+
+          <div class="feed-fallback mt-6 hidden" data-schedule-fallback>
+            <i class="ph ph-calendar-heart" aria-hidden="true"></i>
+            <div><strong>the newest plan is on Twitch ♡</strong><span>sometimes things move around a lil bit</span></div>
+            <a href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">open it <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+
+  <script>
+    type ScheduledStream = {
+      title?: string;
+      startTime: string;
+      canceledUntil?: string | null;
+      category?: string | null;
+    };
+
+    const loadSchedule = async () => {
+      const list = document.querySelector("[data-schedule-list]");
+      const fallback = document.querySelector("[data-schedule-fallback]");
+      if (!list || !fallback) return;
+      try {
+        const response = await fetch("/api/twitch");
+        const data = await response.json();
+        const streams = ((data.schedule ?? []) as ScheduledStream[]).filter((stream: ScheduledStream) => !stream.canceledUntil);
+        if (!response.ok || !streams.length) throw new Error("No schedule available");
+
+        const cards = streams.map((stream: ScheduledStream) => {
+          const card = document.createElement("article");
+          card.className = "schedule-item";
+
+          const date = new Date(stream.startTime);
+          const dateBubble = document.createElement("time");
+          dateBubble.dateTime = stream.startTime;
+          const month = document.createElement("span");
+          month.textContent = new Intl.DateTimeFormat(undefined, { month: "short" }).format(date);
+          const day = document.createElement("strong");
+          day.textContent = new Intl.DateTimeFormat(undefined, { day: "2-digit" }).format(date);
+          dateBubble.append(month, day);
+
+          const copy = document.createElement("div");
+          const heading = document.createElement("h3");
+          heading.textContent = stream.title || "cozy stream time!";
+          const meta = document.createElement("p");
+          meta.textContent = `${new Intl.DateTimeFormat(undefined, { weekday: "long", hour: "numeric", minute: "2-digit", timeZoneName: "short" }).format(date)}${stream.category ? ` · ${stream.category}` : ""}`;
+          copy.append(heading, meta);
+
+          const heart = document.createElement("i");
+          heart.className = "ph ph-heart";
+          heart.setAttribute("aria-hidden", "true");
+          card.append(dateBubble, copy, heart);
+          return card;
+        });
+
+        list.replaceChildren(...cards);
+      } catch {
+        list.classList.add("hidden");
+        fallback.classList.remove("hidden");
+      }
+    };
+
+    loadSchedule();
+  </script>
+</BaseLayout>

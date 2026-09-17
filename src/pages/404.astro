@@ -3,18 +3,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Page not found | Mochiko" description="This page wandered off." robots="noindex, nofollow">
-  <main class="relative grid min-h-screen place-items-center overflow-hidden bg-cream px-5 py-12 text-center">
-    <div class="hero-grid absolute inset-0 opacity-70"></div>
-    <div class="absolute -top-28 -right-28 size-80 rounded-full bg-pink/35 blur-3xl"></div>
-    <div class="relative z-10 w-full max-w-2xl border-2 border-ink bg-white p-7 shadow-hard-lg sm:p-12">
-      <img src="/assets/bunny-mark.webp" alt="" class="mx-auto h-16 w-auto" width="80" height="80" />
-      <p class="mt-4 text-xs font-black tracking-[0.2em] text-pink uppercase">Error 404</p>
-      <h1 class="mt-3 text-[clamp(3.5rem,14vw,7rem)] leading-[0.85] font-black tracking-[-0.07em] uppercase">Oopsie.</h1>
-      <p class="mx-auto mt-6 max-w-md text-base leading-relaxed font-semibold text-ink/65">This page wandered off. Let’s take you back somewhere cozy.</p>
-      <a class="button button--pink mt-8" href="/">
-        <i class="ph ph-house" aria-hidden="true"></i>
-        Back home
-      </a>
-    </div>
+  <main class="lost-page">
+    <span class="doodle doodle--heart" aria-hidden="true">♡</span>
+    <section class="lost-card">
+      <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="mx-auto size-18 object-contain" width="1254" height="1254" />
+      <p class="bubble-label mx-auto mt-5">oopsie!! 404</p>
+      <h1 class="page-title mt-5 text-center">this page got<br /><em>a lil lost ♡</em></h1>
+      <p class="mx-auto mt-6 max-w-md text-center text-base leading-relaxed font-bold text-ink/62">it probably went looking for snacks. let’s go back somewhere cozy!</p>
+      <a class="button button--pink mx-auto mt-7 w-fit" href="/">take me home <i class="ph ph-house" aria-hidden="true"></i></a>
+    </section>
+    <img src="/assets/cute-pose-1.png" alt="Mochiko" class="lost-page__art" width="1200" height="1600" />
   </main>
 </BaseLayout>

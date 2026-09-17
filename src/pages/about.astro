@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Marquee from "../components/Marquee.astro";
+---
+
+<BaseLayout title="About Mochiko | VTuber" description="Get to know Mochiko and her cozy little corner of the internet.">
+  <SiteHeader />
+  <main>
+    <PageIntro eyebrow="about me" title="hiii, i’m" accent="Mochiko ♡" description="this is the page where i’m supposed to explain myself but honestly i’m mostly just here to have fun with you." />
+
+    <section class="section-pad bg-white">
+      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:gap-18">
+        <div class="soft-photo soft-photo--tall">
+          <div class="soft-photo__dots" aria-hidden="true"></div>
+          <img src="/assets/cute-pose2.png" alt="Mochiko making a cute pose" width="1200" height="1600" fetchpriority="high" />
+          <span class="soft-photo__tag">yep that’s me!!</span>
+        </div>
+        <div class="min-w-0">
+          <p class="section-kicker">okay so basically...</p>
+          <h2 class="section-title mt-4">i get excited<br /><em>really easily!</em></h2>
+          <div class="mt-6 max-w-2xl space-y-5 text-base leading-relaxed font-bold text-ink/66 sm:text-lg">
+            <p>i love cozy games, cute things, talking forever, and those stream moments that make everyone laugh at the exact same time.</p>
+            <p>i want this whole place to feel like coming over after school, putting your favorite game on, and staying way longer than we planned.</p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="cute-chip"><i class="ph ph-game-controller" aria-hidden="true"></i> gaming</span>
+            <span class="cute-chip"><i class="ph ph-chat-circle-dots" aria-hidden="true"></i> lots of yapping</span>
+            <span class="cute-chip"><i class="ph ph-heart" aria-hidden="true"></i> cute stuff</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Marquee />
+
+    <section class="section-pad bg-paper">
+      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)] lg:items-center lg:gap-18">
+        <div class="min-w-0">
+          <p class="section-kicker">the important part</p>
+          <h2 class="section-title mt-4">you can just<br /><em>be comfy here.</em></h2>
+          <p class="body-lede mt-6">you don’t have to know every inside joke or catch every stream. pop in when you can, say hi if you want, and have a nice time with us ♡</p>
+          <a class="button button--pink mt-7" href="/content">see what i’m up to <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="soft-photo">
+          <div class="soft-photo__dots" aria-hidden="true"></div>
+          <img src="/assets/red-dress-umbressa.png" alt="Mochiko holding an umbrella" width="1200" height="1600" loading="lazy" />
+          <span class="soft-photo__tag">come hang out ୨୧</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
