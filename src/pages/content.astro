@@ -21,6 +21,14 @@ import SiteFooter from "../components/SiteFooter.astro";
       </div>
     </section>
 
+    <section class="duo-strip">
+      <div class="shell duo-strip__inner">
+        <img src="/assets/friends/mochiko-jannik-pose-1.webp" alt="Jannik standing beside Mochiko" width="788" height="1400" loading="lazy" />
+        <div><span>sometimes Jannik is here too</span><strong>if two people are making one easy game look difficult, hi.</strong></div>
+        <a href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">meet Jannik <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
     <section class="section-pad live-candy">
       <div class="shell">
         <div class="soft-heading">
@@ -34,12 +42,19 @@ import SiteFooter from "../components/SiteFooter.astro";
         <div class="stream-card mt-9">
           <div class="stream-card__player">
             <iframe
-              src="https://player.twitch.tv/?channel=mochikolive&parent=mochikotv.com&parent=www.mochikotv.com&autoplay=true&muted=true"
+              data-twitch-player
+              data-src="https://player.twitch.tv/?channel=mochikolive&parent=mochikotv.com&parent=www.mochikotv.com&autoplay=true&muted=true"
               title="Mochiko’s Twitch stream"
               allow="autoplay; fullscreen"
               allowfullscreen
               loading="eager"
             ></iframe>
+            <div class="embed-locked" data-embed-locked>
+              <i class="ph ph-lock-key" aria-hidden="true"></i>
+              <strong>Twitch is not loaded yet</strong>
+              <span>choose “okay, load them” in the privacy box to show the player.</span>
+              <button type="button" data-open-privacy>privacy choices</button>
+            </div>
           </div>
           <div class="stream-card__side">
             <span class="cute-chip cute-chip--white"><i class="ph ph-twitch-logo" aria-hidden="true"></i> Twitch</span>
@@ -196,7 +211,38 @@ import SiteFooter from "../components/SiteFooter.astro";
       }
     };
 
-    loadYouTube();
-    loadTwitch();
+    let externalContentLoaded = false;
+
+    const showBlockedContent = () => {
+      const statusText = document.querySelector("[data-stream-status] span");
+      if (statusText) statusText.textContent = "not loaded";
+
+      const grid = document.querySelector("[data-youtube-grid]");
+      if (grid) grid.innerHTML = `<div class="privacy-locked-card"><i class="ph ph-lock-key" aria-hidden="true"></i><div><strong>YouTube is not loaded</strong><span>You said no to optional media. You can change that in privacy choices.</span></div><button type="button" data-open-privacy>change choice</button></div>`;
+
+      const vodCard = document.querySelector("[data-vod-card]");
+      if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-lock-key" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">not loaded</span><h3>Twitch is tucked away</h3><button class="button button--pink" type="button" data-open-privacy>privacy choices</button></div>`;
+    };
+
+    const maybeLoadExternalContent = () => {
+      const choice = document.documentElement.dataset.privacyChoice;
+      if (choice === "declined") {
+        showBlockedContent();
+        return;
+      }
+      if (choice !== "accepted" || externalContentLoaded) return;
+      externalContentLoaded = true;
+
+      const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
+      const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
+      if (player?.dataset.src) player.src = player.dataset.src;
+      if (locked) locked.hidden = true;
+
+      loadYouTube();
+      loadTwitch();
+    };
+
+    maybeLoadExternalContent();
+    window.addEventListener("mochiko:privacy-choice", maybeLoadExternalContent);
   </script>
 </BaseLayout>

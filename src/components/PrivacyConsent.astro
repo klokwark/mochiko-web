@@ -1,0 +1,34 @@
+<aside class="privacy-consent" data-privacy-consent role="dialog" aria-modal="true" aria-labelledby="privacy-consent-title">
+  <div class="privacy-consent__icon" aria-hidden="true"><i class="ph ph-cookie"></i></div>
+  <div class="privacy-consent__copy">
+    <strong id="privacy-consent-title">tiny privacy thing!</strong>
+    <p>i don’t track you. data is not tasty anyway. Twitch and YouTube stay tucked away until you say okay.</p>
+    <a href="/privacy">what gets loaded?</a>
+  </div>
+  <div class="privacy-consent__actions">
+    <button class="button button--pink" type="button" data-privacy-accept>okay, load them</button>
+    <button class="privacy-consent__no" type="button" data-privacy-decline>no thanks</button>
+  </div>
+</aside>
+
+<script>
+  const privacyKey = "mochiko_privacy_choice";
+  const banner = document.querySelector<HTMLElement>("[data-privacy-consent]");
+
+  const savePrivacyChoice = (choice: "accepted" | "declined") => {
+    try { localStorage.setItem(privacyKey, choice); } catch {}
+    document.documentElement.dataset.privacyChoice = choice;
+    banner?.removeAttribute("data-open");
+    window.dispatchEvent(new CustomEvent("mochiko:privacy-choice", { detail: { choice } }));
+  };
+
+  document.querySelector("[data-privacy-accept]")?.addEventListener("click", () => savePrivacyChoice("accepted"));
+  document.querySelector("[data-privacy-decline]")?.addEventListener("click", () => savePrivacyChoice("declined"));
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.closest("[data-open-privacy]")) return;
+    event.preventDefault();
+    banner?.setAttribute("data-open", "true");
+  });
+</script>

@@ -93,6 +93,20 @@ import SiteFooter from "../components/SiteFooter.astro";
       }
     };
 
-    loadSchedule();
+    const maybeLoadSchedule = () => {
+      const choice = document.documentElement.dataset.privacyChoice;
+      if (choice === "accepted") loadSchedule();
+      if (choice === "declined") {
+        const list = document.querySelector("[data-schedule-list]");
+        const fallback = document.querySelector("[data-schedule-fallback]");
+        list?.classList.add("hidden");
+        fallback?.classList.remove("hidden");
+        const copy = fallback?.querySelector("div");
+        if (copy) copy.innerHTML = `<strong>Twitch is not loaded</strong><span>change your privacy choice to load the schedule here</span>`;
+      }
+    };
+
+    maybeLoadSchedule();
+    window.addEventListener("mochiko:privacy-choice", maybeLoadSchedule);
   </script>
 </BaseLayout>

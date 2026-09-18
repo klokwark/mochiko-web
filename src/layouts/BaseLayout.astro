@@ -4,6 +4,7 @@ import "@phosphor-icons/web/fill";
 import "@fontsource-variable/fredoka";
 import "@fontsource-variable/nunito";
 import "../styles/global.css";
+import PrivacyConsent from "../components/PrivacyConsent.astro";
 
 interface Props {
   title?: string;
@@ -37,10 +38,18 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <script is:inline>
+      try {
+        document.documentElement.dataset.privacyChoice = localStorage.getItem("mochiko_privacy_choice") || "unset";
+      } catch {
+        document.documentElement.dataset.privacyChoice = "unset";
+      }
+    </script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen overflow-x-clip bg-paper text-ink antialiased">
     <div class="page-line" aria-hidden="true"></div>
     <slot />
+    <PrivacyConsent />
   </body>
 </html>

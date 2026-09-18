@@ -64,5 +64,10 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
     }
   };
 
-  updateLiveNavigation();
+  const maybeUpdateLiveNavigation = () => {
+    if (document.documentElement.dataset.privacyChoice === "accepted") updateLiveNavigation();
+  };
+
+  maybeUpdateLiveNavigation();
+  window.addEventListener("mochiko:privacy-choice", maybeUpdateLiveNavigation);
 </script>

@@ -4,8 +4,6 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
 import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/site";
-
-const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase() === "DE";
 ---
 
 <BaseLayout>
@@ -27,7 +25,6 @@ const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase(
             <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
           <div class="mini-note"><span>right now</span><strong>probably picking a new game</strong></div>
-          {isGermany && <a class="imprint-link" href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a>}
         </div>
 
         <div class="soft-hero__art">
@@ -64,6 +61,21 @@ const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase(
           <h2 class="section-title mt-4">i pick games<br /><em>because they look cute</em></h2>
           <p class="body-lede mt-6">then i get attached to one character, forget the quest, and spend twenty minutes changing outfits.</p>
           <a class="button button--ink mt-7" href="/about">there’s more <i class="ph ph-heart" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad friend-feature">
+      <div class="shell friend-feature__grid">
+        <div class="friend-feature__photo">
+          <img src="/assets/friends/mochiko-jannik-gaming.webp" alt="Mochiko and Jannik playing games together" width="1600" height="900" loading="lazy" />
+          <span>player 1 + player 2</span>
+        </div>
+        <div>
+          <p class="section-kicker">me & Jannik</p>
+          <h2 class="section-title mt-4">the plan is<br /><em>already gone</em></h2>
+          <p class="body-lede mt-6">we play together a lot. one of us says “let’s be normal this time” and then neither of us is.</p>
+          <a class="button button--ink mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik’s website <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>
@@ -164,7 +176,7 @@ const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase(
     const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
     const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
 
-    fetch("/api/twitch")
+    const updateHomeLive = () => fetch("/api/twitch")
       .then((response) => response.json())
       .then((data) => {
         const live = data?.live?.isLive === true;
@@ -179,5 +191,17 @@ const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase(
         if (title) title.textContent = "go peek?";
         if (detail) detail.textContent = "Twitch didn’t tell me anything.";
       });
+
+    const maybeUpdateHomeLive = () => {
+      if (document.documentElement.dataset.privacyChoice === "accepted") updateHomeLive();
+      else if (document.documentElement.dataset.privacyChoice === "declined") {
+        if (status) status.textContent = "not loaded";
+        if (title) title.textContent = "Twitch is tucked away";
+        if (detail) detail.textContent = "you can still open the channel directly.";
+      }
+    };
+
+    maybeUpdateHomeLive();
+    window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
   }
 </script>
