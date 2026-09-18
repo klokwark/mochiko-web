@@ -5,6 +5,7 @@ import "@fontsource-variable/fredoka";
 import "@fontsource-variable/nunito";
 import "../styles/global.css";
 import PrivacyConsent from "../components/PrivacyConsent.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
@@ -16,13 +17,15 @@ interface Props {
 const {
   title = "Mochiko | VTuber",
   description = "The official home of Mochiko, with streams, videos, and everything in between.",
-  image = "/assets/og-image.jpg",
+  image = "/assets/mochikobanner.png",
   robots = "index, follow",
 } = Astro.props;
+
+const absoluteImage = new URL(image, Astro.url.origin).href;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,12 +35,13 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={absoluteImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={absoluteImage} />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <ClientRouter />
     <script is:inline>
       try {
         document.documentElement.dataset.privacyChoice = localStorage.getItem("mochiko_privacy_choice") || "unset";

@@ -9,25 +9,24 @@ import { favoriteGames, favoriteMusic } from "../data/site";
 <BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
   <SiteHeader />
   <main>
-    <section class="about-hero">
-      <div class="shell about-hero__grid">
-        <div class="about-hero__art">
-          <span class="about-hero__scribble" aria-hidden="true">♡</span>
-          <img class="about-hero__main-img" src="/assets/cute-pose2.png" alt="Mochiko sitting with a bunny plush" width="1122" height="1402" fetchpriority="high" />
-          <div class="about-hero__mini">
-            <img src="/assets/umbrella-2.png" alt="Mochiko holding an umbrella" width="1122" height="1402" />
-          </div>
-        </div>
-
-        <div class="about-hero__copy">
+    <section class="about-diary-hero">
+      <span class="about-diary-hero__star" aria-hidden="true">✦</span>
+      <span class="about-diary-hero__heart" aria-hidden="true">♡</span>
+      <div class="shell about-diary-hero__grid">
+        <div class="about-diary-hero__copy">
           <p class="section-kicker">about me</p>
-          <h1 class="about-hero__title">hii, i’m<br /><em>Mochiko ♡</em></h1>
-          <p class="about-hero__intro">i always forget what to put on about pages, so this is the short version:</p>
-          <div class="about-notes">
-            <p><span>01</span> i love cute games, pretty outfits, and collecting little things.</p>
-            <p><span>02</span> i change my mind halfway through picking what to play.</p>
-            <p><span>03</span> sometimes i’m really focused. sometimes one tiny thing takes the whole stream.</p>
+          <h1>my name is<br /><em>Mochiko!</em></h1>
+          <p class="about-pronounce"><span>name_audio.txt</span> ˈmɔtʃiːˌkoː</p>
+          <p>i never know what to put here, so i made a list.</p>
+          <div class="about-diary-hero__facts">
+            <span>cute games</span><span>pretty outfits</span><span>tiny collections</span><span>changing my mind</span>
           </div>
+          <a class="button button--pink mt-7" href="#favorites">the important stuff <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+        </div>
+        <div class="about-diary-hero__art">
+          <div class="about-diary-hero__frame" aria-hidden="true"></div>
+          <img src="/assets/red-dress-umbressa.png" alt="Mochiko in a red dress holding an umbrella" width="1086" height="1448" fetchpriority="high" />
+          <span class="about-diary-hero__note">i picked the outfit first ♡</span>
         </div>
       </div>
     </section>
@@ -37,9 +36,9 @@ import { favoriteGames, favoriteMusic } from "../data/site";
     <section class="section-pad friend-about">
       <div class="shell friend-about__grid">
         <div class="friend-about__copy">
-          <p class="section-kicker">my favorite teammate</p>
-          <h2 class="section-title mt-4">this is<br /><em>Jannik!</em></h2>
-          <p class="body-lede mt-6">we play together all the time, and a lot of streams turn into us trying one thing, getting distracted, and making it everyone else’s problem.</p>
+          <p class="section-kicker">my teammate</p>
+          <h2 class="section-title mt-4">yes, that’s Jannik.<br /><em>don’t ship us.</em></h2>
+          <p class="body-lede mt-6">we’re friends. we play games together. that is the whole sentence.</p>
           <a class="text-link mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">go see his page <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
         </div>
         <div class="friend-about__art">
