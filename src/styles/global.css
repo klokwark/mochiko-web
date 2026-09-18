@@ -612,12 +612,25 @@ html[data-privacy-choice="unset"] .privacy-consent,
 @keyframes doodle-wiggle { 0%, 100% { rotate: 0deg; } 35% { rotate: 5deg; } 70% { rotate: -4deg; } }
 @keyframes dot-pop { 50% { transform: scale(.65); } }
 @keyframes candy-shimmer { from { background-position: 180% 0; } to { background-position: -180% 0; } }
-@keyframes mochi-page-out { to { clip-path: inset(47% 46% round 3rem); transform: scale(.965) rotate(-.6deg); } }
-@keyframes mochi-page-in { from { clip-path: circle(0 at 88% 12%); transform: scale(.94) rotate(.8deg); } to { clip-path: circle(150% at 88% 12%); transform: scale(1) rotate(0); } }
-@keyframes mochi-page-out-back { to { clip-path: inset(47% 46% round 3rem); transform: scale(.965) rotate(.6deg); } }
-@keyframes mochi-page-in-back { from { clip-path: circle(0 at 12% 12%); transform: scale(.94) rotate(-.8deg); } to { clip-path: circle(150% at 12% 12%); transform: scale(1) rotate(0); } }
+@keyframes mochi-panel-out {
+  from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translateX(0); }
+  to { clip-path: polygon(0 0, 13% 0, 0 100%, 0 100%); transform: translateX(-1.25rem); }
+}
+@keyframes mochi-panel-in {
+  from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 84% 100%); transform: translateX(1.25rem); }
+  to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translateX(0); }
+}
+@keyframes mochi-panel-out-back {
+  from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translateX(0); }
+  to { clip-path: polygon(87% 0, 100% 0, 100% 100%, 100% 100%); transform: translateX(1.25rem); }
+}
+@keyframes mochi-panel-in-back {
+  from { clip-path: polygon(0 0, 0 0, 16% 100%, 0 100%); transform: translateX(-1.25rem); }
+  to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translateX(0); }
+}
 
-::view-transition-group(mochiko-page) { animation-duration: 420ms; }
+::view-transition-group(mochiko-page) { overflow: clip; background: linear-gradient(108deg, var(--pink) 0 42%, var(--lilac) 42% 57%, var(--ink) 57% 59%, var(--paper) 59%); animation-duration: 390ms; }
+::view-transition-image-pair(mochiko-page) { isolation: isolate; }
 
 @media (min-width: 40rem) {
   .shell { width: min(100% - 3rem, 80rem); }

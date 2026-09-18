@@ -25,12 +25,12 @@ const absoluteImage = new URL(image, Astro.url.origin).href;
 
 const pagePop = {
   forwards: {
-    old: { name: "mochi-page-out", duration: "180ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
-    new: { name: "mochi-page-in", duration: "420ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+    old: { name: "mochi-panel-out", duration: "210ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-panel-in", duration: "390ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
   },
   backwards: {
-    old: { name: "mochi-page-out-back", duration: "180ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
-    new: { name: "mochi-page-in-back", duration: "420ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+    old: { name: "mochi-panel-out-back", duration: "210ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-panel-in-back", duration: "390ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
   },
 };
 ---
