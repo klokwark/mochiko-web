@@ -6,31 +6,31 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
 ---
 
 <header class="site-header">
-  <div class="shell flex min-h-18 items-center justify-between gap-3 py-2 sm:min-h-20">
+  <div class="shell site-header__inner">
     <a href="/" class="brand-lockup focus-ring" aria-label="Mochiko home">
       <span class="brand-mark-wrap">
         <img src="/assets/mochiko-logo-bunny-black.webp" alt="" class="brand-mark" width="1254" height="1254" />
       </span>
-      <span class="brand-name">Mochiko</span>
+      <span><b class="brand-name">Mochiko</b><small>online-ish</small></span>
     </a>
 
-    <nav class="hidden items-center gap-2 lg:flex" aria-label="Main navigation">
-      {navigation.map((item) => (
+    <nav class="nav-dock" aria-label="Main navigation">
+      {navigation.map((item, index) => (
         <a class:list={["nav-link focus-ring", { "is-active": isActive(item.href) }]} href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
-          {item.label}
+          <span>0{index + 1}</span>{item.label}
         </a>
       ))}
     </nav>
 
-    <div class="flex items-center gap-2">
-      <a class="live-button hidden sm:inline-flex" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
+    <div class="header-actions">
+      <a class="live-button" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
         <span class="live-dot" aria-hidden="true"></span>
         <span data-live-label>Twitch</span>
         <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
       </a>
 
-      <details class="mobile-menu relative lg:hidden">
-        <summary class="focus-ring grid size-11 cursor-pointer list-none place-items-center rounded-full border-2 border-ink bg-white text-xl" aria-label="Open navigation">
+      <details class="mobile-menu">
+        <summary class="focus-ring" aria-label="Open navigation">
           <i class="ph ph-list" aria-hidden="true"></i>
         </summary>
         <nav class="mobile-menu__panel" aria-label="Mobile navigation">
