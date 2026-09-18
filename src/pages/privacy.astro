@@ -15,7 +15,7 @@ import SiteFooter from "../components/SiteFooter.astro";
           <p class="body-lede mt-6">This page explains which data may be processed when you visit mochikotv.com and when optional Twitch or YouTube content is enabled.</p>
           <button class="button button--white mt-7" type="button" data-open-privacy>change privacy choice</button>
         </div>
-        <img src="/assets/blue-phone.png" alt="Mochiko holding a phone" width="1086" height="1448" />
+        <img src="/assets/blue-phone.webp" alt="Mochiko holding a phone" width="1086" height="1448" />
       </div>
     </section>
 
@@ -32,11 +32,11 @@ import SiteFooter from "../components/SiteFooter.astro";
         <h2>3. Privacy preference stored on your device</h2>
         <p>The site stores the key <code>mochiko_privacy_choice</code> in local storage with the value “accepted” or “declined”. It is used only to remember whether optional external media may load. It has no automatic expiry and remains until you clear site data or change the choice above. This storage is technically necessary to retain the privacy choice.</p>
 
-        <h2>4. Twitch</h2>
-        <p>Live status, schedules, VOD information, thumbnails, and the Twitch player are disabled until you consent. After consent, this site may request information from the Twitch API and connect your browser to Twitch’s player and media servers. Twitch may receive connection data such as your IP address, browser data, page URL, and time of access, and may use cookies or similar storage under its own responsibility. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. Twitch is operated by Twitch Interactive, Inc. in the United States.</p>
+        <h2>4. Twitch and DecAPI</h2>
+        <p>Live status and the newest VOD are disabled until you consent. After consent, this site’s server requests public Twitch information through DecAPI, a third-party API operated independently from this website. The embedded player then connects your browser to Twitch only after consent. Twitch may receive connection data such as your IP address, browser data, page URL, and time of access, and may use cookies or similar storage under its own responsibility. DecAPI may process the server request and related technical data. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. Twitch is operated by Twitch Interactive, Inc. in the United States.</p>
 
         <h2>5. YouTube and Google</h2>
-        <p>The latest-video feed and YouTube thumbnails are disabled until you consent. After consent, this site may use the YouTube Data API and load thumbnail media supplied by YouTube or Google. Google may receive connection data and may process data in the United States and other countries. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. YouTube is a service of Google Ireland Limited / Google LLC.</p>
+        <p>The latest-video feed and YouTube thumbnails are disabled until you consent. After consent, this site’s server requests YouTube’s public RSS feed and your browser may load thumbnail media supplied by YouTube or Google. Google may receive connection data and may process data in the United States and other countries. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. YouTube is a service of Google Ireland Limited / Google LLC.</p>
 
         <h2>6. External links</h2>
         <p>The site links to Twitch, YouTube, Discord, Ko-fi, IGDB, Crankdat, c-r.link, and jannikjbi.de. These links do not load content from those providers automatically. If you follow one, the destination provider processes the resulting request under its own privacy terms.</p>
@@ -54,6 +54,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         <ul>
           <li><a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Vercel Privacy Notice</a></li>
           <li><a href="https://legal.twitch.com/legal/privacy-notice/" target="_blank" rel="noreferrer">Twitch Privacy Notice</a></li>
+          <li><a href="https://decapi.me/privacy-policy" target="_blank" rel="noreferrer">DecAPI Privacy Policy</a></li>
           <li><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google Privacy Policy</a></li>
         </ul>
       </article>

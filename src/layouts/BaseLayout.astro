@@ -17,11 +17,22 @@ interface Props {
 const {
   title = "Mochiko | VTuber",
   description = "The official home of Mochiko, with streams, videos, and everything in between.",
-  image = "/assets/mochikobanner.png",
+  image = "/assets/mochikobanner.jpg",
   robots = "index, follow",
 } = Astro.props;
 
 const absoluteImage = new URL(image, Astro.url.origin).href;
+
+const pagePop = {
+  forwards: {
+    old: { name: "mochi-page-out", duration: "180ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-page-in", duration: "420ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+  },
+  backwards: {
+    old: { name: "mochi-page-out-back", duration: "180ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-page-in-back", duration: "420ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+  },
+};
 ---
 
 <!doctype html>
@@ -43,17 +54,26 @@ const absoluteImage = new URL(image, Astro.url.origin).href;
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <ClientRouter />
     <script is:inline>
-      try {
-        document.documentElement.dataset.privacyChoice = localStorage.getItem("mochiko_privacy_choice") || "unset";
-      } catch {
-        document.documentElement.dataset.privacyChoice = "unset";
+      if (!window.mochikoSyncPrivacy) {
+        window.mochikoSyncPrivacy = function () {
+          let choice = "unset";
+          try { choice = localStorage.getItem("mochiko_privacy_choice") || "unset"; } catch {}
+          document.documentElement.dataset.privacyChoice = choice;
+          window.dispatchEvent(new CustomEvent("mochiko:privacy-choice", { detail: { choice } }));
+        };
       }
+      if (!window.mochikoPrivacySyncBound) {
+        window.mochikoPrivacySyncBound = true;
+        document.addEventListener("astro:page-load", window.mochikoSyncPrivacy);
+      }
+      window.mochikoSyncPrivacy();
     </script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen overflow-x-clip bg-paper text-ink antialiased">
-    <div class="page-line" aria-hidden="true"></div>
-    <slot />
+    <div class="page-swap" transition:name="mochiko-page" transition:animate={pagePop}>
+      <slot />
+    </div>
     <PrivacyConsent />
   </body>
 </html>

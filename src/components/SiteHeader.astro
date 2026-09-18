@@ -9,7 +9,7 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
   <div class="shell flex min-h-18 items-center justify-between gap-3 py-2 sm:min-h-20">
     <a href="/" class="brand-lockup focus-ring" aria-label="Mochiko home">
       <span class="brand-mark-wrap">
-        <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="brand-mark" width="1254" height="1254" />
+        <img src="/assets/mochiko-logo-bunny-black.webp" alt="" class="brand-mark" width="1254" height="1254" />
       </span>
       <span class="brand-name">Mochiko</span>
     </a>
@@ -70,4 +70,5 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
 
   maybeUpdateLiveNavigation();
   window.addEventListener("mochiko:privacy-choice", maybeUpdateLiveNavigation);
+  document.addEventListener("astro:page-load", maybeUpdateLiveNavigation);
 </script>

@@ -11,7 +11,7 @@ import SiteFooter from "../components/SiteFooter.astro";
       <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-16">
         <div class="schedule-art-soft">
           <span class="sticker sticker--schedule">what are we<br />playing?</span>
-          <img src="/assets/gaming-2.png" alt="Mochiko gaming with a controller" width="1200" height="1600" fetchpriority="high" />
+          <img src="/assets/gaming-2.webp" alt="Mochiko gaming with a controller" width="1200" height="1600" fetchpriority="high" />
         </div>
 
         <div class="min-w-0">
@@ -108,5 +108,6 @@ import SiteFooter from "../components/SiteFooter.astro";
 
     maybeLoadSchedule();
     window.addEventListener("mochiko:privacy-choice", maybeLoadSchedule);
+    document.addEventListener("astro:page-load", maybeLoadSchedule);
   </script>
 </BaseLayout>

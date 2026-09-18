@@ -69,12 +69,12 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
       <div class="shell friend-feature__grid">
         <div class="friend-feature__photo">
           <img src="/assets/friends/mochiko-jannik-pose-3.webp" alt="Mochiko and Jannik standing together" width="788" height="1400" loading="lazy" />
-          <span>FRIENDS. okay?</span>
+          <span>PLAYER 2</span>
         </div>
         <div>
           <p class="section-kicker">me & Jannik</p>
-          <h2 class="section-title mt-4">he’s my friend.<br /><em>do not start.</em></h2>
-          <p class="body-lede mt-6">we play together a lot. no, we are not dating. stop shipping us and go watch the stream.</p>
+          <h2 class="section-title mt-4">player two<br /><em>has entered</em></h2>
+          <p class="body-lede mt-6">we play together a lot. somehow the easy part always takes us the longest.</p>
           <a class="button button--ink mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik’s website <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -159,15 +159,15 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
 </BaseLayout>
 
 <script>
-  const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
-
-  if (homeLive) {
+  const updateHomeLive = () => {
+    const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
+    if (!homeLive) return;
     const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
     const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
     const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
     const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
 
-    const updateHomeLive = () => fetch("/api/twitch")
+    fetch("/api/twitch")
       .then((response) => response.json())
       .then((data) => {
         const live = data?.live?.isLive === true;
@@ -182,17 +182,23 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
         if (title) title.textContent = "go peek?";
         if (detail) detail.textContent = "Twitch didn’t tell me anything.";
       });
+  };
 
-    const maybeUpdateHomeLive = () => {
-      if (document.documentElement.dataset.privacyChoice === "accepted") updateHomeLive();
-      else if (document.documentElement.dataset.privacyChoice === "declined") {
+  const maybeUpdateHomeLive = () => {
+    const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
+    if (!homeLive) return;
+    if (document.documentElement.dataset.privacyChoice === "accepted") updateHomeLive();
+    else if (document.documentElement.dataset.privacyChoice === "declined") {
+        const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
+        const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
+        const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
         if (status) status.textContent = "not loaded";
         if (title) title.textContent = "Twitch is tucked away";
         if (detail) detail.textContent = "you can still open the channel directly.";
-      }
-    };
+    }
+  };
 
-    maybeUpdateHomeLive();
-    window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
-  }
+  maybeUpdateHomeLive();
+  window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
+  document.addEventListener("astro:page-load", maybeUpdateHomeLive);
 </script>

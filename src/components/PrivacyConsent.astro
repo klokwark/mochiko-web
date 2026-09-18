@@ -13,22 +13,32 @@
 
 <script>
   const privacyKey = "mochiko_privacy_choice";
-  const banner = document.querySelector<HTMLElement>("[data-privacy-consent]");
+  const privacyWindow = window as typeof window & { __mochikoPrivacyBound?: boolean; mochikoSyncPrivacy?: () => void };
 
-  const savePrivacyChoice = (choice: "accepted" | "declined") => {
-    try { localStorage.setItem(privacyKey, choice); } catch {}
-    document.documentElement.dataset.privacyChoice = choice;
-    banner?.removeAttribute("data-open");
-    window.dispatchEvent(new CustomEvent("mochiko:privacy-choice", { detail: { choice } }));
-  };
+  if (!privacyWindow.__mochikoPrivacyBound) {
+    privacyWindow.__mochikoPrivacyBound = true;
 
-  document.querySelector("[data-privacy-accept]")?.addEventListener("click", () => savePrivacyChoice("accepted"));
-  document.querySelector("[data-privacy-decline]")?.addEventListener("click", () => savePrivacyChoice("declined"));
+    document.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
 
-  document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement | null;
-    if (!target?.closest("[data-open-privacy]")) return;
-    event.preventDefault();
-    banner?.setAttribute("data-open", "true");
-  });
+      const choice = target.closest("[data-privacy-accept]")
+        ? "accepted"
+        : target.closest("[data-privacy-decline]")
+          ? "declined"
+          : null;
+
+      if (choice) {
+        try { localStorage.setItem(privacyKey, choice); } catch {}
+        document.documentElement.dataset.privacyChoice = choice;
+        document.querySelector<HTMLElement>("[data-privacy-consent]")?.removeAttribute("data-open");
+        window.dispatchEvent(new CustomEvent("mochiko:privacy-choice", { detail: { choice } }));
+        return;
+      }
+
+      if (!target.closest("[data-open-privacy]")) return;
+      event.preventDefault();
+      document.querySelector<HTMLElement>("[data-privacy-consent]")?.setAttribute("data-open", "true");
+    });
+  }
 </script>

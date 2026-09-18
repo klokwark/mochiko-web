@@ -16,7 +16,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         </div>
         <div class="content-hero__art">
           <span aria-hidden="true">NEW!!</span>
-          <img src="/assets/avatar-main2.png" alt="Mochiko in a black and white outfit" width="1024" height="1536" fetchpriority="high" />
+          <img src="/assets/avatar-main2.webp" alt="Mochiko in a black and white outfit" width="1024" height="1536" fetchpriority="high" />
         </div>
       </div>
     </section>
@@ -24,7 +24,7 @@ import SiteFooter from "../components/SiteFooter.astro";
     <section class="duo-strip">
       <div class="shell duo-strip__inner">
         <img src="/assets/friends/mochiko-jannik-pose-1.webp" alt="Jannik standing beside Mochiko" width="788" height="1400" loading="lazy" />
-        <div><span>Jannik shows up on stream too</span><strong>we’re friends. don’t make it weird.</strong></div>
+        <div><span>Jannik shows up on stream too</span><strong>if we have a plan, it lasts about three minutes.</strong></div>
         <a href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">meet Jannik <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
       </div>
     </section>
@@ -143,9 +143,10 @@ import SiteFooter from "../components/SiteFooter.astro";
     };
 
     const loadYouTube = async () => {
-      const grid = document.querySelector("[data-youtube-grid]");
+      const grid = document.querySelector<HTMLElement>("[data-youtube-grid]");
       const fallback = document.querySelector("[data-youtube-fallback]");
-      if (!grid || !fallback) return;
+      if (!grid || !fallback || grid.dataset.loaded === "true") return;
+      grid.dataset.loaded = "true";
       try {
         const response = await fetch("/api/youtube");
         const data = await response.json();
@@ -182,16 +183,17 @@ import SiteFooter from "../components/SiteFooter.astro";
           link.target = "_blank";
           link.rel = "noreferrer";
           const image = document.createElement("img");
-          image.src = data.video.thumbnailUrl;
+          image.src = data.video.thumbnailUrl || "/assets/gaming-1.webp";
           image.alt = "";
           image.loading = "lazy";
+          if (!data.video.thumbnailUrl) image.className = "vod-card__local-art";
           link.append(image);
 
           const details = document.createElement("div");
           details.className = "vod-card__copy";
           const chip = document.createElement("span");
           chip.className = "cute-chip";
-          chip.textContent = `latest VOD · ${prettyDate(data.video.publishedAt)}`;
+          chip.textContent = data.video.publishedAt ? `latest VOD · ${prettyDate(data.video.publishedAt)}` : "latest VOD";
           const heading = document.createElement("h3");
           heading.textContent = data.video.title;
           const watch = document.createElement("a");
@@ -211,8 +213,6 @@ import SiteFooter from "../components/SiteFooter.astro";
       }
     };
 
-    let externalContentLoaded = false;
-
     const showBlockedContent = () => {
       const statusText = document.querySelector("[data-stream-status] span");
       if (statusText) statusText.textContent = "not loaded";
@@ -222,6 +222,11 @@ import SiteFooter from "../components/SiteFooter.astro";
 
       const vodCard = document.querySelector("[data-vod-card]");
       if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-lock-key" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">not loaded</span><h3>Twitch is tucked away</h3><button class="button button--pink" type="button" data-open-privacy>privacy choices</button></div>`;
+
+      const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
+      const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
+      player?.removeAttribute("src");
+      if (locked) locked.hidden = false;
     };
 
     const maybeLoadExternalContent = () => {
@@ -230,12 +235,11 @@ import SiteFooter from "../components/SiteFooter.astro";
         showBlockedContent();
         return;
       }
-      if (choice !== "accepted" || externalContentLoaded) return;
-      externalContentLoaded = true;
+      if (choice !== "accepted") return;
 
       const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
       const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
-      if (player?.dataset.src) player.src = player.dataset.src;
+      if (player?.dataset.src && !player.hasAttribute("src")) player.src = player.dataset.src;
       if (locked) locked.hidden = true;
 
       loadYouTube();
@@ -244,5 +248,6 @@ import SiteFooter from "../components/SiteFooter.astro";
 
     maybeLoadExternalContent();
     window.addEventListener("mochiko:privacy-choice", maybeLoadExternalContent);
+    document.addEventListener("astro:page-load", maybeLoadExternalContent);
   </script>
 </BaseLayout>

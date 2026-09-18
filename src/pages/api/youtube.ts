@@ -2,6 +2,9 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
+const CHANNEL_ID = "UC5LMkE7TdqWo2gO2I8vKxyg";
+const FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status,
   headers: {
@@ -10,47 +13,43 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
   },
 });
 
+const decodeXml = (value = "") => value
+  .replaceAll("&amp;", "&")
+  .replaceAll("&lt;", "<")
+  .replaceAll("&gt;", ">")
+  .replaceAll("&quot;", "\"")
+  .replaceAll("&#39;", "'");
+
+const readTag = (entry: string, tag: string) => {
+  const match = entry.match(new RegExp(`<${tag}>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?</${tag}>`));
+  return decodeXml(match?.[1]?.trim() ?? "");
+};
+
 export const GET: APIRoute = async () => {
-  const apiKey = process.env.YOUTUBE_API_KEY;
-
-  if (!apiKey) return json({ configured: false, videos: [] });
-
   try {
-    const channelParams = new URLSearchParams({
-      part: "contentDetails,snippet",
-      forHandle: "mochikotv",
-      key: apiKey,
+    const response = await fetch(FEED_URL, {
+      headers: { "User-Agent": "MochikoWebsite/1.0" },
+      signal: AbortSignal.timeout(8000),
     });
-    const channelResponse = await fetch(`https://www.googleapis.com/youtube/v3/channels?${channelParams}`);
-    if (!channelResponse.ok) throw new Error("Unable to find the YouTube channel");
-    const channelData = await channelResponse.json();
-    const uploadsPlaylist = channelData.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
-    if (!uploadsPlaylist) return json({ configured: true, videos: [] });
+    if (!response.ok) throw new Error(`YouTube feed returned ${response.status}`);
 
-    const uploadsParams = new URLSearchParams({
-      part: "snippet,contentDetails",
-      playlistId: uploadsPlaylist,
-      maxResults: "4",
-      key: apiKey,
-    });
-    const uploadsResponse = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?${uploadsParams}`);
-    if (!uploadsResponse.ok) throw new Error("Unable to load YouTube uploads");
-    const uploadsData = await uploadsResponse.json();
+    const xml = await response.text();
+    const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) ?? [];
+    const videos = entries.slice(0, 4).map((entry) => {
+      const id = readTag(entry, "yt:videoId");
+      const thumbnail = entry.match(/<media:thumbnail\s+url="([^"]+)"/)?.[1];
+      return {
+        id,
+        title: readTag(entry, "title"),
+        publishedAt: readTag(entry, "published"),
+        thumbnailUrl: decodeXml(thumbnail) || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        url: `https://www.youtube.com/watch?v=${id}`,
+      };
+    }).filter((video) => video.id);
 
-    return json({
-      configured: true,
-      videos: (uploadsData.items ?? []).map((item: any) => ({
-        id: item.contentDetails?.videoId,
-        title: item.snippet?.title,
-        publishedAt: item.contentDetails?.videoPublishedAt ?? item.snippet?.publishedAt,
-        thumbnailUrl: item.snippet?.thumbnails?.maxres?.url
-          ?? item.snippet?.thumbnails?.high?.url
-          ?? item.snippet?.thumbnails?.medium?.url,
-        url: `https://www.youtube.com/watch?v=${item.contentDetails?.videoId}`,
-      })),
-    });
+    return json({ configured: true, source: "youtube-rss", videos });
   } catch (error) {
-    console.error("YouTube API error", error);
-    return json({ configured: true, videos: [], error: "YouTube is taking a tiny nap." }, 502);
+    console.error("YouTube RSS error", error);
+    return json({ configured: true, source: "youtube-rss", videos: [], error: "YouTube is taking a tiny nap." }, 502);
   }
 };
