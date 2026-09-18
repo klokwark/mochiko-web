@@ -38,6 +38,7 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
 
     <section class="home-live" data-home-live>
       <div class="shell home-live__inner">
+        <img class="home-live__mood state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-home-live-mood />
         <span class="home-live__badge"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>checking Twitch...</span></span>
         <div class="home-live__copy">
           <strong data-home-live-title>am i live?</strong>
@@ -166,6 +167,7 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
     const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
     const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
     const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
+    const mood = homeLive.querySelector<HTMLImageElement>("[data-home-live-mood]");
 
     fetch("/api/twitch")
       .then((response) => response.json())
@@ -176,11 +178,13 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
         if (title) title.textContent = live ? (data.live.title || "come watch!!") : "the chair is empty";
         if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than planned.";
         if (button) button.firstChild!.textContent = live ? "watch now " : "open Twitch ";
+        if (mood) mood.src = live ? "/assets/emotions/happy.webp" : "/assets/emotions/wondering.webp";
       })
       .catch(() => {
         if (status) status.textContent = "Twitch";
         if (title) title.textContent = "go peek?";
         if (detail) detail.textContent = "Twitch didn’t tell me anything.";
+        if (mood) mood.src = "/assets/emotions/mad.webp";
       });
   };
 
@@ -192,9 +196,11 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
         const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
         const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
         const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
+        const mood = homeLive.querySelector<HTMLImageElement>("[data-home-live-mood]");
         if (status) status.textContent = "not loaded";
         if (title) title.textContent = "Twitch is tucked away";
         if (detail) detail.textContent = "you can still open the channel directly.";
+        if (mood) mood.src = "/assets/emotions/wondering.webp";
     }
   };
 

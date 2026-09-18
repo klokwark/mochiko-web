@@ -4,6 +4,15 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
 import { favoriteGames, favoriteMusic } from "../data/site";
+
+const outfits = [
+  { file: "outfit-1.webp", name: "soft plaid", note: "the sleeves are the important part" },
+  { file: "outfit-2.webp", name: "all black", note: "for serious button pressing" },
+  { file: "outfit-3.webp", name: "lilac day", note: "matching the website by accident" },
+  { file: "outfit-4.webp", name: "game mode", note: "the controller does not improve my aim" },
+  { file: "outfit-5.webp", name: "tiny bows", note: "there was room for one more bow" },
+  { file: "outfit-6.webp", name: "classic", note: "black, white, and ready to get distracted" },
+];
 ---
 
 <BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
@@ -32,6 +41,80 @@ import { favoriteGames, favoriteMusic } from "../data/site";
     </section>
 
     <Marquee />
+
+    <section class="section-pad outfit-closet" id="closet">
+      <div class="shell">
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">closet.exe</p>
+            <h2 class="section-title mt-4">pick an outfit!</h2>
+          </div>
+          <p class="outfit-closet__hint"><i class="ph ph-cursor-click" aria-hidden="true"></i> click the tiny me</p>
+        </div>
+
+        <div class="outfit-picker mt-10" data-outfit-picker>
+          <div class="outfit-stage">
+            <div class="outfit-stage__screen">
+              {outfits.map((outfit, index) => (
+                <img
+                  class:list={["outfit-stage__image", { "is-active": index === 0 }]}
+                  src={`/assets/outfits/${outfit.file}`}
+                  alt={`Mochiko wearing the ${outfit.name} outfit`}
+                  width="941"
+                  height="1672"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  data-outfit-image={index}
+                />
+              ))}
+              <span class="outfit-stage__counter" data-outfit-counter>01 / 06</span>
+            </div>
+            <div class="outfit-stage__caption">
+              <span>selected look</span>
+              <strong data-outfit-name>{outfits[0].name}</strong>
+              <p data-outfit-note>{outfits[0].note}</p>
+            </div>
+          </div>
+
+          <div class="outfit-rack" role="tablist" aria-label="Choose Mochiko’s outfit">
+            {outfits.map((outfit, index) => (
+              <button
+                class:list={["outfit-thumb", { "is-active": index === 0 }]}
+                type="button"
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                data-outfit-button={index}
+                data-name={outfit.name}
+                data-note={outfit.note}
+              >
+                <img src={`/assets/outfits/${outfit.file}`} alt="" width="941" height="1672" loading="lazy" />
+                <span>0{index + 1}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad desktop-files">
+      <div class="shell">
+        <p class="section-kicker">important files</p>
+        <h2 class="section-title mt-4">stuff my computer knows</h2>
+        <div class="desktop-files__grid mt-9">
+          <article class="desktop-file">
+            <span><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> inventory.log</span>
+            <p>one quest item, twelve flowers, and a rock i might need later.</p>
+          </article>
+          <article class="desktop-file desktop-file--lilac">
+            <span><i class="ph-fill ph-file-text" aria-hidden="true"></i> controls.txt</span>
+            <p>i know the jump button. the rest is between me and the settings menu.</p>
+          </article>
+          <article class="desktop-file desktop-file--pink">
+            <span><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> save_final_FINAL</span>
+            <p>if i made the character pretty, the game is basically going well.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <section class="section-pad friend-about">
       <div class="shell friend-about__grid">
@@ -100,3 +183,36 @@ import { favoriteGames, favoriteMusic } from "../data/site";
   </main>
   <SiteFooter />
 </BaseLayout>
+
+<script>
+  const setupOutfitPicker = () => {
+    const picker = document.querySelector<HTMLElement>("[data-outfit-picker]");
+    if (!picker || picker.dataset.ready === "true") return;
+    picker.dataset.ready = "true";
+
+    picker.addEventListener("click", (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-outfit-button]");
+      if (!button) return;
+      const selected = button.dataset.outfitButton;
+
+      picker.querySelectorAll<HTMLElement>("[data-outfit-image]").forEach((image) => {
+        image.classList.toggle("is-active", image.dataset.outfitImage === selected);
+      });
+      picker.querySelectorAll<HTMLButtonElement>("[data-outfit-button]").forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+
+      const name = picker.querySelector<HTMLElement>("[data-outfit-name]");
+      const note = picker.querySelector<HTMLElement>("[data-outfit-note]");
+      const counter = picker.querySelector<HTMLElement>("[data-outfit-counter]");
+      if (name) name.textContent = button.dataset.name ?? "";
+      if (note) note.textContent = button.dataset.note ?? "";
+      if (counter) counter.textContent = `0${Number(selected) + 1} / 06`;
+    });
+  };
+
+  setupOutfitPicker();
+  document.addEventListener("astro:page-load", setupOutfitPicker);
+</script>

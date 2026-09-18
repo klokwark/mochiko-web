@@ -57,6 +57,7 @@ import SiteFooter from "../components/SiteFooter.astro";
             </div>
           </div>
           <div class="stream-card__side">
+            <img class="stream-card__mood state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-stream-mood />
             <span class="cute-chip cute-chip--white"><i class="ph ph-twitch-logo" aria-hidden="true"></i> Twitch</span>
             <h3 data-stream-title>press play ♡</h3>
             <p data-stream-copy>when i’m live, it starts here automatically. chat is over on Twitch.</p>
@@ -164,6 +165,7 @@ import SiteFooter from "../components/SiteFooter.astro";
       const title = document.querySelector("[data-stream-title]");
       const copy = document.querySelector("[data-stream-copy]");
       const vodCard = document.querySelector("[data-vod-card]");
+      const mood = document.querySelector<HTMLImageElement>("[data-stream-mood]");
       try {
         const response = await fetch("/api/twitch");
         const data = await response.json();
@@ -172,8 +174,10 @@ import SiteFooter from "../components/SiteFooter.astro";
           if (statusText) statusText.textContent = "live now!!";
           if (title) title.textContent = data.live.title || "i’m live right now!!";
           if (copy) copy.textContent = data.live.gameName ? `playing ${data.live.gameName} right now ♡` : "the stream is on right now ♡";
+          if (mood) mood.src = "/assets/emotions/surprised.webp";
         } else if (statusText) {
           statusText.textContent = "offline for now";
+          if (mood) mood.src = "/assets/emotions/wondering.webp";
         }
 
         if (vodCard && data.video) {
@@ -209,6 +213,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         }
       } catch {
         if (statusText) statusText.textContent = "check Twitch ♡";
+        if (mood) mood.src = "/assets/emotions/mad.webp";
         if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs ♡</a></div>`;
       }
     };
@@ -216,6 +221,8 @@ import SiteFooter from "../components/SiteFooter.astro";
     const showBlockedContent = () => {
       const statusText = document.querySelector("[data-stream-status] span");
       if (statusText) statusText.textContent = "not loaded";
+      const mood = document.querySelector<HTMLImageElement>("[data-stream-mood]");
+      if (mood) mood.src = "/assets/emotions/wondering.webp";
 
       const grid = document.querySelector("[data-youtube-grid]");
       if (grid) grid.innerHTML = `<div class="privacy-locked-card"><i class="ph ph-lock-key" aria-hidden="true"></i><div><strong>YouTube is not loaded</strong><span>You said no to optional media. You can change that in privacy choices.</span></div><button type="button" data-open-privacy>change choice</button></div>`;

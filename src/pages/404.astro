@@ -1,19 +1,39 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const missingPath = Astro.url.pathname;
 ---
 
 <BaseLayout title="Page not found | Mochiko" description="This page wandered off." robots="noindex, nofollow">
   <main class="lost-page">
-    <span class="lost-page__heart lost-page__heart--one" aria-hidden="true">♡</span>
-    <span class="lost-page__heart lost-page__heart--two" aria-hidden="true">୨୧</span>
-    <div class="lost-page__copy">
-      <img src="/assets/mochiko-logo-bunny-black.webp" alt="" class="lost-page__logo" width="1254" height="1254" />
-      <p class="bubble-label">error 404 // oopsie!!</p>
-      <h1 class="page-title">this page got<br /><em>a lil lost ♡</em></h1>
-      <p>i don’t think this page exists. let’s go back!</p>
-      <a class="button button--pink" href="/">take me home <i class="ph ph-house" aria-hidden="true"></i></a>
+    <div class="lost-window">
+      <div class="lost-window__bar">
+        <span><img src="/assets/mochiko-logo-bunny-black.webp" alt="" width="1254" height="1254" /> page_not_found.exe</span>
+        <div aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+      <div class="lost-window__body">
+        <p class="lost-window__code">ERROR 404 // {missingPath}</p>
+        <h1>uh oh.<br /><em>this button does nothing.</em></h1>
+        <p>i checked twice. this page is not in the folder.</p>
+        <div class="lost-window__actions">
+          <a class="button button--pink" href="/">home <i class="ph ph-house" aria-hidden="true"></i></a>
+          <a class="button button--white" href="/content">videos <i class="ph ph-play-circle" aria-hidden="true"></i></a>
+        </div>
+        <span class="lost-window__status"><i class="ph-fill ph-circle" aria-hidden="true"></i> task failed successfully</span>
+      </div>
     </div>
-    <img src="/assets/cute-pose-1.webp" alt="Mochiko sitting with a bunny plush" class="lost-page__art" width="1086" height="1448" />
+
+    <div class="lost-page__art-wrap">
+      <span class="lost-page__sticker">where did it go??</span>
+      <img src="/assets/headphones-sitting.webp" alt="Mochiko sitting with headphones" class="lost-page__art" width="941" height="1672" />
+      <img src="/assets/emotions/sad.webp" alt="" class="lost-page__emotion" width="1254" height="1254" aria-hidden="true" />
+    </div>
+
+    <div class="lost-taskbar" aria-hidden="true">
+      <img src="/assets/mochiko-logo-bunny-black.webp" alt="" width="1254" height="1254" />
+      <span>404.exe</span>
+      <i class="ph ph-wifi-slash"></i>
+    </div>
   </main>
 </BaseLayout>
 
