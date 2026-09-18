@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
+import { favoriteGames, favoriteMusic } from "../data/site";
 ---
 
 <BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
@@ -33,28 +34,47 @@ import Marquee from "../components/Marquee.astro";
 
     <Marquee />
 
-    <section class="section-pad about-scrapbook">
+    <section class="section-pad about-scrapbook" id="favorites">
       <div class="shell">
         <div class="about-scrapbook__heading">
-          <p class="section-kicker">things i like</p>
-          <h2 class="section-title mt-4">a few favorites</h2>
-          <p>this list changes all the time btw</p>
+          <p class="section-kicker">favorite games</p>
+          <h2 class="section-title mt-4">my game ranking</h2>
+          <p>yes, there are two #2s. no, i’m not fixing it.</p>
         </div>
 
-        <div class="favorite-collage mt-10">
-          <article class="favorite-card favorite-card--one">
-            <img src="/assets/gaming-3.png" alt="Mochiko in a black gaming outfit" width="1086" height="1448" loading="lazy" />
-            <p>games with pretty worlds</p>
-          </article>
-          <article class="favorite-card favorite-card--two">
-            <img src="/assets/outfit-3.png" alt="Mochiko in a black and white outfit" width="1024" height="1536" loading="lazy" />
-            <p>changing outfits again</p>
-          </article>
-          <article class="favorite-card favorite-card--three">
-            <img src="/assets/book.png" alt="Mochiko in a layered red dress" width="1086" height="1448" loading="lazy" />
-            <p>black, white & pink</p>
-          </article>
+        <div class="game-ranking mt-10">
+          {favoriteGames.map((game) => (
+            <a class="game-rank-card" href={game.href} target="_blank" rel="noreferrer">
+              <div class="game-rank-card__cover">
+                <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
+                <span>#{game.rank}</span>
+              </div>
+              <div class="game-rank-card__copy">
+                <h3>{game.title}</h3>
+                {game.note && <p>{game.note}</p>}
+              </div>
+            </a>
+          ))}
         </div>
+
+        <section class="music-detail">
+          <div class="music-detail__heading">
+            <p class="section-kicker">music</p>
+            <h2 class="section-title mt-4">on repeat</h2>
+            <p>this has been stuck in my head!!</p>
+          </div>
+          <a class="music-detail__artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer">
+            <img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
+            <span>favorite artist rn</span>
+            <h3>{favoriteMusic.artist}</h3>
+          </a>
+          <a class="music-detail__song" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">
+            <img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
+            <div><span>favorite song</span><h3>{favoriteMusic.song}</h3><p>{favoriteMusic.songDetail}</p></div>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <img class="music-detail__mochiko" src="/assets/gaming-3.png" alt="Mochiko in a gaming outfit" width="1086" height="1448" loading="lazy" />
+        </section>
 
         <div class="about-end-note">
           <span aria-hidden="true">୨୧</span>

@@ -55,3 +55,53 @@ export const contentCards = [
     icon: "ph-heart",
   },
 ];
+
+export const favoriteGames = [
+  {
+    rank: "1",
+    title: "Minecraft",
+    image: "/assets/favorites/minecraft.jpg",
+    href: "https://www.igdb.com/games/minecraft",
+  },
+  {
+    rank: "2",
+    title: "Genshin Impact",
+    image: "/assets/favorites/genshin-impact.jpg",
+    href: "https://www.igdb.com/games/genshin-impact",
+  },
+  {
+    rank: "2",
+    title: "Hogwarts Legacy",
+    image: "/assets/favorites/hogwarts-legacy.jpg",
+    href: "https://www.igdb.com/games/hogwarts-legacy",
+  },
+  {
+    rank: "3",
+    title: "Roblox",
+    image: "/assets/favorites/roblox.jpg",
+    href: "https://www.igdb.com/games/roblox",
+  },
+  {
+    rank: "4",
+    title: "Among Us",
+    image: "/assets/favorites/among-us.jpg",
+    href: "https://www.igdb.com/games/among-us",
+  },
+  {
+    rank: "5",
+    title: "GTA V",
+    image: "/assets/favorites/gta-v.jpg",
+    href: "https://www.igdb.com/games/grand-theft-auto-v",
+    note: "single player or FiveM",
+  },
+];
+
+export const favoriteMusic = {
+  artist: "Crankdat",
+  artistImage: "/assets/favorites/crankdat.jpg",
+  artistHref: "https://crankdat.com/",
+  song: "Bass Cannon",
+  songDetail: "Flux’s Version — Crankdat Remix",
+  songImage: "/assets/favorites/bass-cannon.jpg",
+  songHref: "https://www.c-r.link/BassCannon-CrankdatRMX",
+};

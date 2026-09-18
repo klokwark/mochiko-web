@@ -4,14 +4,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout title="Page not found | Mochiko" description="This page wandered off." robots="noindex, nofollow">
   <main class="lost-page">
-    <span class="doodle doodle--heart" aria-hidden="true">♡</span>
-    <section class="lost-card">
-      <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="mx-auto size-18 object-contain" width="1254" height="1254" />
-      <p class="bubble-label mx-auto mt-5">oopsie!! 404</p>
-      <h1 class="page-title mt-5 text-center">this page got<br /><em>a lil lost ♡</em></h1>
-      <p class="mx-auto mt-6 max-w-md text-center text-base leading-relaxed font-bold text-ink/62">i don’t think this page exists. let’s go back!</p>
-      <a class="button button--pink mx-auto mt-7 w-fit" href="/">take me home <i class="ph ph-house" aria-hidden="true"></i></a>
-    </section>
-    <img src="/assets/cute-pose-1.png" alt="Mochiko" class="lost-page__art" width="1200" height="1600" />
+    <span class="lost-page__heart lost-page__heart--one" aria-hidden="true">♡</span>
+    <span class="lost-page__heart lost-page__heart--two" aria-hidden="true">୨୧</span>
+    <div class="lost-page__copy">
+      <img src="/assets/mochiko-logo-bunny-black.png" alt="" class="lost-page__logo" width="1254" height="1254" />
+      <p class="bubble-label">oopsie!! 404</p>
+      <h1 class="page-title">this page got<br /><em>a lil lost ♡</em></h1>
+      <p>i don’t think this page exists. let’s go back!</p>
+      <a class="button button--pink" href="/">take me home <i class="ph ph-house" aria-hidden="true"></i></a>
+    </div>
+    <img src="/assets/cute-pose-1.png" alt="Mochiko sitting with a bunny plush" class="lost-page__art" width="1086" height="1448" />
   </main>
 </BaseLayout>
+
+<style is:global>
+  html, body { height: 100%; overflow: hidden; }
+</style>

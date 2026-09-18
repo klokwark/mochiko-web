@@ -3,7 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
-import { contentCards, socials } from "../data/site";
+import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/site";
+
+const isGermany = Astro.request.headers.get("x-vercel-ip-country")?.toUpperCase() === "DE";
 ---
 
 <BaseLayout>
@@ -17,7 +19,7 @@ import { contentCards, socials } from "../data/site";
         <div class="soft-hero__copy">
           <p class="bubble-label">hiii!! welcome ♡</p>
           <h1 class="soft-hero__title">hii, i’m<br /><em>Mochiko!</em></h1>
-          <p class="soft-hero__lede">Twitch is where i’m usually at. YouTube gets the bits i wanted to keep ♡</p>
+          <p class="soft-hero__lede">i play games, change outfits for way too long, and press buttons before reading what they do ♡</p>
           <div class="mt-7 flex flex-wrap gap-3">
             <a class="button button--pink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
               <i class="ph-fill ph-heart" aria-hidden="true"></i><span data-live-label>come watch me!</span>
@@ -25,6 +27,7 @@ import { contentCards, socials } from "../data/site";
             <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
           <div class="mini-note"><span>right now</span><strong>probably picking a new game</strong></div>
+          {isGermany && <a class="imprint-link" href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a>}
         </div>
 
         <div class="soft-hero__art">
@@ -33,6 +36,17 @@ import { contentCards, socials } from "../data/site";
           <span class="sticker sticker--bottom" aria-hidden="true">♡</span>
           <img src="/assets/model.webp" alt="Mochiko" width="1200" height="1600" fetchpriority="high" />
         </div>
+      </div>
+    </section>
+
+    <section class="home-live" data-home-live>
+      <div class="shell home-live__inner">
+        <span class="home-live__badge"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>checking Twitch...</span></span>
+        <div class="home-live__copy">
+          <strong data-home-live-title>am i live?</strong>
+          <span data-home-live-detail>one sec, i’m looking!!</span>
+        </div>
+        <a class="button button--white" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-home-live-button>open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
       </div>
     </section>
 
@@ -50,6 +64,40 @@ import { contentCards, socials } from "../data/site";
           <h2 class="section-title mt-4">i pick games<br /><em>because they look cute</em></h2>
           <p class="body-lede mt-6">then i get attached to one character, forget the quest, and spend twenty minutes changing outfits.</p>
           <a class="button button--ink mt-7" href="/about">there’s more <i class="ph ph-heart" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad favorites-preview" id="favorites">
+      <div class="shell">
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">current favorites</p>
+            <h2 class="section-title mt-4">stuff i’m stuck on</h2>
+          </div>
+          <a class="text-link" href="/about#favorites">the full ranking <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="favorites-preview__grid mt-10">
+          <div class="mini-game-stack" aria-label="Top three favorite games">
+            {favoriteGames.slice(0, 3).map((game, index) => (
+              <a class="mini-game" href={game.href} target="_blank" rel="noreferrer" style={`--stack-index:${index}`}>
+                <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
+                <span>#{game.rank}</span>
+              </a>
+            ))}
+          </div>
+
+          <div class="music-preview">
+            <img class="music-preview__cover" src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
+            <div class="music-preview__copy">
+              <span>on repeat!!</span>
+              <h3>{favoriteMusic.song}</h3>
+              <p>{favoriteMusic.songDetail}</p>
+              <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+            <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
@@ -106,3 +154,30 @@ import { contentCards, socials } from "../data/site";
   </main>
   <SiteFooter />
 </BaseLayout>
+
+<script>
+  const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
+
+  if (homeLive) {
+    const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
+    const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
+    const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
+    const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
+
+    fetch("/api/twitch")
+      .then((response) => response.json())
+      .then((data) => {
+        const live = data?.live?.isLive === true;
+        homeLive.dataset.isLive = String(live);
+        if (status) status.textContent = live ? "live right now!!" : "not live rn";
+        if (title) title.textContent = live ? (data.live.title || "come watch!!") : "the chair is empty";
+        if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than planned.";
+        if (button) button.firstChild!.textContent = live ? "watch now " : "open Twitch ";
+      })
+      .catch(() => {
+        if (status) status.textContent = "Twitch";
+        if (title) title.textContent = "go peek?";
+        if (detail) detail.textContent = "Twitch didn’t tell me anything.";
+      });
+  }
+</script>
