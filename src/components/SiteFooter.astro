@@ -1,37 +1,42 @@
 ---
-import { navigation, socials } from "../data/site";
+import { navigation, playlist, socials } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <img class="footer-sitter" src="/assets/cute-pose-1.webp" alt="Mochiko sitting with a bunny plush" width="1086" height="1448" loading="lazy" />
-  <div class="shell footer-shell py-12 sm:py-16">
-    <div class="footer-card">
-      <div class="min-w-0">
-        <a href="/" class="inline-flex items-center gap-3 focus-ring" aria-label="Mochiko home">
-          <span class="grid size-14 place-items-center rounded-full bg-white">
-            <img src="/assets/mochiko-logo-bunny-black.webp" alt="" class="h-12 w-12 object-contain" width="1254" height="1254" loading="lazy" />
-          </span>
-          <span class="font-display text-3xl font-semibold">Mochiko</span>
-        </a>
-        <p class="mt-4 max-w-md text-base leading-relaxed text-white/72">okay bye!! see u soon ♡</p>
-      </div>
+  <div class="shell footer-shell">
+    <div class="footer-console">
+      <div class="footer-console__bar"><span><i class="ph-fill ph-heart" aria-hidden="true"></i> end_of_page</span><div aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div class="footer-console__body">
+        <div class="footer-console__hello">
+          <p>you made it!!</p>
+          <h2>okay bye,<br /><em>see u soon ♡</em></h2>
+          <div class="footer-console__buttons">
+            <a class="button button--pink" href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-playlist" aria-hidden="true"></i>{playlist.label}</a>
+            <a class="button footer-console__twitch" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer"><i class="ph-fill ph-twitch-logo" aria-hidden="true"></i> Twitch</a>
+          </div>
+        </div>
 
-      <nav class="flex flex-wrap gap-2" aria-label="Footer navigation">
-        {navigation.map((item) => <a class="footer-pill" href={item.href}>{item.label}</a>)}
-      </nav>
+        <nav class="footer-map" aria-label="Footer navigation">
+          {navigation.map((item, index) => <a href={item.href}><span>0{index + 1}</span><strong>{item.label}</strong><i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>)}
+        </nav>
 
-      <div class="flex flex-wrap gap-2">
-        {socials.map((social) => (
-          <a class="footer-social" href={social.href} target="_blank" rel="noreferrer" aria-label={social.label}>
-            <i class:list={["ph", social.icon]} aria-hidden="true"></i>
-          </a>
-        ))}
+        <div class="footer-connect">
+          <span>find me over here</span>
+          <div>
+            {socials.map((social) => (
+              <a class="footer-social" href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}>
+                <i class:list={["ph", social.icon]} aria-hidden="true"></i>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
+      <img class="footer-sitter" src="/assets/cute-pose-1.webp" alt="Mochiko sitting with a bunny plush" width="1086" height="1448" loading="lazy" />
     </div>
 
-    <div class="mt-5 flex flex-col gap-2 px-3 text-sm font-bold text-white/55 sm:flex-row sm:items-center sm:justify-between">
+    <div class="footer-bottom">
       <p>© {year} Mochiko</p>
       <p class="footer-legal">art by klokwark ୨୧ <a href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik</a> <a href="/privacy">privacy</a> <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">impressum</a></p>
     </div>

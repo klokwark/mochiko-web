@@ -105,3 +105,8 @@ export const favoriteMusic = {
   songImage: "/assets/favorites/bass-cannon.jpg",
   songHref: "https://www.c-r.link/BassCannon-CrankdatRMX",
 };
+
+export const playlist = {
+  label: "my playlist",
+  href: "https://www.youtube.com/@mochikotv/playlists",
+};
