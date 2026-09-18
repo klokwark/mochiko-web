@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
-import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/site";
+import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from "../data/site";
 ---
 
 <BaseLayout>
@@ -82,7 +82,7 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
     </section>
 
     <section class="section-pad favorites-preview decorated-section" id="favorites">
-      <img class="section-sitter section-sitter--home" src="/assets/headphones-sitting.webp" alt="Mochiko sitting with headphones" width="941" height="1672" loading="lazy" />
+      <img class="section-sitter section-sitter--home" src="/assets/cute-pose2.webp" alt="Mochiko sitting with a bunny plush" width="1086" height="1448" loading="lazy" />
       <div class="shell">
         <div class="soft-heading">
           <div>
@@ -112,6 +112,17 @@ import { contentCards, favoriteGames, favoriteMusic, socials } from "../data/sit
             </div>
             <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
           </div>
+
+          <a class="playlist-embed" href={playlist.href} target="_blank" rel="noreferrer" aria-label="Open Mochiko’s playlist">
+            <div class="playlist-embed__screen">
+              <span class="playlist-embed__eyebrow"><i class="ph-fill ph-playlist" aria-hidden="true"></i> now playing forever</span>
+              <h3>my playlist</h3>
+              <p>songs i keep putting back at the top</p>
+              <div class="playlist-embed__progress"><i></i></div>
+              <div class="playlist-embed__controls" aria-hidden="true"><i class="ph-fill ph-skip-back"></i><span><i class="ph-fill ph-play"></i></span><i class="ph-fill ph-skip-forward"></i></div>
+            </div>
+            <div class="playlist-embed__art"><img src={favoriteMusic.songImage} alt="" width="1000" height="1000" loading="lazy" /><span>open<br />playlist <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></div>
+          </a>
         </div>
       </div>
     </section>

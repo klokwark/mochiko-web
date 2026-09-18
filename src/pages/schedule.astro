@@ -7,30 +7,34 @@ import SiteFooter from "../components/SiteFooter.astro";
 <BaseLayout title="Schedule | Mochiko" description="See Mochiko’s upcoming Twitch streams.">
   <SiteHeader />
   <main>
-    <section class="section-pad schedule-candy">
-      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-16">
-        <div class="schedule-art-soft">
-          <span class="sticker sticker--schedule">calendar<br />acquired!!</span>
-          <img src="/assets/outfits/outfit-3.webp" alt="Mochiko in a lilac outfit" width="941" height="1672" fetchpriority="high" />
+    <section class="schedule-hero-new">
+      <div class="shell schedule-hero-new__grid">
+        <div class="schedule-hero-new__copy">
+          <p class="section-kicker">schedule</p>
+          <h1>when do i<br /><em>press go live?</em></h1>
+          <p>the times below change to your timezone automatically. my one useful computer trick.</p>
+          <a class="button button--ink mt-7" href="#next-streams">show me <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
         </div>
+        <div class="schedule-hero-new__art">
+          <span>calendar fit ♡</span>
+          <img src="/assets/outfits/outfit-6.webp" alt="Mochiko in a black and white outfit" width="941" height="1672" fetchpriority="high" />
+        </div>
+      </div>
+    </section>
 
-        <div class="min-w-0">
-          <div class="schedule-page-title">
-            <p class="section-kicker">schedule</p>
-            <h1>stream days ♡</h1>
-            <p>times show in your timezone. if i move something, this updates with Twitch.</p>
-          </div>
-
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div><p class="section-kicker">coming up</p><h2 class="schedule-list-title mt-4">next streams!</h2></div>
-            <img class="schedule-check state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-schedule-mood />
-            <a class="text-link" href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">Twitch schedule <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-          </div>
-
-          <div class="schedule-list mt-8" data-schedule-list aria-live="polite">
+    <section class="section-pad schedule-board" id="next-streams">
+      <div class="shell schedule-board__grid">
+        <aside class="schedule-board__status">
+          <p class="section-kicker">coming up</p>
+          <h2>next<br />streams!</h2>
+          <img class="schedule-check state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-schedule-mood />
+          <a href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">open on Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </aside>
+        <div class="schedule-board__list">
+          <div class="schedule-board__top"><span><i class="ph-fill ph-circle" aria-hidden="true"></i> loading calendar</span><b>your local time</b></div>
+          <div class="schedule-list" data-schedule-list aria-live="polite">
             {[0, 1, 2].map(() => <div class="schedule-skeleton" aria-hidden="true"><span></span><div><b></b><i></i></div></div>)}
           </div>
-
           <div class="feed-fallback mt-6 hidden" data-schedule-fallback>
             <i class="ph ph-calendar-heart" aria-hidden="true"></i>
             <div><strong>nothing listed here right now</strong><span>check Twitch in case i changed something</span></div>
