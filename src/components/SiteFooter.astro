@@ -1,40 +1,54 @@
 ---
-import { navigation, socials } from "../data/site";
+import { navigation, playlist } from "../data/site";
 
 const year = new Date().getFullYear();
+
+/**
+ * Every outbound destination, as one row of full-size buttons. The footer
+ * deliberately does not repeat these as a second strip of bare icons.
+ */
+const exits = [
+  { label: "Twitch", href: "https://www.twitch.tv/mochikolive", icon: "ph-twitch-logo", tone: "twitch" },
+  { label: "YouTube", href: "https://www.youtube.com/@mochikotv", icon: "ph-youtube-logo", tone: "youtube" },
+  { label: playlist.label, href: playlist.href, icon: "ph-spotify-logo", tone: "playlist" },
+  { label: "Discord", href: "https://discord.gg/xZHrPBvFty", icon: "ph-discord-logo", tone: "discord" },
+  { label: "Ko-fi", href: "https://ko-fi.com/mochikotv", icon: "ph-coffee", tone: "kofi" },
+];
 ---
 
 <footer class="site-footer">
   <div class="shell footer-shell">
-    <div class="footer-console">
-      <div class="footer-console__bar"><span><i class="ph-fill ph-heart" aria-hidden="true"></i> end_of_page</span><div aria-hidden="true"><i></i><i></i><i></i></div></div>
-      <div class="footer-console__body">
-        <div class="footer-console__hello">
-          <p>you made it!!</p>
-          <h2>okay bye,<br /><em>see u soon ♡</em></h2>
-          <div class="footer-console__buttons">
-            <a class="button button--pink" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer"><i class="ph-fill ph-youtube-logo" aria-hidden="true"></i> YouTube</a>
-            <a class="button footer-console__kofi" href="https://ko-fi.com/mochikotv" target="_blank" rel="noreferrer"><i class="ph-fill ph-coffee" aria-hidden="true"></i> Ko-fi</a>
-            <a class="button footer-console__twitch" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer"><i class="ph-fill ph-twitch-logo" aria-hidden="true"></i> Twitch</a>
-          </div>
-        </div>
-
-        <nav class="footer-map" aria-label="Footer navigation">
-          {navigation.map((item, index) => <a href={item.href}><span>0{index + 1}</span><strong>{item.label}</strong><i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>)}
-        </nav>
-
-        <div class="footer-connect">
-          <span>find me over here</span>
-          <div>
-            {socials.map((social) => (
-              <a class="footer-social" href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}>
-                <i class:list={["ph", social.icon]} aria-hidden="true"></i>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
+    <div class="footer-card">
       <img class="footer-sitter" src="/assets/cute-pose-1.webp" alt="Mochiko sitting with a bunny plush" width="1086" height="1448" loading="lazy" />
+
+      <div class="footer-card__top">
+        <div class="footer-bye">
+          <p>you made it all the way down!!</p>
+          <h2>okay bye,<br /><em>see u soon ♡</em></h2>
+          <img class="footer-wordmark" src="/assets/mochiko-title.webp" alt="Mochiko" width="1792" height="1024" loading="lazy" />
+        </div>
+
+        <nav class="footer-index" aria-label="Footer navigation">
+          <span class="footer-index__label">every page</span>
+          {navigation.map((item, index) => (
+            <a href={item.href}>
+              <b>0{index + 1}</b>
+              <strong>{item.label}</strong>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div class="footer-exits">
+        {exits.map((exit) => (
+          <a class:list={["footer-exit", `footer-exit--${exit.tone}`]} href={exit.href} target="_blank" rel="noreferrer">
+            <i class:list={["ph-fill", exit.icon]} aria-hidden="true"></i>
+            <span>{exit.label}</span>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
     </div>
 
     <div class="footer-bottom">
