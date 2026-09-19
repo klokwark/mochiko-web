@@ -113,16 +113,49 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
             <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
           </div>
 
-          <a class="playlist-embed" href={playlist.href} target="_blank" rel="noreferrer" aria-label="Open Mochiko’s playlist">
-            <div class="playlist-embed__screen">
-              <span class="playlist-embed__eyebrow"><i class="ph-fill ph-playlist" aria-hidden="true"></i> now playing forever</span>
-              <h3>my playlist</h3>
-              <p>songs i keep putting back at the top</p>
-              <div class="playlist-embed__progress"><i></i></div>
-              <div class="playlist-embed__controls" aria-hidden="true"><i class="ph-fill ph-skip-back"></i><span><i class="ph-fill ph-play"></i></span><i class="ph-fill ph-skip-forward"></i></div>
+          {/*
+            Playlist "embed": a hand-drawn player card, not a Spotify iframe.
+            A real embed would load Spotify in the browser before the visitor
+            has consented, so the card is fully local and simply links out.
+          */}
+          <article class="playlist-embed">
+            <div class="playlist-embed__bar">
+              <span><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.provider.toLowerCase()} · {playlist.label}</span>
+              <div aria-hidden="true"><i></i><i></i><i></i></div>
             </div>
-            <div class="playlist-embed__art"><img src={favoriteMusic.songImage} alt="" width="1000" height="1000" loading="lazy" /><span>open<br />playlist <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></div>
-          </a>
+
+            <div class="playlist-embed__body">
+              <div class="playlist-embed__cover">
+                <img src={playlist.cover} alt="" width="1000" height="1000" loading="lazy" />
+                <span aria-hidden="true"><i class="ph-fill ph-play"></i></span>
+              </div>
+
+              <div class="playlist-embed__screen">
+                <span class="playlist-embed__eyebrow">playlist</span>
+                <h3>{playlist.title}</h3>
+                <p>{playlist.note}</p>
+
+                <ol class="playlist-embed__queue">
+                  <li><b>01</b><span>{playlist.topTrack}</span><i class="ph-fill ph-waveform" aria-hidden="true"></i></li>
+                  <li><b>02</b><span>everything else i refuse to skip</span><i class="ph ph-dots-three" aria-hidden="true"></i></li>
+                </ol>
+
+                <div class="playlist-embed__transport">
+                  <div class="playlist-embed__controls" aria-hidden="true">
+                    <i class="ph-fill ph-skip-back"></i>
+                    <span><i class="ph-fill ph-play"></i></span>
+                    <i class="ph-fill ph-skip-forward"></i>
+                    <i class="ph-fill ph-repeat"></i>
+                  </div>
+                  <div class="playlist-embed__progress" aria-hidden="true"><i></i></div>
+                </div>
+
+                <a class="playlist-embed__open" href={playlist.href} target="_blank" rel="noreferrer">
+                  open on {playlist.provider} <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
