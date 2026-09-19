@@ -3,53 +3,50 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const missingPath = Astro.url.pathname;
 
-const strays = [
-  { src: "/assets/gaming-1.webp", alt: "Mochiko in a gaming outfit", label: "screenshot_01" },
-  { src: "/assets/outfits/outfit-6.webp", alt: "Mochiko in a black and white outfit", label: "fit_check" },
-  { src: "/assets/headphones-sitting.webp", alt: "Mochiko sitting with headphones", label: "afk_pose" },
-  { src: "/assets/gaming-3.webp", alt: "Mochiko in a gaming outfit", label: "one_more_run" },
-  { src: "/assets/outfits/outfit-5.webp", alt: "Mochiko in an outfit covered in tiny bows", label: "bows_final" },
-  { src: "/assets/friends/mochiko-jannik-pose-1.webp", alt: "Mochiko and Jannik together", label: "player_two" },
-  { src: "/assets/mochikopfp.webp", alt: "Mochiko smiling", label: "pfp_v9" },
-  { src: "/assets/friends/mochiko-jannik-gaming.webp", alt: "Mochiko and Jannik playing games", label: "co_op" },
+const stickers = [
+  { src: "/assets/gaming-1.webp", tag: "♡" },
+  { src: "/assets/outfits/outfit-6.webp", tag: "✦" },
+  { src: "/assets/headphones-sitting.webp", tag: "♡" },
+  { src: "/assets/gaming-3.webp", tag: "!!" },
+  { src: "/assets/outfits/outfit-5.webp", tag: "✦" },
+  { src: "/assets/friends/mochiko-jannik-pose-1.webp", tag: "2P" },
+  { src: "/assets/mochikopfp.webp", tag: "♡" },
+  { src: "/assets/friends/mochiko-jannik-gaming.webp", tag: "2P" },
 ];
 ---
 
 <BaseLayout title="Page not found | Mochiko" description="This page wandered off." robots="noindex, nofollow">
-  <main class="lost-page">
-    <div class="lost-strays" aria-hidden="true">
-      {strays.map((stray, index) => (
-        <figure class:list={["lost-stray", `lost-stray--${index + 1}`]}>
-          <img src={stray.src} alt="" loading="lazy" />
-          <figcaption>{stray.label}</figcaption>
-        </figure>
+  <main class="lost">
+    <div class="lost__stickers" aria-hidden="true">
+      {stickers.map((sticker, index) => (
+        <span class:list={["lost-sticker", `lost-sticker--${index + 1}`]}>
+          <img src={sticker.src} alt="" loading="lazy" />
+          <b>{sticker.tag}</b>
+        </span>
       ))}
     </div>
 
-    <div class="lost-window">
-      <div class="lost-window__bar">
-        <span><img src="/assets/mochiko-logo-bunny-black.webp" alt="" width="1254" height="1254" /> page_not_found.exe</span>
-        <div aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="lost__stage">
+      <p class="lost__chip"><i class="ph-fill ph-heart-break" aria-hidden="true"></i> error 404 <b>{missingPath}</b></p>
+
+      <div class="lost__hero">
+        <span class="lost__number" aria-hidden="true">404</span>
+        <img class="lost__me" src="/assets/avatar-main.webp" alt="Mochiko holding a bunny plush" width="1086" height="1448" fetchpriority="high" />
+        <span class="lost__bubble">this page ran away<br /><b>and took my quest item</b></span>
       </div>
-      <div class="lost-window__body">
-        <p class="lost-window__code">ERROR 404 // {missingPath}</p>
-        <h1>everything<br /><em>except that page.</em></h1>
-        <p>i have eight pictures of myself and zero copies of whatever you were looking for.</p>
-        <div class="lost-window__actions">
-          <a class="button button--pink" href="/">home <i class="ph ph-house" aria-hidden="true"></i></a>
-          <a class="button button--white" href="/content">videos <i class="ph ph-play-circle" aria-hidden="true"></i></a>
-        </div>
+
+      <div class="lost__actions">
+        <a class="button button--pink" href="/">take me home <i class="ph-fill ph-house" aria-hidden="true"></i></a>
+        <a class="button button--white" href="/content">watch something <i class="ph-fill ph-play-circle" aria-hidden="true"></i></a>
       </div>
     </div>
 
-    <img class="lost-page__art" src="/assets/avatar-main.webp" alt="Mochiko holding a bunny plush" width="1086" height="1448" fetchpriority="high" />
-    <span class="lost-page__number" aria-hidden="true">404</span>
-    <span class="lost-page__sticker">i sorted nothing</span>
-
-    <div class="lost-taskbar">
-      <img src="/assets/mochiko-logo-bunny-black.webp" alt="" width="1254" height="1254" />
-      <span>{missingPath} — not found</span>
-      <i class="ph ph-heart" aria-hidden="true"></i>
+    <div class="lost__ribbon" aria-hidden="true">
+      <div>
+        {[0, 1].map(() => (
+          <span>{["lost", "not found", "oops", "try home ♡", "lost", "not found"].map((word) => <i>{word}</i>)}</span>
+        ))}
+      </div>
     </div>
   </main>
 </BaseLayout>
