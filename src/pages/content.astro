@@ -59,8 +59,8 @@ import SiteFooter from "../components/SiteFooter.astro";
       </div>
     </section>
 
-    <section class="section-pad bg-white decorated-section">
-      <img class="section-corner-art section-corner-art--videos" src="/assets/outfits/outfit-5.webp" alt="Mochiko in an outfit covered in tiny bows" width="941" height="1672" loading="lazy" />
+    <section class="section-pad bg-white decorated-section videos-section">
+      <img class="videos-sitter" src="/assets/headphones-sitting.webp" alt="Mochiko sitting with headphones" width="941" height="1672" loading="lazy" />
       <div class="shell">
         <div class="soft-heading">
           <div>
@@ -180,7 +180,7 @@ import SiteFooter from "../components/SiteFooter.astro";
           link.target = "_blank";
           link.rel = "noreferrer";
           const image = document.createElement("img");
-          image.src = data.video.thumbnailUrl || "/assets/gaming-1.webp";
+          image.src = data.video.thumbnailUrl || "/assets/gaming-2.webp";
           image.alt = "";
           image.loading = "lazy";
           if (!data.video.thumbnailUrl) image.className = "vod-card__local-art";

@@ -36,8 +36,8 @@ export const contentCards = [
   {
     title: "Games",
     copy: "whatever looks fun. i’m not promising i’ll be good at it.",
-    image: "/assets/gaming-1.webp",
-    alt: "Mochiko dressed for gaming",
+    image: "/assets/content-gaming.webp",
+    alt: "Mochiko in a gaming outfit with a controller",
     icon: "ph-game-controller",
   },
   {
@@ -50,8 +50,8 @@ export const contentCards = [
   {
     title: "Little things",
     copy: "outfits, drawings, screenshots, and stuff i wanted to keep.",
-    image: "/assets/book.webp",
-    alt: "Mochiko in a red dress",
+    image: "/assets/content-cute.webp",
+    alt: "Mochiko sitting with a bunny plush",
     icon: "ph-heart",
   },
 ];

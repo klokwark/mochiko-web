@@ -476,8 +476,17 @@ html[data-live="true"] .live-dot { background: #f21d5c; animation: dot-pop 1.4s 
 .favorites-preview.decorated-section { overflow: visible; }
 .section-sitter--home { top: clamp(-9rem, -10vw, -6rem); right: max(1rem, calc((100vw - 80rem) / 2)); z-index: 8; height: clamp(15rem, 23vw, 22rem); filter: drop-shadow(0 5px 0 var(--ink)); }
 .section-corner-art { position: absolute; z-index: 1; width: auto; object-fit: contain; object-position: bottom; pointer-events: none; }
-.section-corner-art--links { right: -2rem; bottom: -5rem; height: clamp(18rem, 35vw, 32rem); opacity: .28; rotate: 7deg; }
-.section-corner-art--videos { right: -3rem; bottom: -8rem; height: clamp(19rem, 34vw, 31rem); opacity: .2; rotate: 4deg; }
+.section-corner-art--links { left: -3rem; bottom: -4rem; height: clamp(16rem, 30vw, 27rem); opacity: .24; rotate: -6deg; }
+.videos-section { overflow: visible; }
+.videos-sitter { position: absolute; right: max(1rem, calc((100vw - 80rem) / 2)); top: 2px; translate: 0 -100%; z-index: 3; height: clamp(10rem, 16vw, 14rem); width: auto; object-fit: contain; object-position: center bottom; pointer-events: none; }
+
+/* About: the console pose stands on the dark section's top border, against the
+   light section above it. Inside the dark panel the artwork would disappear. */
+/* z-index needed because .about-profile__grid above sits at z-index 2 in the
+   root stacking context and would otherwise paint over this pose. */
+.desktop-files.decorated-section { overflow: visible; z-index: 3; }
+.files-pose { position: absolute; right: max(1rem, calc((100vw - 80rem) / 2)); top: 3px; translate: 0 -100%; z-index: 3; height: clamp(10rem, 16vw, 14rem); width: auto; object-fit: contain; object-position: center bottom; pointer-events: none; }
+
 .section-corner-art--privacy { right: -4rem; top: 6rem; height: min(42rem, 72vh); opacity: .13; rotate: 6deg; }
 
 .desktop-files { border-bottom: 2px solid var(--ink); background: var(--ink); color: white; }
@@ -890,7 +899,18 @@ html[data-privacy-choice="unset"] .privacy-consent,
   .music-detail { border-radius: 2.2rem; }
   .section-sitter--home { top: -5.5rem; right: -.8rem; height: 13rem; }
   .marquee-sitter { display: none; }
-  .section-corner-art--links, .section-corner-art--videos, .section-corner-art--privacy { right: -5rem; height: 22rem; opacity: .12; }
+  .section-corner-art--links { left: -5rem; height: 18rem; opacity: .12; }
+  .videos-section { overflow: visible; }
+.videos-sitter { position: absolute; right: max(1rem, calc((100vw - 80rem) / 2)); top: 2px; translate: 0 -100%; z-index: 3; height: clamp(10rem, 16vw, 14rem); width: auto; object-fit: contain; object-position: center bottom; pointer-events: none; }
+
+/* About: the console pose stands on the dark section's top border, against the
+   light section above it. Inside the dark panel the artwork would disappear. */
+/* z-index needed because .about-profile__grid above sits at z-index 2 in the
+   root stacking context and would otherwise paint over this pose. */
+.desktop-files.decorated-section { overflow: visible; z-index: 3; }
+.files-pose { position: absolute; right: max(1rem, calc((100vw - 80rem) / 2)); top: 3px; translate: 0 -100%; z-index: 3; height: clamp(10rem, 16vw, 14rem); width: auto; object-fit: contain; object-position: center bottom; pointer-events: none; }
+
+.section-corner-art--privacy { right: -5rem; height: 22rem; opacity: .12; }
   .favorites-preview::before { width: 11rem; height: 11rem; }
   .favorites-preview__grid { gap: 1.2rem; }
   .mini-game-stack { min-height: 17rem; border-radius: 2.2rem; padding: .8rem; }
@@ -925,6 +945,8 @@ html[data-privacy-choice="unset"] .privacy-consent,
   .sched-hero__art img { max-height: 26rem; }
   .planner { border-radius: 2rem; }
   .planner__week { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .videos-sitter { right: -.5rem; height: 8rem; }
+  .files-pose { right: -1rem; height: 8rem; }
   .footer-card { border-radius: 2rem; padding: 1.25rem; }
   .footer-card__top { grid-template-columns: 1fr; padding-right: 0; }
   /* One column on phones: two columns truncate the longer labels. */
