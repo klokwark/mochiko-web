@@ -280,7 +280,10 @@ html[data-live="true"] .live-dot { background: #f21d5c; animation: dot-pop 1.4s 
 
 .home-live { position: relative; z-index: 4; border-bottom: 2px solid var(--ink); background: var(--pink); }
 .home-live__inner { display: grid; min-height: 8rem; grid-template-columns: 8.5rem auto minmax(0,1fr) auto; align-items: center; gap: 1.2rem; padding-block: .65rem; }
-.home-live__mood { width: 8.5rem; height: 8.5rem; margin-block: -1rem; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 3px 0 white); transform: scale(1.45); transform-origin: center bottom; }
+/* No drop-shadow here: an offset white shadow rendered as a stripe behind her.
+   Her size and position in the band are otherwise unchanged; `align-self: end`
+   keeps her feet inside the band so the marquee below never clips them. */
+.home-live__mood { align-self: end; width: 8.5rem; height: 8.5rem; margin-block: -1rem 0; object-fit: contain; object-position: center bottom; transform: scale(1.45); transform-origin: center bottom; }
 .home-live__badge { display: inline-flex; width: fit-content; align-items: center; gap: .5rem; border: 2px solid var(--ink); border-radius: 999px; background: white; padding: .55rem .75rem; font-size: .72rem; font-weight: 950; box-shadow: 0 3px 0 var(--ink); white-space: nowrap; }
 .home-live__badge i { color: #9b8f99; font-size: .65rem; }
 .home-live[data-is-live="true"] .home-live__badge i { color: #e60052; animation: dot-pop 1.4s steps(2,end) infinite; }
@@ -296,7 +299,13 @@ html[data-live="true"] .live-dot { background: #f21d5c; animation: dot-pop 1.4s 
 .friend-feature__photo img { display: block; aspect-ratio: 3 / 4; width: 100%; border-radius: 2.3rem; background: linear-gradient(145deg, white, var(--lilac)); object-fit: contain; object-position: center bottom; }
 .friend-feature__photo span { position: absolute; right: 1.2rem; bottom: 1.2rem; border: 2px solid var(--ink); border-radius: 999px; background: white; padding: .65rem .9rem; font-size: .74rem; font-weight: 950; box-shadow: 0 4px 0 var(--ink); transform: rotate(2deg); }
 
-.marquee { overflow: hidden; border-block: 2px solid var(--ink); background: var(--ink); color: white; }
+/* Marquee ribbon. The band wrapper exists so the sitting artwork can overflow
+   above the ribbon while the ribbon itself keeps clipping its scrolling track. */
+/* The band adds no height of its own: the pose is aligned onto the ribbon's top
+   edge and overlaps the live band above it, the way the footer pose works. */
+.marquee-band { position: relative; z-index: 14; }
+.marquee-sitter { position: absolute; right: max(1rem, calc((100vw - 80rem) / 2)); bottom: calc(100% - 2px); z-index: 2; height: clamp(7rem, 11vw, 9.5rem); width: auto; object-fit: contain; object-position: center bottom; pointer-events: none; }
+.marquee { position: relative; z-index: 1; overflow: hidden; border-block: 2px solid var(--ink); background: var(--ink); color: white; }
 .marquee__track { display: flex; width: max-content; will-change: transform; animation: marquee 24s linear infinite; }
 .marquee__group { display: flex; min-width: 100vw; flex-shrink: 0; align-items: center; justify-content: space-around; }
 .marquee__item { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.5rem; font-size: .82rem; font-weight: 950; white-space: nowrap; }
@@ -811,6 +820,7 @@ html[data-privacy-choice="unset"] .privacy-consent,
   .desktop-files__grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .schedule-hero-new__grid { grid-template-columns: minmax(0,1.05fr) minmax(28rem,.95fr); }
   .schedule-board__grid { grid-template-columns: minmax(19rem,.62fr) minmax(0,1.38fr); }
+  .home-live__inner { padding-right: clamp(7rem, 11vw, 9.5rem); }
 }
 
 @media (max-width: 63.99rem) {
@@ -871,6 +881,7 @@ html[data-privacy-choice="unset"] .privacy-consent,
   .about-profile__notes p:nth-child(2) { margin-left: 0; }
   .music-detail { border-radius: 2.2rem; }
   .section-sitter--home { top: -5.5rem; right: -.8rem; height: 13rem; }
+  .marquee-sitter { display: none; }
   .section-corner-art--links, .section-corner-art--videos, .section-corner-art--privacy { right: -5rem; height: 22rem; opacity: .12; }
   .favorites-preview::before { width: 11rem; height: 11rem; }
   .favorites-preview__grid { gap: 1.2rem; }

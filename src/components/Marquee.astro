@@ -1,13 +1,30 @@
 ---
+/**
+ * Scrolling ribbon. When `sitter` is supplied the artwork is anchored to the
+ * top edge of the ribbon so the character actually sits on the band instead of
+ * hovering in empty space. The wrapper carries the positioning because the
+ * ribbon itself must keep `overflow: hidden` for the scrolling track. The
+ * wrapper adds no height: the pose overlaps whatever sits above the ribbon.
+ */
+interface Props {
+  sitter?: { src: string; alt: string; width: number; height: number };
+}
+
+const { sitter } = Astro.props;
 const phrases = ["play time", "new videos", "tiny hearts", "see u on stream"];
 ---
 
-<div class="marquee" aria-label="Play time, new videos, tiny hearts, and streams">
-  <div class="marquee__track">
-    {[0, 1].map((copy) => (
-      <div class="marquee__group" aria-hidden={copy === 1 ? "true" : undefined}>
-        {phrases.map((phrase) => <span class="marquee__item"><b>♡</b>{phrase}</span>)}
-      </div>
-    ))}
+<div class="marquee-band">
+  {sitter && (
+    <img class="marquee-sitter" src={sitter.src} alt={sitter.alt} width={sitter.width} height={sitter.height} loading="lazy" />
+  )}
+  <div class="marquee" aria-label="Play time, new videos, tiny hearts, and streams">
+    <div class="marquee__track">
+      {[0, 1].map((copy) => (
+        <div class="marquee__group" aria-hidden={copy === 1 ? "true" : undefined}>
+          {phrases.map((phrase) => <span class="marquee__item"><b>♡</b>{phrase}</span>)}
+        </div>
+      ))}
+    </div>
   </div>
 </div>
