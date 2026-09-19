@@ -3,11 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
-/**
- * Placeholder week strip. The labels are replaced client-side with the
- * visitor's own locale and week start, so this is only what renders before
- * the schedule is fetched (or when Twitch is not loaded at all).
- */
 const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 ---
 
@@ -69,7 +64,7 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     </section>
 
     <section class="sched-note">
-      <img class="sched-note__art" src="/assets/outfit-3.webp" alt="Mochiko holding a game controller" width="1086" height="1448" loading="lazy" />
+      <img class="sched-note__art" src="/assets/umbrella-2.webp" alt="Mochiko holding an umbrella" width="1086" height="1448" loading="lazy" />
       <div class="shell sched-note__grid">
         <div>
           <p class="section-kicker">small print</p>
@@ -90,7 +85,6 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
       category?: string | null;
     };
 
-    /** Mon-first week, labelled in the visitor's locale. */
     const weekdayLabels = () => {
       const formatter = new Intl.DateTimeFormat(undefined, { weekday: "short" });
       // 2024-01-01 was a Monday, so this walks Mon..Sun in order.

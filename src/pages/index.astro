@@ -112,11 +112,6 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
             <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
           </div>
 
-          {/*
-            Playlist "embed": a hand-drawn player card, not a Spotify iframe.
-            A real embed would load Spotify in the browser before the visitor
-            has consented, so the card is fully local and simply links out.
-          */}
           <article class="playlist-embed">
             <div class="playlist-embed__bar">
               <span><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.provider.toLowerCase()} · {playlist.label}</span>

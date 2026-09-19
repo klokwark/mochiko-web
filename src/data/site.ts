@@ -106,8 +106,6 @@ export const favoriteMusic = {
   songHref: "https://www.c-r.link/BassCannon-CrankdatRMX",
 };
 
-// The playlist lives on Spotify. The `?si=` share parameter is intentionally
-// dropped: it is a per-share tracking token and adds nothing for visitors.
 export const playlist = {
   label: "my playlist",
   provider: "Spotify",
@@ -115,7 +113,5 @@ export const playlist = {
   title: "the loop i live in",
   note: "the songs i keep dragging back to the top of the list.",
   cover: "/assets/favorites/bass-cannon.jpg",
-  // Shown as the pinned first row of the fake player. Kept in sync with the
-  // favorite song so the card never claims a track that is not documented here.
   topTrack: "Bass Cannon — Crankdat Remix",
 };

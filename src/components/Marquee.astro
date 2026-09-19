@@ -1,11 +1,4 @@
 ---
-/**
- * Scrolling ribbon. When `sitter` is supplied the artwork is anchored to the
- * top edge of the ribbon so the character actually sits on the band instead of
- * hovering in empty space. The wrapper carries the positioning because the
- * ribbon itself must keep `overflow: hidden` for the scrolling track. The
- * wrapper adds no height: the pose overlaps whatever sits above the ribbon.
- */
 interface Props {
   sitter?: { src: string; alt: string; width: number; height: number };
 }

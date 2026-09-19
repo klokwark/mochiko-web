@@ -3,10 +3,6 @@ import { navigation, playlist } from "../data/site";
 
 const year = new Date().getFullYear();
 
-/**
- * Every outbound destination, as one row of full-size buttons. The footer
- * deliberately does not repeat these as a second strip of bare icons.
- */
 const exits = [
   { label: "Twitch", href: "https://www.twitch.tv/mochikolive", icon: "ph-twitch-logo", tone: "twitch" },
   { label: "YouTube", href: "https://www.youtube.com/@mochikotv", icon: "ph-youtube-logo", tone: "youtube" },
@@ -23,13 +19,12 @@ const exits = [
 
       <div class="footer-card__top">
         <div class="footer-bye">
-          <p>you made it all the way down!!</p>
+          <p class="footer-bye__eyebrow">you made it all the way down!!</p>
           <h2>okay bye,<br /><em>see u soon ♡</em></h2>
-          <img class="footer-wordmark" src="/assets/mochiko-title.webp" alt="Mochiko" width="1792" height="1024" loading="lazy" />
+          <p class="footer-bye__note">i’m probably still picking a game.</p>
         </div>
 
         <nav class="footer-index" aria-label="Footer navigation">
-          <span class="footer-index__label">every page</span>
           {navigation.map((item, index) => (
             <a href={item.href}>
               <b>0{index + 1}</b>
