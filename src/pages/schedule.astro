@@ -2,45 +2,81 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+
+/**
+ * Placeholder week strip. The labels are replaced client-side with the
+ * visitor's own locale and week start, so this is only what renders before
+ * the schedule is fetched (or when Twitch is not loaded at all).
+ */
+const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 ---
 
 <BaseLayout title="Schedule | Mochiko" description="See Mochiko’s upcoming Twitch streams.">
   <SiteHeader />
   <main>
-    <section class="schedule-hero-new">
-      <div class="shell schedule-hero-new__grid">
-        <div class="schedule-hero-new__copy">
+    <section class="sched-hero">
+      <div class="shell sched-hero__grid">
+        <div class="sched-hero__copy">
           <p class="section-kicker">schedule</p>
-          <h1>when do i<br /><em>press go live?</em></h1>
-          <p>the times below change to your timezone automatically. my one useful computer trick.</p>
-          <a class="button button--ink mt-7" href="#next-streams">show me <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          <h1>stream<br />days <em>♡</em></h1>
+          <p class="sched-hero__lede">every time here is already converted to your clock. i did not do that part, the computer did.</p>
+          <div class="sched-hero__meta">
+            <span class="sched-hero__chip"><i class="ph-fill ph-clock" aria-hidden="true"></i> <b data-schedule-zone>your timezone</b></span>
+            <a class="button button--ink" href="#planner">the list <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          </div>
         </div>
-        <div class="schedule-hero-new__art">
-          <span>calendar fit ♡</span>
-          <img src="/assets/outfits/outfit-6.webp" alt="Mochiko in a black and white outfit" width="941" height="1672" fetchpriority="high" />
+
+        <div class="sched-hero__art">
+          <span class="sched-hero__tag" aria-hidden="true">calendar fit ♡</span>
+          <img src="/assets/outfits/outfit-3.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" fetchpriority="high" />
         </div>
       </div>
     </section>
 
-    <section class="section-pad schedule-board" id="next-streams">
-      <div class="shell schedule-board__grid">
-        <aside class="schedule-board__status">
-          <p class="section-kicker">coming up</p>
-          <h2>next<br />streams!</h2>
-          <img class="schedule-check state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-schedule-mood />
-          <a href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">open on Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-        </aside>
-        <div class="schedule-board__list">
-          <div class="schedule-board__top"><span><i class="ph-fill ph-circle" aria-hidden="true"></i> loading calendar</span><b>your local time</b></div>
-          <div class="schedule-list" data-schedule-list aria-live="polite">
+    <section class="section-pad sched-planner" id="planner">
+      <div class="shell">
+        <article class="planner">
+          <div class="planner__head">
+            <div>
+              <p class="section-kicker">coming up</p>
+              <h2>next streams!</h2>
+            </div>
+            <div class="planner__status" data-schedule-status>
+              <img class="planner__mood state-mascot" src="/assets/emotions/loading.webp" alt="" width="1254" height="1254" data-schedule-mood />
+              <span><b data-schedule-state>checking the calendar</b><small data-schedule-note>one sec!!</small></span>
+            </div>
+          </div>
+
+          <ul class="planner__week" data-schedule-week aria-label="Days with a stream planned">
+            {fallbackDays.map((day) => <li><span>{day}</span></li>)}
+          </ul>
+
+          <div class="planner__list" data-schedule-list aria-live="polite">
             {[0, 1, 2].map(() => <div class="schedule-skeleton" aria-hidden="true"><span></span><div><b></b><i></i></div></div>)}
           </div>
+
           <div class="feed-fallback mt-6 hidden" data-schedule-fallback>
             <i class="ph ph-calendar-heart" aria-hidden="true"></i>
             <div><strong>nothing listed here right now</strong><span>check Twitch in case i changed something</span></div>
             <a href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">open it <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
           </div>
+
+          <a class="planner__open" href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">
+            the whole calendar on Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="sched-note">
+      <img class="sched-note__art" src="/assets/outfit-3.webp" alt="Mochiko holding a game controller" width="1086" height="1448" loading="lazy" />
+      <div class="shell sched-note__grid">
+        <div>
+          <p class="section-kicker">small print</p>
+          <h2 class="section-title mt-4">i do move things</h2>
+          <p class="body-lede mt-6">if a day disappears it moved, it did not get cancelled out of spite. the list above follows Twitch, so it changes when i do.</p>
         </div>
+        <a class="button button--pink" href="/content">watch something now <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
       </div>
     </section>
   </main>
@@ -54,10 +90,51 @@ import SiteFooter from "../components/SiteFooter.astro";
       category?: string | null;
     };
 
+    /** Mon-first week, labelled in the visitor's locale. */
+    const weekdayLabels = () => {
+      const formatter = new Intl.DateTimeFormat(undefined, { weekday: "short" });
+      // 2024-01-01 was a Monday, so this walks Mon..Sun in order.
+      return Array.from({ length: 7 }, (_, index) => {
+        const day = new Date(Date.UTC(2024, 0, 1 + index, 12));
+        return { index: day.getUTCDay(), label: formatter.format(day).toLowerCase() };
+      });
+    };
+
+    const renderWeek = (activeDays: Set<number>) => {
+      const week = document.querySelector("[data-schedule-week]");
+      if (!week) return;
+      week.replaceChildren(...weekdayLabels().map(({ index, label }) => {
+        const item = document.createElement("li");
+        if (activeDays.has(index)) item.className = "is-on";
+        const text = document.createElement("span");
+        text.textContent = label;
+        item.append(text);
+        return item;
+      }));
+    };
+
+    const setStatus = (state: string, note: string, mood: string) => {
+      const stateEl = document.querySelector("[data-schedule-state]");
+      const noteEl = document.querySelector("[data-schedule-note]");
+      const moodEl = document.querySelector<HTMLImageElement>("[data-schedule-mood]");
+      if (stateEl) stateEl.textContent = state;
+      if (noteEl) noteEl.textContent = note;
+      if (moodEl) moodEl.src = `/assets/emotions/${mood}.webp`;
+    };
+
+    const showZone = () => {
+      const zone = document.querySelector("[data-schedule-zone]");
+      if (!zone) return;
+      try {
+        zone.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone || "your timezone";
+      } catch {
+        zone.textContent = "your timezone";
+      }
+    };
+
     const loadSchedule = async () => {
       const list = document.querySelector("[data-schedule-list]");
       const fallback = document.querySelector("[data-schedule-fallback]");
-      const mood = document.querySelector<HTMLImageElement>("[data-schedule-mood]");
       if (!list || !fallback) return;
       try {
         const response = await fetch("/api/twitch");
@@ -65,11 +142,14 @@ import SiteFooter from "../components/SiteFooter.astro";
         const streams = ((data.schedule ?? []) as ScheduledStream[]).filter((stream: ScheduledStream) => !stream.canceledUntil);
         if (!response.ok || !streams.length) throw new Error("No schedule available");
 
+        const activeDays = new Set<number>();
         const cards = streams.map((stream: ScheduledStream) => {
+          const date = new Date(stream.startTime);
+          activeDays.add(date.getDay());
+
           const card = document.createElement("article");
           card.className = "schedule-item";
 
-          const date = new Date(stream.startTime);
           const dateBubble = document.createElement("time");
           dateBubble.dateTime = stream.startTime;
           const month = document.createElement("span");
@@ -93,26 +173,29 @@ import SiteFooter from "../components/SiteFooter.astro";
         });
 
         list.replaceChildren(...cards);
-        if (mood) mood.src = "/assets/emotions/happy.webp";
+        renderWeek(activeDays);
+        setStatus(`${streams.length} stream${streams.length === 1 ? "" : "s"} planned`, "in your own time already", "happy");
       } catch {
         list.classList.add("hidden");
         fallback.classList.remove("hidden");
-        if (mood) mood.src = "/assets/emotions/mad.webp";
+        renderWeek(new Set());
+        setStatus("nothing listed", "Twitch has no dates for me", "mad");
       }
     };
 
     const maybeLoadSchedule = () => {
+      showZone();
       const choice = document.documentElement.dataset.privacyChoice;
       if (choice === "accepted") loadSchedule();
       if (choice === "declined") {
         const list = document.querySelector("[data-schedule-list]");
         const fallback = document.querySelector("[data-schedule-fallback]");
-        const mood = document.querySelector<HTMLImageElement>("[data-schedule-mood]");
         list?.classList.add("hidden");
         fallback?.classList.remove("hidden");
         const copy = fallback?.querySelector("div");
         if (copy) copy.innerHTML = `<strong>Twitch is not loaded</strong><span>change your privacy choice to load the schedule here</span>`;
-        if (mood) mood.src = "/assets/emotions/sad.webp";
+        renderWeek(new Set());
+        setStatus("not loaded", "Twitch stays off until you say so", "sad");
       }
     };
 
