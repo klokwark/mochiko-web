@@ -15,16 +15,16 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
       <span class="doodle doodle--bow" aria-hidden="true">୨୧</span>
       <div class="shell soft-hero__grid">
         <div class="soft-hero__copy">
-          <p class="bubble-label">hiii!! welcome ♡</p>
+          <p class="bubble-label">hiii!! you found me</p>
           <h1 class="soft-hero__title">hii, i’m<br /><em>Mochiko!</em></h1>
-          <p class="soft-hero__lede">i play games, change outfits for way too long, and press buttons before reading what they do ♡</p>
+          <p class="soft-hero__lede">loud here, extremely quiet in real life. i play games, collect things i do not need, and get distracted by every single one of them.</p>
           <div class="mt-7 flex flex-wrap gap-3">
             <a class="button button--pink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
               <i class="ph-fill ph-heart" aria-hidden="true"></i><span data-live-label>come watch me!</span>
             </a>
             <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
-          <div class="mini-note"><span>status.exe</span><strong>probably picking a new game</strong></div>
+          <div class="mini-note"><span>status.exe</span><strong>probably still in the settings menu</strong></div>
         </div>
 
         <div class="soft-hero__art">
@@ -59,8 +59,8 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
         </div>
         <div class="min-w-0">
           <p class="section-kicker">about me</p>
-          <h2 class="section-title mt-4">i pick games<br /><em>because they look cute</em></h2>
-          <p class="body-lede mt-6">then i get attached to one character, forget the quest, and spend twenty minutes changing outfits.</p>
+          <h2 class="section-title mt-4">i said one round<br /><em>that was four hours ago</em></h2>
+          <p class="body-lede mt-6">it was supposed to be a short session. then i started one more district, opened one more menu, and the sun came up.</p>
           <a class="button button--ink mt-7" href="/about">there’s more <i class="ph ph-heart" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -215,7 +215,7 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
         homeLive.dataset.isLive = String(live);
         if (status) status.textContent = live ? "live right now!!" : "not live rn";
         if (title) title.textContent = live ? (data.live.title || "come watch!!") : "the chair is empty";
-        if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than planned.";
+        if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than the one i announced.";
         if (button) button.firstChild!.textContent = live ? "watch now " : "open Twitch ";
       })
       .catch(() => {

@@ -35,21 +35,21 @@ export const socials = [
 export const contentCards = [
   {
     title: "Games",
-    copy: "whatever looks fun. i’m not promising i’ll be good at it.",
+    copy: "cute games, loud games, and the strategy stuff i pretend is a short session.",
     image: "/assets/content-gaming.webp",
     alt: "Mochiko in a gaming outfit with a controller",
     icon: "ph-game-controller",
   },
   {
     title: "Chatting",
-    copy: "random stories, little updates, and reading what everyone says.",
+    copy: "stories that go nowhere, tech rambling, and reading everything in chat.",
     image: "/assets/blue-phone.webp",
     alt: "Mochiko holding a blue phone",
     icon: "ph-chat-circle-dots",
   },
   {
-    title: "Little things",
-    copy: "outfits, drawings, screenshots, and stuff i wanted to keep.",
+    title: "Collections",
+    copy: "plushies, screenshots, and things i got way too invested in.",
     image: "/assets/content-cute.webp",
     alt: "Mochiko sitting with a bunny plush",
     icon: "ph-heart",
@@ -111,7 +111,7 @@ export const playlist = {
   provider: "Spotify",
   href: "https://open.spotify.com/playlist/1UrOF3ADsifzUjULkN0KWD",
   title: "the loop i live in",
-  note: "the songs i keep dragging back to the top of the list.",
+  note: "fast, catchy and bassy. genre is not really a factor, energy is.",
   cover: "/assets/favorites/bass-cannon.jpg",
   topTrack: "Bass Cannon — Crankdat Remix",
 };

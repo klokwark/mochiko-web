@@ -4,14 +4,14 @@ interface Props {
 }
 
 const { sitter } = Astro.props;
-const phrases = ["play time", "new videos", "tiny hearts", "see u on stream"];
+const phrases = ["one more turn", "new videos", "plushie hoard", "see u on stream"];
 ---
 
 <div class="marquee-band">
   {sitter && (
     <img class="marquee-sitter" src={sitter.src} alt={sitter.alt} width={sitter.width} height={sitter.height} loading="lazy" />
   )}
-  <div class="marquee" aria-label="Play time, new videos, tiny hearts, and streams">
+  <div class="marquee" aria-label="One more turn, new videos, plushie hoard, and streams">
     <div class="marquee__track">
       {[0, 1].map((copy) => (
         <div class="marquee__group" aria-hidden={copy === 1 ? "true" : undefined}>
