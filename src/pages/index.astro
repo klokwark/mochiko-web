@@ -14,7 +14,12 @@ const noteBits = [
 
 <BaseLayout>
   <SiteHeader />
-  <main>
+  <main class="home-notebook">
+    <div class="scroll-notebook" data-scroll-notebook style="--notebook-pages: 5">
+      <div class="scroll-notebook__sticky">
+        <div class="scroll-notebook__stack">
+          <article class="notebook-sheet notebook-sheet--intro" data-notebook-sheet>
+            <span class="notebook-sheet__number">01</span>
     <section class="diary-hero">
       <div class="paper-grain" aria-hidden="true"></div>
       <div class="shell diary-hero__page">
@@ -57,6 +62,10 @@ const noteBits = [
       </div>
     </section>
 
+          </article>
+          <article class="notebook-sheet notebook-sheet--about" data-notebook-sheet inert aria-hidden="true">
+            <span class="notebook-sheet__number">02</span>
+
     <section class="diary-section diary-section--blue">
       <div class="shell entry-grid">
         <div class="entry-copy">
@@ -79,6 +88,11 @@ const noteBits = [
         </div>
       </div>
     </section>
+
+            <img class="notebook-edge-sitter notebook-edge-sitter--about" src="/assets/headphones-sitting.webp" alt="Mochiko sitting on the edge of the notebook page" width="941" height="1672" loading="lazy" />
+          </article>
+          <article class="notebook-sheet notebook-sheet--favorites" data-notebook-sheet inert aria-hidden="true">
+            <span class="notebook-sheet__number">03</span>
 
     <section class="diary-section paper-section" id="favorites">
       <div class="shell">
@@ -106,6 +120,10 @@ const noteBits = [
       </div>
     </section>
 
+          </article>
+          <article class="notebook-sheet notebook-sheet--content" data-notebook-sheet inert aria-hidden="true">
+            <span class="notebook-sheet__number">04</span>
+
     <section class="diary-section diary-section--pink">
       <div class="shell content-entry">
         <div class="content-entry__heading">
@@ -122,6 +140,11 @@ const noteBits = [
       </div>
     </section>
 
+            <img class="notebook-edge-sitter notebook-edge-sitter--content" src="/assets/cute-pose2.webp" alt="Mochiko sitting on the lower edge of the page with a bunny plush" width="1122" height="1402" loading="lazy" />
+          </article>
+          <article class="notebook-sheet notebook-sheet--links" data-notebook-sheet inert aria-hidden="true">
+            <span class="notebook-sheet__number">05</span>
+
     <section class="diary-section paper-section">
       <div class="shell small-entry-grid">
         <article class="friend-footnote">
@@ -136,6 +159,16 @@ const noteBits = [
         </aside>
       </div>
     </section>
+
+          </article>
+        </div>
+        <div class="notebook-progress" aria-hidden="true">
+          <span data-notebook-progress>01 / 05</span>
+          <i><b data-notebook-progress-bar></b></i>
+          <small>scroll to turn the page</small>
+        </div>
+      </div>
+    </div>
   </main>
   <SiteFooter />
 </BaseLayout>
@@ -180,4 +213,66 @@ const noteBits = [
   maybeUpdateHomeLive();
   window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
   document.addEventListener("astro:page-load", maybeUpdateHomeLive);
+
+  const setupScrollNotebook = () => {
+    const notebook = document.querySelector<HTMLElement>("[data-scroll-notebook]");
+    if (!notebook || notebook.dataset.ready === "true") return;
+    notebook.dataset.ready = "true";
+    const sheets = Array.from(notebook.querySelectorAll<HTMLElement>("[data-notebook-sheet]"));
+    const progressLabel = notebook.querySelector<HTMLElement>("[data-notebook-progress]");
+    const progressBar = notebook.querySelector<HTMLElement>("[data-notebook-progress-bar]");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const setSheet = (sheet: HTMLElement, index: number, current: number, turn: number) => {
+      const isCurrent = index === current;
+      sheet.style.setProperty("--page-turn", String(turn));
+      sheet.style.zIndex = String(sheets.length - index);
+      sheet.classList.toggle("is-current", isCurrent);
+      sheet.classList.toggle("is-turned", index < current);
+      sheet.toggleAttribute("inert", !isCurrent);
+      sheet.setAttribute("aria-hidden", String(!isCurrent));
+    };
+
+    const update = () => {
+      if (reduced.matches || window.innerWidth < 900) {
+        sheets.forEach((sheet) => {
+          sheet.style.removeProperty("--page-turn");
+          sheet.style.removeProperty("z-index");
+          sheet.classList.remove("is-turned");
+          sheet.classList.add("is-current");
+          sheet.removeAttribute("inert");
+          sheet.setAttribute("aria-hidden", "false");
+        });
+        return;
+      }
+
+      const rect = notebook.getBoundingClientRect();
+      const travel = Math.max(1, notebook.offsetHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, -rect.top / travel));
+      const exactPage = progress * (sheets.length - 1);
+      const current = Math.min(sheets.length - 1, Math.floor(exactPage + .5));
+
+      sheets.forEach((sheet, index) => {
+        const turn = Math.min(1, Math.max(0, exactPage - index));
+        setSheet(sheet, index, current, turn);
+      });
+
+      if (progressLabel) progressLabel.textContent = `${String(current + 1).padStart(2, "0")} / ${String(sheets.length).padStart(2, "0")}`;
+      if (progressBar) progressBar.style.width = `${Math.max(4, progress * 100)}%`;
+    };
+
+    let queued = false;
+    const requestUpdate = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; update(); });
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+  };
+
+  setupScrollNotebook();
+  document.addEventListener("astro:page-load", setupScrollNotebook);
 </script>

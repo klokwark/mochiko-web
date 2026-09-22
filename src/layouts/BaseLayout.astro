@@ -71,9 +71,35 @@ const pagePop = {
     <title>{title}</title>
   </head>
   <body>
+    <div class="book-opening" data-book-opening aria-hidden="true">
+      <div class="book-opening__book">
+        <div class="book-opening__back"></div>
+        <div class="book-opening__paper book-opening__paper--three"></div>
+        <div class="book-opening__paper book-opening__paper--two"></div>
+        <div class="book-opening__paper book-opening__paper--one"></div>
+        <div class="book-opening__cover">
+          <span>MOCHIKO</span>
+          <img src="/assets/diary-bunny.webp" alt="" width="866" height="900" />
+          <small>notes, streams & other things</small>
+        </div>
+      </div>
+    </div>
     <div class="page-swap" transition:name="mochiko-page" transition:animate={pagePop}>
       <slot />
     </div>
     <PrivacyConsent />
+    <script is:inline>
+      (() => {
+        const intro = document.querySelector("[data-book-opening]");
+        if (!intro) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          intro.remove();
+          return;
+        }
+        requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add("is-opening")));
+        window.setTimeout(() => intro.classList.add("is-leaving"), 1450);
+        window.setTimeout(() => intro.remove(), 1900);
+      })();
+    </script>
   </body>
 </html>
