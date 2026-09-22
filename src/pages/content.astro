@@ -10,12 +10,12 @@ import SiteFooter from "../components/SiteFooter.astro";
     <section class="content-hero">
       <div class="shell content-hero__grid">
         <div class="content-hero__copy">
-          <p class="section-kicker">content page</p>
-          <h1>streams &<br /><em>videos</em></h1>
-          <p>The player, latest uploads and newest VOD are all kept on this page.</p>
+          <p class="section-kicker">watch stuff</p>
+          <h1>streams,<br /><em>videos & more ♡</em></h1>
+          <p>the newest things are all here. no digging through a channel page.</p>
         </div>
         <div class="content-hero__art">
-          <span aria-hidden="true">latest</span>
+          <span aria-hidden="true">NEW!!</span>
           <img src="/assets/avatar-main2.webp" alt="Mochiko in a black and white outfit" width="1024" height="1536" fetchpriority="high" />
         </div>
       </div>
@@ -51,8 +51,8 @@ import SiteFooter from "../components/SiteFooter.astro";
           <div class="stream-card__side">
             <img class="stream-card__art" src="/assets/blue-phone.webp" alt="Mochiko holding a blue phone" width="1086" height="1448" loading="lazy" />
             <span class="cute-chip cute-chip--white"><i class="ph ph-twitch-logo" aria-hidden="true"></i> Twitch</span>
-            <h3 data-stream-title>stream player</h3>
-            <p data-stream-copy>When I’m live, the player starts muted. Chat stays on Twitch.</p>
+            <h3 data-stream-title>press play ♡</h3>
+            <p data-stream-copy>when i’m live it starts here on its own. chat lives on Twitch.</p>
             <a class="button button--ink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer">open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
           </div>
         </div>
@@ -76,7 +76,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         </div>
         <div class="feed-fallback mt-6 hidden" data-youtube-fallback>
           <i class="ph ph-youtube-logo" aria-hidden="true"></i>
-          <div><strong>YouTube did not load</strong><span>The channel link still takes you to the newest uploads.</span></div>
+          <div><strong>the videos are over here ♡</strong><span>open YouTube to see the newest ones</span></div>
           <a href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">YouTube <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -88,7 +88,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         <h2 class="section-title mt-4">latest VOD</h2>
         <div class="vod-card mt-9" data-vod-card aria-live="polite">
           <div class="vod-card__placeholder"><i class="ph ph-spinner-gap" aria-hidden="true"></i></div>
-          <div class="vod-card__copy"><span class="cute-chip">loading</span><h3>finding the newest VOD</h3></div>
+          <div class="vod-card__copy"><span class="cute-chip">loading...</span><h3>getting the newest one ♡</h3></div>
         </div>
       </div>
     </section>
@@ -162,9 +162,9 @@ import SiteFooter from "../components/SiteFooter.astro";
         const data = await response.json();
         if (data.live?.isLive) {
           status?.classList.add("is-live");
-          if (statusText) statusText.textContent = "live now";
-          if (title) title.textContent = data.live.title || "the stream is live";
-          if (copy) copy.textContent = data.live.gameName ? `Playing ${data.live.gameName} right now.` : "The stream is live right now.";
+          if (statusText) statusText.textContent = "live now!!";
+          if (title) title.textContent = data.live.title || "i’m live right now!!";
+          if (copy) copy.textContent = data.live.gameName ? `playing ${data.live.gameName} right now ♡` : "the stream is on right now ♡";
         } else if (statusText) {
           statusText.textContent = "offline for now";
         }
@@ -194,24 +194,26 @@ import SiteFooter from "../components/SiteFooter.astro";
           watch.href = data.video.url;
           watch.target = "_blank";
           watch.rel = "noreferrer";
-          watch.textContent = "watch the VOD";
+          watch.textContent = "watch the VOD ♡";
           details.append(chip, heading, watch);
           vodCard.replaceChildren(link, details);
         } else if (vodCard) {
-          vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs</a></div>`;
+          vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs ♡</a></div>`;
         }
       } catch {
-        if (statusText) statusText.textContent = "check Twitch";
-        if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs</a></div>`;
+        if (statusText) statusText.textContent = "check Twitch ♡";
+        if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs ♡</a></div>`;
       }
     };
 
     const showBlockedContent = () => {
+      const statusText = document.querySelector("[data-stream-status] span");
+
       const grid = document.querySelector("[data-youtube-grid]");
       if (grid) grid.innerHTML = `<div class="privacy-locked-card"><i class="ph ph-lock-key" aria-hidden="true"></i><div><strong>YouTube is not loaded</strong><span>You said no to optional media. You can change that in privacy choices.</span></div><button type="button" data-open-privacy>change choice</button></div>`;
 
       const vodCard = document.querySelector("[data-vod-card]");
-      if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-lock-key" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">not loaded</span><h3>Twitch is switched off</h3><button class="button button--pink" type="button" data-open-privacy>privacy choices</button></div>`;
+      if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-lock-key" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">not loaded</span><h3>Twitch is tucked away</h3><button class="button button--pink" type="button" data-open-privacy>privacy choices</button></div>`;
 
       const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
       const locked = document.querySelector<HTMLElement>("[data-embed-locked]");

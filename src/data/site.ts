@@ -20,7 +20,7 @@ export const socials = [
   },
   {
     label: "Ko-fi",
-    handle: "support the channel",
+    handle: "support me ♡",
     href: "https://ko-fi.com/mochikotv",
     icon: "ph-coffee",
   },
@@ -35,7 +35,7 @@ export const socials = [
 export const contentCards = [
   {
     title: "Games",
-    copy: "whatever I feel like playing, from Minecraft to city builders.",
+    copy: "cute games, loud games, and the strategy stuff i pretend is a short session.",
     image: "/assets/content-gaming.webp",
     alt: "Mochiko in a gaming outfit with a controller",
     icon: "ph-game-controller",

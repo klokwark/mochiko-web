@@ -2,92 +2,133 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import Marquee from "../components/Marquee.astro";
 import { favoriteGames, favoriteMusic } from "../data/site";
-
-const collections = ["plushies", "character figures", "screenshots I won’t delete", "little things for my desk"];
 ---
 
-<BaseLayout title="About Mochiko | VTuber" description="Notes about Mochiko, her games, music, and favourite things.">
+<BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
   <SiteHeader />
   <main>
-    <section class="inner-hero">
-      <div class="shell inner-hero__page">
-        <div class="inner-hero__copy">
-          <p class="diary-date">profile page <span>last edited whenever I noticed a typo</span></p>
-          <h1>about<br /><em>Mochiko</em></h1>
-          <p class="pronunciation"><span>most people say Mochi</span><b>ˈmɔtʃiːˌkoː</b></p>
-          <p>I’m from northern Germany. Online I’m sarcastic, energetic and difficult to keep on one topic. Offline I’m much quieter.</p>
+    <section class="about-diary-hero">
+      <span class="about-diary-hero__star" aria-hidden="true">✦</span>
+      <span class="about-diary-hero__heart" aria-hidden="true">♡</span>
+      <div class="shell about-diary-hero__grid">
+        <div class="about-diary-hero__copy">
+          <p class="section-kicker">about me</p>
+          <h1>my name is<br /><em>Mochiko!</em></h1>
+          <p class="about-pronounce"><span>name_audio.txt</span> ˈmɔtʃiːˌkoː</p>
+          <p>most people just say Mochi. i live somewhere in northern germany, in front of a pc i built myself.</p>
+          <div class="about-diary-hero__facts">
+            <span>foxes</span><span>blue everything</span><span>horror movies</span><span>city builders</span><span>plushies</span>
+          </div>
+          <a class="button button--pink mt-7" href="#favorites">the important stuff <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
         </div>
-        <div class="inner-hero__portrait">
-          <span class="tape tape--top" aria-hidden="true"></span>
+        <div class="about-diary-hero__art">
+          <div class="about-diary-hero__frame" aria-hidden="true"></div>
           <img src="/assets/red-dress-umbressa.webp" alt="Mochiko in a red dress holding an umbrella" width="1086" height="1448" fetchpriority="high" />
-          <span class="handwritten">picked the outfit first</span>
-        </div>
-        <img class="inner-hero__mascot" src="/assets/diary-bunny.webp" alt="" width="866" height="900" />
-      </div>
-    </section>
-
-    <section class="diary-section diary-section--blue about-notes">
-      <div class="shell about-notes__grid">
-        <article class="long-note">
-          <p class="entry-number">the longer version</p>
-          <h2>online me is<br /><em>the talkative one.</em></h2>
-          <p>I can talk for hours online, especially when it’s about a game, a computer problem, or something I’ve just figured out. In person I take a while to warm up and I’m perfectly happy sitting somewhere quiet.</p>
-          <p>I have ADHD, so plans change, tabs multiply, and I will start reorganising something halfway through doing something else. It makes streams unpredictable, but that is also just how my brain works.</p>
-        </article>
-        <aside class="sticky-stack">
-          <div class="sticky-note sticky-note--pink"><span>likes</span><p>cute things, tech, horror films, bass-heavy music, collecting stuff</p></div>
-          <div class="sticky-note sticky-note--cream"><span>does not like</span><p>horror games, horses, being asked for an exact location</p></div>
-          <div class="sticky-note sticky-note--blue"><span>usually doing</span><p>opening a menu, changing a setting, forgetting why</p></div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="diary-section paper-section">
-      <div class="shell collection-page">
-        <div class="collection-page__art">
-          <span class="tape tape--top" aria-hidden="true"></span>
-          <img src="/assets/cute-pose2.webp" alt="Mochiko sitting with a bunny plush" width="1122" height="1402" loading="lazy" />
-        </div>
-        <div class="collection-page__copy">
-          <p class="entry-number">things around my room</p>
-          <h2>I like collecting<br /><em>small things.</em></h2>
-          <ul>{collections.map((item) => <li><i class="ph ph-check" aria-hidden="true"></i>{item}</li>)}</ul>
-          <p class="handwritten">the bunny stays.</p>
+          <span class="about-diary-hero__note">i picked the outfit first ♡</span>
         </div>
       </div>
     </section>
 
-    <section class="diary-section diary-section--pink" id="favorites">
+    <Marquee />
+
+    <section class="section-pad about-profile">
       <div class="shell">
-        <div class="entry-heading">
-          <div><p class="entry-number">games page</p><h2>the ranking<br /><em>right now</em></h2><p class="heading-note">There are two number twos. I meant it that way.</p></div>
+        <div class="about-profile__grid">
+          <div class="about-profile__copy">
+            <p class="section-kicker">the short version</p>
+            <h2 class="section-title mt-4">loud online.<br /><em>houseplant offline.</em></h2>
+            <p class="body-lede mt-6">online i do not stop talking. in person i am the one on the sofa hoping nobody needs anything. both versions are attached to the same plushie.</p>
+            <div class="about-profile__notes mt-8">
+              <p><i class="ph-fill ph-game-controller" aria-hidden="true"></i><span><b>currently playing</b>Minecraft, Genshin, Roblox, and a city builder i said would be a short session</span></p>
+              <p><i class="ph-fill ph-headphones" aria-hidden="true"></i><span><b>currently listening</b>anything fast and bassy. genre is not really a factor, energy is</span></p>
+              <p><i class="ph-fill ph-heart" aria-hidden="true"></i><span><b>very important</b>horror movies yes, horror games absolutely not, horses no thank you</span></p>
+            </div>
+          </div>
+          <div class="about-profile__art">
+            <span class="about-profile__stamp">player one</span>
+            <img src="/assets/outfits/outfit-4.webp" alt="Mochiko in her gaming outfit" width="941" height="1672" loading="lazy" />
+          </div>
         </div>
-        <div class="ranking-grid">
+      </div>
+    </section>
+
+    <section class="section-pad desktop-files decorated-section">
+      <img class="files-pose" src="/assets/console-2.webp" alt="Mochiko playing on a handheld console" width="1086" height="1448" loading="lazy" />
+      <div class="shell">
+        <p class="section-kicker">important files</p>
+        <h2 class="section-title mt-4">stuff my computer knows</h2>
+        <div class="desktop-files__grid mt-9">
+          <article class="desktop-file"><span><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> inventory.log</span><p>four plushies on the desk, a fox mug, and a screwdriver i keep meaning to put away.</p></article>
+          <article class="desktop-file desktop-file--lilac"><span><i class="ph-fill ph-file-text" aria-hidden="true"></i> specs.txt</span><p>yes i built it myself. yes i will tell you about it without being asked.</p></article>
+          <article class="desktop-file desktop-file--pink"><span><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> save_final_FINAL</span><p>alt-tabbed for one second, looked up, lost two hours. every time.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad friend-about">
+      <div class="shell friend-about__grid">
+        <div class="friend-about__copy">
+          <p class="section-kicker">my teammate</p>
+          <h2 class="section-title mt-4">yes, that’s<br /><em>Jannik.</em></h2>
+          <p class="body-lede mt-6">we’re friends and we play games together a lot. don’t ship us, please.</p>
+          <a class="text-link mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">go see his page <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="friend-about__art">
+          <span aria-hidden="true">2P</span>
+          <img src="/assets/friends/mochiko-jannik-pose-2.webp" alt="Mochiko and Jannik holding game controllers" width="788" height="1400" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad about-scrapbook" id="favorites">
+      <div class="shell">
+        <div class="about-scrapbook__heading">
+          <p class="section-kicker">favorite games</p>
+          <h2 class="section-title mt-4">my game ranking</h2>
+          <p>yes, there are two #2s. no, i’m not fixing it.</p>
+        </div>
+
+        <div class="game-ranking mt-10">
           {favoriteGames.map((game) => (
-            <a class="rank-scrap" href={game.href} target="_blank" rel="noreferrer">
-              <span class="rank-scrap__number">{game.rank}</span>
-              <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
-              <div><h3>{game.title}</h3>{game.note && <p>{game.note}</p>}</div>
+            <a class="game-rank-card" href={game.href} target="_blank" rel="noreferrer">
+              <div class="game-rank-card__cover">
+                <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
+                <span>#{game.rank}</span>
+              </div>
+              <div class="game-rank-card__copy">
+                <h3>{game.title}</h3>
+                {game.note && <p>{game.note}</p>}
+              </div>
             </a>
           ))}
         </div>
-      </div>
-    </section>
 
-    <section class="diary-section paper-section">
-      <div class="shell music-page">
-        <div class="music-page__copy"><p class="entry-number">music page</p><h2>energy matters<br /><em>more than genre.</em></h2><p>I jump between genres. If it’s fast, catchy and bassy, it usually survives the playlist.</p></div>
-        <a class="album-scrap album-scrap--artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer"><span class="tape tape--top" aria-hidden="true"></span><img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" /><small>favourite artist</small><b>{favoriteMusic.artist}</b></a>
-        <a class="album-scrap album-scrap--song" href={favoriteMusic.songHref} target="_blank" rel="noreferrer"><span class="tape tape--top" aria-hidden="true"></span><img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" /><small>favourite song</small><b>{favoriteMusic.song}</b></a>
-        <img class="music-page__pose" src="/assets/outfits/outfit-1.webp" alt="Mochiko holding headphones" width="941" height="1672" loading="lazy" />
-      </div>
-    </section>
+        <section class="music-detail">
+          <div class="music-detail__heading">
+            <p class="section-kicker">music</p>
+            <h2 class="section-title mt-4">on repeat</h2>
+            <p>if it is fast and it hits hard, it is going in.</p>
+          </div>
+          <a class="music-detail__artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer">
+            <img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
+            <span>favorite artist rn</span>
+            <h3>{favoriteMusic.artist}</h3>
+          </a>
+          <a class="music-detail__song" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">
+            <img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
+            <div><span>favorite song</span><h3>{favoriteMusic.song}</h3><p>{favoriteMusic.songDetail}</p></div>
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+          <img class="music-detail__mochiko" src="/assets/outfits/outfit-1.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" loading="lazy" />
+        </section>
 
-    <section class="diary-section friend-page">
-      <div class="shell friend-page__card">
-        <img src="/assets/friends/mochiko-jannik-pose-2.webp" alt="Mochiko and Jannik holding game controllers" width="788" height="1400" loading="lazy" />
-        <div><p class="entry-number">player two</p><h2>me & Jannik</h2><p>We’re friends and we play or stream together pretty often. He speaks German, I stream in English, so it gets slightly confusing.</p><p class="handwritten">and no, don’t ship us.</p><a class="button button--paper" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik’s website <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></div>
+        <div class="about-end-note">
+          <span aria-hidden="true">୨୧</span>
+          <p>that’s enough about me!! go look at the videos now ♡</p>
+          <a class="button button--pink" href="/content">okay show me <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
     </section>
   </main>

@@ -1,8 +1,8 @@
 ---
 import "@phosphor-icons/web/regular";
 import "@phosphor-icons/web/fill";
-import "@fontsource-variable/caveat";
-import "@fontsource-variable/dm-sans";
+import "@fontsource-variable/fredoka";
+import "@fontsource-variable/nunito";
 import "../styles/global.css";
 import PrivacyConsent from "../components/PrivacyConsent.astro";
 import { ClientRouter } from "astro:transitions";
@@ -40,7 +40,7 @@ const pagePop = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f8f2e7" />
+    <meta name="theme-color" content="#ff79ae" />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta property="og:type" content="website" />
@@ -70,36 +70,10 @@ const pagePop = {
     </script>
     <title>{title}</title>
   </head>
-  <body>
-    <div class="book-opening" data-book-opening aria-hidden="true">
-      <div class="book-opening__book">
-        <div class="book-opening__back"></div>
-        <div class="book-opening__paper book-opening__paper--three"></div>
-        <div class="book-opening__paper book-opening__paper--two"></div>
-        <div class="book-opening__paper book-opening__paper--one"></div>
-        <div class="book-opening__cover">
-          <span>MOCHIKO</span>
-          <img src="/assets/diary-bunny.webp" alt="" width="866" height="900" />
-          <small>streams · games · links</small>
-        </div>
-      </div>
-    </div>
+  <body class="min-h-screen overflow-x-clip bg-paper text-ink antialiased">
     <div class="page-swap" transition:name="mochiko-page" transition:animate={pagePop}>
       <slot />
     </div>
     <PrivacyConsent />
-    <script is:inline>
-      (() => {
-        const intro = document.querySelector("[data-book-opening]");
-        if (!intro) return;
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          intro.remove();
-          return;
-        }
-        requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add("is-opening")));
-        window.setTimeout(() => intro.classList.add("is-leaving"), 1450);
-        window.setTimeout(() => intro.remove(), 1900);
-      })();
-    </script>
   </body>
 </html>

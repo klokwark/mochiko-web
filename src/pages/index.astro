@@ -2,173 +2,199 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { favoriteGames, favoriteMusic, socials } from "../data/site";
-
-const noteBits = [
-  { icon: "ph-film-slate", label: "movies", detail: "horror" },
-  { icon: "ph-game-controller", label: "games", detail: "not horror" },
-  { icon: "ph-paw-print", label: "animal", detail: "fox" },
-  { icon: "ph-paint-brush", label: "colour", detail: "blue" },
-];
+import Marquee from "../components/Marquee.astro";
+import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from "../data/site";
 ---
 
 <BaseLayout>
   <SiteHeader />
-  <main class="home-notebook">
-    <div class="scroll-notebook" data-scroll-notebook style="--notebook-pages: 5">
-      <div class="scroll-notebook__sticky">
-        <div class="scroll-notebook__stack">
-          <article class="notebook-sheet notebook-sheet--intro" data-notebook-sheet>
-            <span class="notebook-sheet__number">01</span>
-    <section class="diary-hero">
-      <div class="paper-grain" aria-hidden="true"></div>
-      <div class="shell diary-hero__page">
-        <div class="diary-hero__copy">
-          <p class="diary-date">entry no. 01 <span>somewhere in northern germany</span></p>
-          <h1>hi, i’m<br /><em>Mochi.</em></h1>
-          <p class="diary-hero__intro">I’m much louder online than I am in person. I stream games in English, get distracted easily, and usually have three things open that I forgot about.</p>
-          <div class="diary-hero__actions">
-            <a class="button button--blue" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
-              <i class="ph-fill ph-twitch-logo" aria-hidden="true"></i><span data-live-label>my twitch</span>
+  <main>
+    <section class="soft-hero">
+      <div class="soft-dots" aria-hidden="true"></div>
+      <span class="doodle doodle--heart" aria-hidden="true">♡</span>
+      <span class="doodle doodle--bow" aria-hidden="true">୨୧</span>
+      <div class="shell soft-hero__grid">
+        <div class="soft-hero__copy">
+          <p class="bubble-label">hiii!! you found me</p>
+          <h1 class="soft-hero__title">hii, i’m<br /><em>Mochiko!</em></h1>
+          <p class="soft-hero__lede">loud here, extremely quiet in real life. i play games, collect things i do not need, and get distracted by every single one of them.</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a class="button button--pink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
+              <i class="ph-fill ph-heart" aria-hidden="true"></i><span data-live-label>come watch me!</span>
             </a>
-            <a class="ink-link" href="/about">read my notes <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
-          <p class="margin-note">usually called Mochi</p>
+          <div class="mini-note"><span>status.exe</span><strong>probably still in the settings menu</strong></div>
         </div>
 
-        <div class="diary-hero__photo">
-          <span class="tape tape--top" aria-hidden="true"></span>
-          <span class="photo-label">MOCHIKO / MOCHI</span>
-          <img src="/assets/model.webp" alt="Mochiko holding a bunny plush" width="960" height="1280" fetchpriority="high" />
-          <span class="photo-scribble" aria-hidden="true">that’s me!</span>
-        </div>
-
-        <img class="diary-hero__mascot" src="/assets/diary-bunny.webp" alt="Mochiko's white bunny mascot" width="866" height="900" />
-        <span class="binder-hole binder-hole--one" aria-hidden="true"></span>
-        <span class="binder-hole binder-hole--two" aria-hidden="true"></span>
-        <span class="binder-hole binder-hole--three" aria-hidden="true"></span>
-      </div>
-    </section>
-
-    <section class="live-note" data-home-live>
-      <div class="shell live-note__inner">
-        <span class="live-note__pin" aria-hidden="true"></span>
-        <div class="live-note__status"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>checking twitch</span></div>
-        <div class="live-note__copy">
-          <strong data-home-live-title>one second...</strong>
-          <span data-home-live-detail>seeing if the light is on.</span>
-        </div>
-        <a href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-home-live-button>open twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-      </div>
-    </section>
-
-          </article>
-          <article class="notebook-sheet notebook-sheet--about" data-notebook-sheet inert aria-hidden="true">
-            <span class="notebook-sheet__number">02</span>
-
-    <section class="diary-section diary-section--blue">
-      <div class="shell entry-grid">
-        <div class="entry-copy">
-          <p class="entry-number">02 / about</p>
-          <h2>what I actually<br /><em>wrote down</em></h2>
-          <p>I like cute things, computers, horror movies and games that let me spend far too long in one menu. I collect plushies and anything else that looks good on a shelf.</p>
-          <p>Pink ended up everywhere, but blue is still my favourite colour.</p>
-          <a class="button button--paper" href="/about">more about me <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="note-board">
-          <span class="tape tape--corner" aria-hidden="true"></span>
-          <p class="note-board__title">quick notes</p>
-          <div class="note-bits">
-            {noteBits.map((bit) => (
-              <div class="note-bit"><i class:list={["ph-fill", bit.icon]} aria-hidden="true"></i><span>{bit.label}</span><b>{bit.detail}</b></div>
-            ))}
-          </div>
-          <p class="handwritten">I still don’t like horses.</p>
-          <img class="note-board__stationery" src="/assets/diary-stationery.webp" alt="" width="900" height="900" loading="lazy" />
+        <div class="soft-hero__art">
+          <div class="hero-cloud" aria-hidden="true"></div>
+          <span class="sticker sticker--top" aria-hidden="true">look!!<br />it’s me</span>
+          <span class="sticker sticker--bottom" aria-hidden="true">♡</span>
+          <img src="/assets/model.webp" alt="Mochiko" width="1200" height="1600" fetchpriority="high" />
         </div>
       </div>
     </section>
 
-            <img class="notebook-edge-sitter notebook-edge-sitter--about" src="/assets/headphones-sitting.webp" alt="Mochiko sitting on the edge of the notebook page" width="941" height="1672" loading="lazy" />
-          </article>
-          <article class="notebook-sheet notebook-sheet--favorites" data-notebook-sheet inert aria-hidden="true">
-            <span class="notebook-sheet__number">03</span>
+    <section class="home-live" data-home-live>
+      <div class="shell home-live__inner">
+        <img class="home-live__acrobat" src="/assets/acrobat.webp" alt="" width="1254" height="1254" loading="lazy" />
+        <span class="home-live__badge"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>checking Twitch...</span></span>
+        <div class="home-live__copy">
+          <strong data-home-live-title>am i live?</strong>
+          <span data-home-live-detail>one sec, i’m looking!!</span>
+        </div>
+        <a class="button button--white" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-home-live-button>open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
 
-    <section class="diary-section paper-section" id="favorites">
+    <Marquee sitter={{ src: "/assets/cute-pose2.webp", alt: "Mochiko sitting with a bunny plush", width: 1086, height: 1448 }} />
+
+    <section class="section-pad bg-white">
+      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-18">
+        <div class="soft-photo">
+          <div class="soft-photo__dots" aria-hidden="true"></div>
+          <img src="/assets/about.webp" alt="Mochiko smiling" width="900" height="1125" loading="lazy" />
+          <span class="soft-photo__tag">hiii ♡</span>
+        </div>
+        <div class="min-w-0">
+          <p class="section-kicker">about me</p>
+          <h2 class="section-title mt-4">i said one round<br /><em>that was four hours ago</em></h2>
+          <p class="body-lede mt-6">it was supposed to be a short session. then i started one more district, opened one more menu, and the sun came up.</p>
+          <a class="button button--ink mt-7" href="/about">there’s more <i class="ph ph-heart" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad friend-feature">
+      <div class="shell friend-feature__grid">
+        <div class="friend-feature__photo">
+          <img src="/assets/friends/mochiko-jannik-pose-3.webp" alt="Mochiko and Jannik standing together" width="788" height="1400" loading="lazy" />
+          <span>PLAYER 2</span>
+        </div>
+        <div>
+          <p class="section-kicker">me & Jannik</p>
+          <h2 class="section-title mt-4">player two<br /><em>has entered</em></h2>
+          <p class="body-lede mt-6">we play together a lot. somehow the easy part always takes us the longest.</p>
+          <a class="button button--ink mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik’s website <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad favorites-preview decorated-section" id="favorites">
       <div class="shell">
-        <div class="entry-heading">
-          <div><p class="entry-number">03 / current favourites</p><h2>things I keep<br /><em>going back to</em></h2></div>
-          <a class="ink-link" href="/about#favorites">the full list <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">current favorites</p>
+            <h2 class="section-title mt-4">stuff i’m stuck on</h2>
+          </div>
+          <a class="text-link" href="/about#favorites">the full ranking <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
-        <div class="scrap-grid">
-          <div class="game-scraps">
+
+        <div class="favorites-preview__grid mt-10">
+          <div class="mini-game-stack" aria-label="Top three favorite games">
             {favoriteGames.slice(0, 3).map((game, index) => (
-              <a class:list={["game-polaroid", `game-polaroid--${index + 1}`]} href={game.href} target="_blank" rel="noreferrer">
+              <a class="mini-game" href={game.href} target="_blank" rel="noreferrer" style={`--stack-index:${index}`}>
                 <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
-                <span>#{game.rank} {game.title}</span>
+                <span>#{game.rank}</span>
               </a>
             ))}
           </div>
-          <article class="music-note">
-            <span class="tape tape--music" aria-hidden="true"></span>
-            <p class="music-note__label">currently on repeat</p>
-            <img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
-            <div><h3>{favoriteMusic.song}</h3><p>{favoriteMusic.songDetail}</p><a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></div>
-            <p class="handwritten">favourite track right now</p>
+
+          <div class="music-preview">
+            <img class="music-preview__cover" src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
+            <div class="music-preview__copy">
+              <span>on repeat!!</span>
+              <h3>{favoriteMusic.song}</h3>
+              <p>{favoriteMusic.songDetail}</p>
+              <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+            <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
+          </div>
+
+          <article class="playlist-embed">
+            <div class="playlist-embed__bar">
+              <span><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.provider.toLowerCase()} · {playlist.label}</span>
+              <div aria-hidden="true"><i></i><i></i><i></i></div>
+            </div>
+
+            <div class="playlist-embed__body">
+              <div class="playlist-embed__cover">
+                <img src={playlist.cover} alt="" width="1000" height="1000" loading="lazy" />
+                <span aria-hidden="true"><i class="ph-fill ph-play"></i></span>
+              </div>
+
+              <div class="playlist-embed__screen">
+                <span class="playlist-embed__eyebrow">playlist</span>
+                <h3>{playlist.title}</h3>
+                <p>{playlist.note}</p>
+
+                <ol class="playlist-embed__queue">
+                  <li><b>01</b><span>{playlist.topTrack}</span><i class="ph-fill ph-waveform" aria-hidden="true"></i></li>
+                  <li><b>02</b><span>everything else i refuse to skip</span><i class="ph ph-dots-three" aria-hidden="true"></i></li>
+                </ol>
+
+                <div class="playlist-embed__transport">
+                  <div class="playlist-embed__controls" aria-hidden="true">
+                    <i class="ph-fill ph-skip-back"></i>
+                    <span><i class="ph-fill ph-play"></i></span>
+                    <i class="ph-fill ph-skip-forward"></i>
+                    <i class="ph-fill ph-repeat"></i>
+                  </div>
+                  <div class="playlist-embed__progress" aria-hidden="true"><i></i></div>
+                </div>
+
+                <a class="playlist-embed__open" href={playlist.href} target="_blank" rel="noreferrer">
+                  open on {playlist.provider} <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-          </article>
-          <article class="notebook-sheet notebook-sheet--content" data-notebook-sheet inert aria-hidden="true">
-            <span class="notebook-sheet__number">04</span>
-
-    <section class="diary-section diary-section--pink">
-      <div class="shell content-entry">
-        <div class="content-entry__heading">
-          <p class="entry-number">04 / uploads</p>
-          <h2>streams live here.<br /><em>videos do too.</em></h2>
-          <p>I stream on Twitch and put the other bits on YouTube. The content page keeps the newest ones together.</p>
-          <a class="button button--blue" href="/content">open the content page <i class="ph ph-play" aria-hidden="true"></i></a>
+    <section class="section-pad bg-paper">
+      <div class="shell">
+        <div class="soft-heading">
+          <div>
+            <p class="section-kicker">what i post</p>
+            <h2 class="section-title mt-4">pick something ♡</h2>
+          </div>
+          <a class="text-link" href="/content">see the newest stuff <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
-        <div class="content-entry__art">
-          <span class="tape tape--top" aria-hidden="true"></span>
-          <img src="/assets/gaming-1.webp" alt="Mochiko holding a game controller" width="1086" height="1448" loading="lazy" />
-          <span>game controller included</span>
-        </div>
-      </div>
-    </section>
-
-            <img class="notebook-edge-sitter notebook-edge-sitter--content" src="/assets/cute-pose2.webp" alt="Mochiko sitting on the lower edge of the page with a bunny plush" width="1122" height="1402" loading="lazy" />
-          </article>
-          <article class="notebook-sheet notebook-sheet--links" data-notebook-sheet inert aria-hidden="true">
-            <span class="notebook-sheet__number">05</span>
-
-    <section class="diary-section paper-section">
-      <div class="shell small-entry-grid">
-        <article class="friend-footnote">
-          <img src="/assets/friends/mochiko-jannik-pose-3.webp" alt="Mochiko and Jannik standing together" width="788" height="1400" loading="lazy" />
-          <div><p class="entry-number">side note</p><h2>Jannik is usually player two.</h2><p>We’re friends and play together a lot. He has his own website too.</p><a class="ink-link" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">visit Jannik <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></div>
-        </article>
-        <aside class="link-page">
-          <p class="entry-number">find me elsewhere</p>
-          {socials.map((social) => (
-            <a href={social.href} target="_blank" rel="noreferrer"><i class:list={["ph-fill", social.icon]} aria-hidden="true"></i><span><b>{social.label}</b><small>{social.handle}</small></span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          {contentCards.map((card) => (
+            <a class="squishy-card" href="/content">
+              <div class="squishy-card__image"><img src={card.image} alt={card.alt} width="800" height="600" loading="lazy" /></div>
+              <div class="squishy-card__body">
+                <span class="squishy-card__icon"><i class:list={["ph", card.icon]} aria-hidden="true"></i></span>
+                <div><h3>{card.title}</h3><p>{card.copy}</p></div>
+              </div>
+            </a>
           ))}
-        </aside>
+        </div>
       </div>
     </section>
 
-          </article>
+    <section class="section-pad connect-candy decorated-section">
+      <img class="section-corner-art section-corner-art--links" src="/assets/credits.webp" alt="" width="1086" height="1448" loading="lazy" />
+      <div class="shell">
+        <div class="text-center">
+          <p class="section-kicker justify-center">links</p>
+          <h2 class="section-title mx-auto mt-4">come find me!</h2>
         </div>
-        <div class="notebook-progress" aria-hidden="true">
-          <span data-notebook-progress>01 / 05</span>
-          <i><b data-notebook-progress-bar></b></i>
-          <small>scroll to turn the page</small>
+        <div class="mx-auto mt-9 grid max-w-4xl gap-3 sm:grid-cols-2">
+          {socials.map((social) => (
+            <a class="social-candy" href={social.href} target="_blank" rel="noreferrer">
+              <span><i class:list={["ph", social.icon]} aria-hidden="true"></i></span>
+              <div><strong>{social.label}</strong><small>{social.handle}</small></div>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   </main>
   <SiteFooter />
 </BaseLayout>
@@ -176,103 +202,44 @@ const noteBits = [
 <script>
   const updateHomeLive = () => {
     const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
-    if (!homeLive || homeLive.dataset.loaded === "true") return;
-    homeLive.dataset.loaded = "true";
+    if (!homeLive) return;
     const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
     const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
     const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
     const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
-    fetch("/api/twitch").then((response) => response.json()).then((data) => {
-      const live = data?.live?.isLive === true;
-      homeLive.dataset.isLive = String(live);
-      if (status) status.textContent = live ? "live now" : "offline";
-      if (title) title.textContent = live ? (data.live.title || "the stream is on") : "not live right now";
-      if (detail) detail.textContent = live ? (data.live.gameName || "come see what I picked") : "the channel and old streams are still here.";
-      if (button) button.firstChild!.textContent = live ? "watch now " : "open twitch ";
-    }).catch(() => {
-      if (status) status.textContent = "twitch";
-      if (title) title.textContent = "status unavailable";
-      if (detail) detail.textContent = "the direct link still works.";
-    });
+
+    fetch("/api/twitch")
+      .then((response) => response.json())
+      .then((data) => {
+        const live = data?.live?.isLive === true;
+        homeLive.dataset.isLive = String(live);
+        if (status) status.textContent = live ? "live right now!!" : "not live rn";
+        if (title) title.textContent = live ? (data.live.title || "come watch!!") : "the chair is empty";
+        if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than the one i announced.";
+        if (button) button.firstChild!.textContent = live ? "watch now " : "open Twitch ";
+      })
+      .catch(() => {
+        if (status) status.textContent = "Twitch";
+        if (title) title.textContent = "go peek?";
+        if (detail) detail.textContent = "Twitch didn’t tell me anything.";
+      });
   };
 
   const maybeUpdateHomeLive = () => {
     const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
     if (!homeLive) return;
     if (document.documentElement.dataset.privacyChoice === "accepted") updateHomeLive();
-    if (document.documentElement.dataset.privacyChoice === "declined") {
-      const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
-      const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
-      const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
-      if (status) status.textContent = "not loaded";
-      if (title) title.textContent = "twitch is switched off";
-      if (detail) detail.textContent = "the direct channel link still works.";
+    else if (document.documentElement.dataset.privacyChoice === "declined") {
+        const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
+        const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
+        const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
+        if (status) status.textContent = "not loaded";
+        if (title) title.textContent = "Twitch is tucked away";
+        if (detail) detail.textContent = "you can still open the channel directly.";
     }
   };
 
   maybeUpdateHomeLive();
   window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
   document.addEventListener("astro:page-load", maybeUpdateHomeLive);
-
-  const setupScrollNotebook = () => {
-    const notebook = document.querySelector<HTMLElement>("[data-scroll-notebook]");
-    if (!notebook || notebook.dataset.ready === "true") return;
-    notebook.dataset.ready = "true";
-    const sheets = Array.from(notebook.querySelectorAll<HTMLElement>("[data-notebook-sheet]"));
-    const progressLabel = notebook.querySelector<HTMLElement>("[data-notebook-progress]");
-    const progressBar = notebook.querySelector<HTMLElement>("[data-notebook-progress-bar]");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const setSheet = (sheet: HTMLElement, index: number, current: number, turn: number) => {
-      const isCurrent = index === current;
-      sheet.style.setProperty("--page-turn", String(turn));
-      sheet.style.zIndex = String(sheets.length - index);
-      sheet.classList.toggle("is-current", isCurrent);
-      sheet.classList.toggle("is-turned", index < current);
-      sheet.toggleAttribute("inert", !isCurrent);
-      sheet.setAttribute("aria-hidden", String(!isCurrent));
-    };
-
-    const update = () => {
-      if (reduced.matches || window.innerWidth < 900) {
-        sheets.forEach((sheet) => {
-          sheet.style.removeProperty("--page-turn");
-          sheet.style.removeProperty("z-index");
-          sheet.classList.remove("is-turned");
-          sheet.classList.add("is-current");
-          sheet.removeAttribute("inert");
-          sheet.setAttribute("aria-hidden", "false");
-        });
-        return;
-      }
-
-      const rect = notebook.getBoundingClientRect();
-      const travel = Math.max(1, notebook.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, -rect.top / travel));
-      const exactPage = progress * (sheets.length - 1);
-      const current = Math.min(sheets.length - 1, Math.floor(exactPage + .5));
-
-      sheets.forEach((sheet, index) => {
-        const turn = Math.min(1, Math.max(0, exactPage - index));
-        setSheet(sheet, index, current, turn);
-      });
-
-      if (progressLabel) progressLabel.textContent = `${String(current + 1).padStart(2, "0")} / ${String(sheets.length).padStart(2, "0")}`;
-      if (progressBar) progressBar.style.width = `${Math.max(4, progress * 100)}%`;
-    };
-
-    let queued = false;
-    const requestUpdate = () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => { queued = false; update(); });
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-  };
-
-  setupScrollNotebook();
-  document.addEventListener("astro:page-load", setupScrollNotebook);
 </script>

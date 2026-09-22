@@ -100,7 +100,7 @@ export const GET: APIRoute = async () => {
       source: "decapi",
       live: isLive ? {
         isLive: true,
-        title: title || "the stream is live",
+        title: title || "i’m live right now!!",
         gameName: gameName || null,
         viewerCount: Number.isFinite(viewerCount) ? viewerCount : null,
         uptime,
