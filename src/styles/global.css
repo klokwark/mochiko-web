@@ -713,7 +713,8 @@ html[data-privacy-choice="unset"] .privacy-consent,
 .privacy-consent__copy { min-width: 0; }
 .privacy-consent__copy strong { font-family: var(--font-display); font-size: 1.25rem; font-weight: 650; }
 .privacy-consent__copy p { margin-top: .2rem; overflow-wrap: anywhere; font-size: .82rem; line-height: 1.45; font-weight: 760; color: rgb(43 34 42 / .64); }
-.privacy-consent__copy a { display: inline-block; margin-top: .35rem; border-bottom: 1px solid var(--pink-dark); font-size: .7rem; font-weight: 950; }
+.privacy-consent__summary { display: none; }
+.privacy-consent__copy a { display: inline-block; margin-top: .35rem; border-bottom: 1px solid var(--pink-dark); font-size: .7rem; font-weight: 950; color: var(--ink); }
 .privacy-consent__actions { display: flex; align-items: center; gap: .7rem; }
 .privacy-consent__actions .button { min-height: 2.75rem; padding: .7rem 1rem; white-space: nowrap; }
 .privacy-consent__no { border-bottom: 2px solid var(--ink); padding: .4rem .2rem; font-size: .73rem; font-weight: 950; white-space: nowrap; }
@@ -849,10 +850,15 @@ html[data-privacy-choice="unset"] .privacy-consent,
 @media (max-width: 39.99rem) {
   .brand-name { font-size: 1.3rem; }
   .brand-mark-wrap { width: 2.7rem; height: 2.7rem; }
-  .soft-hero__title { font-size: clamp(3rem, 14vw, 4.35rem); line-height: .98; }
+  .soft-hero__grid { gap: 1rem; padding-top: 1rem; }
+  .soft-hero__copy { padding-block: 1rem 0; }
+  .soft-hero__title { margin-top: 1.15rem; font-size: clamp(3rem, 14vw, 4.35rem); line-height: .98; }
+  .soft-hero__lede { margin-top: 1.15rem; }
+  .soft-hero__copy > .mt-7 { margin-top: 1.25rem; }
+  .mini-note { margin-top: 1.5rem; }
   .section-title, .page-title { font-size: clamp(2.7rem, 13vw, 4.2rem); line-height: 1; }
-  .soft-hero__art { min-height: 28rem; }
-  .soft-hero__art img { max-height: 33rem; }
+  .soft-hero__art { min-height: 23rem; margin-top: -1.5rem; }
+  .soft-hero__art img { max-height: 27rem; }
   .hero-cloud { inset-inline: 0; }
   .doodle--heart { left: auto; right: 2%; top: 3%; font-size: 3.3rem; }
   .cute-banner__label b { display: none; }
@@ -909,12 +915,15 @@ html[data-privacy-choice="unset"] .privacy-consent,
   .duo-strip__inner > a { grid-column: 2; width: fit-content; margin-top: -.5rem; }
   .privacy-locked-card { grid-template-columns: auto minmax(0,1fr); }
   .privacy-locked-card button { grid-column: 1 / -1; width: fit-content; }
-  .privacy-consent { right: max(.8rem, env(safe-area-inset-right)); bottom: calc(1rem + env(safe-area-inset-bottom)); left: max(.8rem, env(safe-area-inset-left)); max-height: calc(100dvh - 2rem - env(safe-area-inset-bottom)); grid-template-columns: 3.75rem minmax(0,1fr); gap: .7rem .8rem; border-radius: 1.5rem; padding: .8rem; }
-  .privacy-consent__icon { width: 3.75rem; height: 3.75rem; }
-  .privacy-consent__icon img { width: 4.5rem; height: 4.5rem; }
-  .privacy-consent__copy strong { display: block; line-height: 1.1; }
-  .privacy-consent__actions { display: grid; width: 100%; min-width: 0; grid-column: 1 / -1; grid-template-columns: minmax(0,1fr) auto; gap: .7rem; }
-  .privacy-consent__actions .button { width: 100%; min-width: 0; min-height: 2.55rem; padding-inline: .75rem; font-size: .72rem; white-space: normal; text-align: center; }
+  .privacy-consent { right: max(.65rem, env(safe-area-inset-right)); bottom: calc(.8rem + env(safe-area-inset-bottom)); left: max(.65rem, env(safe-area-inset-left)); max-height: calc(100dvh - 1.6rem - env(safe-area-inset-bottom)); grid-template-columns: minmax(0,1fr); gap: .55rem; overflow-x: hidden; overflow-y: auto; border-width: 2px; border-radius: 1.25rem; padding: .7rem; box-shadow: 0 5px 0 var(--ink); }
+  .privacy-consent__icon { display: none; }
+  .privacy-consent__copy strong { display: block; font-size: 1.05rem; line-height: 1.05; }
+  .privacy-consent__copy p { margin-top: .18rem; font-size: .72rem; line-height: 1.35; }
+  .privacy-consent__detail { display: none; }
+  .privacy-consent__summary { display: inline; }
+  .privacy-consent__copy a { display: inline; margin: 0 0 0 .35rem; font-size: .66rem; white-space: nowrap; }
+  .privacy-consent__actions { display: grid; width: 100%; min-width: 0; grid-column: 1; grid-template-columns: minmax(0,1fr) auto; gap: .65rem; }
+  .privacy-consent__actions .button { width: 100%; min-width: 0; min-height: 2.35rem; padding: .55rem .7rem; font-size: .68rem; white-space: normal; text-align: center; box-shadow: 0 4px 0 var(--ink); }
   .privacy-consent__no { justify-self: end; }
   .privacy-hero__grid { min-height: auto; }
   .privacy-hero__grid > div { padding-bottom: 0; }
