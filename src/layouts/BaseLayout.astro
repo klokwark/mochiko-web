@@ -1,8 +1,8 @@
 ---
 import "@phosphor-icons/web/regular";
 import "@phosphor-icons/web/fill";
-import "@fontsource-variable/fredoka";
-import "@fontsource-variable/nunito";
+import "@fontsource-variable/caveat";
+import "@fontsource-variable/dm-sans";
 import "../styles/global.css";
 import PrivacyConsent from "../components/PrivacyConsent.astro";
 import { ClientRouter } from "astro:transitions";
@@ -40,7 +40,7 @@ const pagePop = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ff79ae" />
+    <meta name="theme-color" content="#f8f2e7" />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta property="og:type" content="website" />
@@ -70,7 +70,7 @@ const pagePop = {
     </script>
     <title>{title}</title>
   </head>
-  <body class="min-h-screen overflow-x-clip bg-paper text-ink antialiased">
+  <body>
     <div class="page-swap" transition:name="mochiko-page" transition:animate={pagePop}>
       <slot />
     </div>

@@ -19,15 +19,15 @@ const exits = [
 
       <div class="footer-card__top">
         <div class="footer-bye">
-          <p class="footer-bye__eyebrow">you made it all the way down!!</p>
-          <h2>okay bye,<br /><em>see u soon ♡</em></h2>
-          <p class="footer-bye__note">i’m probably still rearranging things on my desk.</p>
+          <p class="footer-bye__eyebrow">end of page</p>
+          <h2>that’s all<br /><em>for now.</em></h2>
+          <p class="footer-bye__note">i’ll add more when i remember what i was doing.</p>
         </div>
 
         <nav class="footer-index" aria-label="Footer navigation">
           {navigation.map((item, index) => (
             <a href={item.href}>
-              <b>0{index + 1}</b>
+              <b>{index + 1}</b>
               <strong>{item.label}</strong>
               <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
             </a>
@@ -48,7 +48,7 @@ const exits = [
 
     <div class="footer-bottom">
       <p>© {year} Mochiko</p>
-      <p class="footer-legal">art by klokwark ୨୧ <a href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik</a> <a href="/privacy">privacy</a> <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">impressum</a></p>
+      <p class="footer-legal">art by klokwark <span aria-hidden="true">·</span> <a href="/privacy">privacy</a> <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">impressum</a></p>
     </div>
   </div>
 </footer>
