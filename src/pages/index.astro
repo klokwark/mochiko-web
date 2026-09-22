@@ -5,10 +5,10 @@ import SiteFooter from "../components/SiteFooter.astro";
 import { favoriteGames, favoriteMusic, socials } from "../data/site";
 
 const noteBits = [
-  { icon: "ph-film-slate", label: "horror movies", detail: "yes" },
-  { icon: "ph-game-controller", label: "horror games", detail: "no" },
-  { icon: "ph-paw-print", label: "favourite animal", detail: "fox" },
-  { icon: "ph-paint-brush", label: "favourite colour", detail: "blue" },
+  { icon: "ph-film-slate", label: "movies", detail: "horror" },
+  { icon: "ph-game-controller", label: "games", detail: "not horror" },
+  { icon: "ph-paw-print", label: "animal", detail: "fox" },
+  { icon: "ph-paint-brush", label: "colour", detail: "blue" },
 ];
 ---
 
@@ -33,7 +33,7 @@ const noteBits = [
             </a>
             <a class="ink-link" href="/about">read my notes <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
-          <p class="margin-note">This was meant to be a short introduction.</p>
+          <p class="margin-note">usually called Mochi</p>
         </div>
 
         <div class="diary-hero__photo">
@@ -83,7 +83,7 @@ const noteBits = [
               <div class="note-bit"><i class:list={["ph-fill", bit.icon]} aria-hidden="true"></i><span>{bit.label}</span><b>{bit.detail}</b></div>
             ))}
           </div>
-          <p class="handwritten">horses still make me nervous</p>
+          <p class="handwritten">I still don’t like horses.</p>
           <img class="note-board__stationery" src="/assets/diary-stationery.webp" alt="" width="900" height="900" loading="lazy" />
         </div>
       </div>
@@ -114,7 +114,7 @@ const noteBits = [
             <p class="music-note__label">currently on repeat</p>
             <img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
             <div><h3>{favoriteMusic.song}</h3><p>{favoriteMusic.songDetail}</p><a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></div>
-            <p class="handwritten">loud enough to reset my brain</p>
+            <p class="handwritten">favourite track right now</p>
           </article>
         </div>
       </div>
@@ -135,7 +135,7 @@ const noteBits = [
         <div class="content-entry__art">
           <span class="tape tape--top" aria-hidden="true"></span>
           <img src="/assets/gaming-1.webp" alt="Mochiko holding a game controller" width="1086" height="1448" loading="lazy" />
-          <span>controller connected</span>
+          <span>game controller included</span>
         </div>
       </div>
     </section>

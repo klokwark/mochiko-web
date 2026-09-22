@@ -129,7 +129,7 @@
 .book-opening__paper--three { transform: translateZ(-5px); }.book-opening__paper--two { transform: translateZ(-3px); }.book-opening__paper--one { transform: translateZ(-1px); }
 .book-opening__cover { display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: #779dc6; color: #fffdf8; backface-visibility: hidden; box-shadow: inset 12px 0 0 rgb(46 51 72 / .18); transition: transform 1s cubic-bezier(.2,.76,.2,1); }
 .book-opening__cover::before { position: absolute; inset: 1.1rem; border: 1px solid rgb(255 253 248 / .66); border-radius: .25rem .7rem .7rem .25rem; content: ""; }
-.book-opening__cover span { position: relative; z-index: 2; font-family: var(--font-hand); font-size: clamp(3rem,10vw,5.3rem); line-height: .8; }
+.book-opening__cover span { position: relative; z-index: 2; max-width: 86%; font-family: var(--font-sans); font-size: clamp(2rem,5vw,3.3rem); font-weight: 650; letter-spacing: .07em; line-height: .9; text-align: center; }
 .book-opening__cover img { position: relative; z-index: 2; width: 40%; margin-block: 1rem; filter: drop-shadow(0 5px 4px rgb(46 51 72 / .18)); }
 .book-opening__cover small { position: relative; z-index: 2; font-size: .58rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
 .book-opening.is-opening .book-opening__book { transform: translateX(46%) rotateX(2deg) rotateZ(0); }
