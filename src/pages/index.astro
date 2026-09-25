@@ -24,6 +24,14 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
             </a>
             <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
+          <nav class="hero-socials" aria-label="Find Mochiko online">
+            {socials.map((social) => (
+              <a href={social.href} target="_blank" rel="noreferrer">
+                <i class:list={["ph", social.icon]} aria-hidden="true"></i>
+                <span>{social.label}</span>
+              </a>
+            ))}
+          </nav>
           <div class="mini-note"><span>status.exe</span><strong>probably still in the settings menu</strong></div>
         </div>
 
@@ -177,24 +185,6 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
       </div>
     </section>
 
-    <section class="section-pad connect-candy decorated-section">
-      <img class="section-corner-art section-corner-art--links" src="/assets/credits.webp" alt="" width="1086" height="1448" loading="lazy" />
-      <div class="shell">
-        <div class="text-center">
-          <p class="section-kicker justify-center">links</p>
-          <h2 class="section-title mx-auto mt-4">come find me!</h2>
-        </div>
-        <div class="mx-auto mt-9 grid max-w-4xl gap-3 sm:grid-cols-2">
-          {socials.map((social) => (
-            <a class="social-candy" href={social.href} target="_blank" rel="noreferrer">
-              <span><i class:list={["ph", social.icon]} aria-hidden="true"></i></span>
-              <div><strong>{social.label}</strong><small>{social.handle}</small></div>
-              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
   </main>
   <SiteFooter />
 </BaseLayout>

@@ -21,7 +21,9 @@ const {
   robots = "index, follow",
 } = Astro.props;
 
-const absoluteImage = new URL(image, Astro.url.origin).href;
+const siteUrl = Astro.site ?? new URL("https://www.mochikotv.com");
+const absoluteImage = new URL(image, siteUrl).href;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const pagePop = {
   forwards: {
@@ -46,11 +48,17 @@ const pagePop = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1672" />
+    <meta property="og:image:height" content="941" />
+    <meta property="og:image:alt" content="Mochiko" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteImage} />
+    <meta name="twitter:image:alt" content="Mochiko" />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <ClientRouter />
     <script is:inline>
@@ -67,6 +75,37 @@ const pagePop = {
         document.addEventListener("astro:page-load", window.mochikoSyncPrivacy);
       }
       window.mochikoSyncPrivacy();
+    </script>
+    <script is:inline>
+      if (!window.mochikoSceneParallaxBound) {
+        window.mochikoSceneParallaxBound = true;
+        let ticking = false;
+
+        window.mochikoUpdateSceneParallax = function () {
+          ticking = false;
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          document.querySelectorAll("[data-scene-parallax]").forEach(function (scene) {
+            const backdrop = scene.querySelector(".scene-hero__backdrop");
+            if (!backdrop) return;
+            if (reduceMotion) {
+              backdrop.style.setProperty("--scene-shift", "0px");
+              return;
+            }
+            const rect = scene.getBoundingClientRect();
+            const shift = Math.max(-48, Math.min(48, rect.top * -0.08));
+            backdrop.style.setProperty("--scene-shift", shift + "px");
+          });
+        };
+
+        window.addEventListener("scroll", function () {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(window.mochikoUpdateSceneParallax);
+        }, { passive: true });
+        window.addEventListener("resize", window.mochikoUpdateSceneParallax);
+        document.addEventListener("astro:page-load", window.mochikoUpdateSceneParallax);
+      }
+      window.mochikoUpdateSceneParallax();
     </script>
     <title>{title}</title>
   </head>

@@ -9,7 +9,8 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 <BaseLayout title="Schedule | Mochiko" description="See Mochiko’s upcoming Twitch streams.">
   <SiteHeader />
   <main>
-    <section class="sched-hero">
+    <section class="sched-hero scene-hero" data-scene-parallax>
+      <div class="scene-hero__backdrop scene-hero__backdrop--rooftop" aria-hidden="true"></div>
       <div class="shell sched-hero__grid">
         <div class="sched-hero__copy">
           <p class="section-kicker">schedule</p>
@@ -21,10 +22,6 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
           </div>
         </div>
 
-        <div class="sched-hero__art">
-          <span class="sched-hero__tag" aria-hidden="true">calendar fit ♡</span>
-          <img src="/assets/outfits/outfit-3.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" fetchpriority="high" />
-        </div>
       </div>
     </section>
 

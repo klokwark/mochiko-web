@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
+  site: "https://www.mochikotv.com",
   output: "server",
   adapter: vercel(),
   vite: {

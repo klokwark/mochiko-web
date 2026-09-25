@@ -7,16 +7,13 @@ import SiteFooter from "../components/SiteFooter.astro";
 <BaseLayout title="Content | Mochiko" description="Watch Mochiko’s newest YouTube videos, latest Twitch VOD, and live stream.">
   <SiteHeader />
   <main>
-    <section class="content-hero">
+    <section class="content-hero scene-hero" data-scene-parallax>
+      <div class="scene-hero__backdrop scene-hero__backdrop--gaming" aria-hidden="true"></div>
       <div class="shell content-hero__grid">
         <div class="content-hero__copy">
           <p class="section-kicker">watch stuff</p>
           <h1>streams,<br /><em>videos & more ♡</em></h1>
           <p>the newest things are all here. no digging through a channel page.</p>
-        </div>
-        <div class="content-hero__art">
-          <span aria-hidden="true">NEW!!</span>
-          <img src="/assets/avatar-main2.webp" alt="Mochiko in a black and white outfit" width="1024" height="1536" fetchpriority="high" />
         </div>
       </div>
     </section>
