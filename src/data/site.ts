@@ -19,6 +19,12 @@ export const socials = [
     icon: "ph-youtube-logo",
   },
   {
+    label: "X",
+    handle: "@mochikotv",
+    href: "https://x.com/mochikotv",
+    icon: "ph-x-logo",
+  },
+  {
     label: "Ko-fi",
     handle: "support me ♡",
     href: "https://ko-fi.com/mochikotv",
