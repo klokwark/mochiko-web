@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const missingPath = Astro.url.pathname;
 ---
 
 <BaseLayout title="Page not found | Mochiko" description="Mochiko fell out of the map." robots="noindex, nofollow">
@@ -12,11 +10,6 @@ const missingPath = Astro.url.pathname;
       <img src="/assets/bunny-mark.webp" alt="" width="512" height="512" />
       <span>Mochiko</span>
     </a>
-
-    <p class="lost__status">
-      <span><i class="ph-fill ph-warning" aria-hidden="true"></i> out of bounds</span>
-      <b>{missingPath}</b>
-    </p>
 
     <section class="lost__stage" aria-labelledby="lost-title">
       <div class="lost__visual">
@@ -37,13 +30,6 @@ const missingPath = Astro.url.pathname;
       </div>
     </section>
 
-    <div class="lost__ticker" aria-hidden="true">
-      <div>
-        {[0, 1].map(() => (
-          <span><i>page missing</i><i>inventory intact</i><i>foxes uninvolved</i><i>try respawning</i></span>
-        ))}
-      </div>
-    </div>
   </main>
 </BaseLayout>
 
