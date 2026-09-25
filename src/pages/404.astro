@@ -2,49 +2,45 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const missingPath = Astro.url.pathname;
-
-const stickers = [
-  { src: "/assets/gaming-1.webp", tag: "♡" },
-  { src: "/assets/outfits/outfit-6.webp", tag: "✦" },
-  { src: "/assets/headphones-sitting.webp", tag: "♡" },
-  { src: "/assets/gaming-3.webp", tag: "!!" },
-  { src: "/assets/outfits/outfit-5.webp", tag: "✦" },
-  { src: "/assets/friends/mochiko-jannik-pose-1.webp", tag: "2P" },
-  { src: "/assets/mochikopfp.webp", tag: "♡" },
-  { src: "/assets/friends/mochiko-jannik-gaming.webp", tag: "2P" },
-];
 ---
 
-<BaseLayout title="Page not found | Mochiko" description="This page wandered off." robots="noindex, nofollow">
+<BaseLayout title="Page not found | Mochiko" description="Mochiko fell out of the map." robots="noindex, nofollow">
   <main class="lost">
-    <div class="lost__stickers" aria-hidden="true">
-      {stickers.map((sticker, index) => (
-        <span class:list={["lost-sticker", `lost-sticker--${index + 1}`]}>
-          <img src={sticker.src} alt="" loading="lazy" />
-          <b>{sticker.tag}</b>
-        </span>
-      ))}
-    </div>
+    <div class="lost__backdrop" aria-hidden="true"><i></i><i></i><i></i></div>
 
-    <div class="lost__stage">
-      <p class="lost__chip"><i class="ph-fill ph-heart-break" aria-hidden="true"></i> error 404 <b>{missingPath}</b></p>
+    <a class="lost__brand" href="/" aria-label="Mochiko home">
+      <img src="/assets/bunny-mark.webp" alt="" width="512" height="512" />
+      <span>Mochiko</span>
+    </a>
 
-      <div class="lost__hero">
-        <span class="lost__number" aria-hidden="true">404</span>
-        <img class="lost__me" src="/assets/avatar-main.webp" alt="Mochiko holding a bunny plush" width="1086" height="1448" fetchpriority="high" />
-        <span class="lost__bubble">this page wandered off<br /><b>like a fox, but ruder</b></span>
+    <p class="lost__status">
+      <span><i class="ph-fill ph-warning" aria-hidden="true"></i> out of bounds</span>
+      <b>{missingPath}</b>
+    </p>
+
+    <section class="lost__stage" aria-labelledby="lost-title">
+      <div class="lost__visual">
+        <div class="lost__code" aria-hidden="true"><b>4</b><span>0</span><b>4</b></div>
+        <div class="lost__portal" aria-hidden="true"><i></i></div>
+        <img class="lost__me" src="/assets/acrobat.webp" alt="Mochiko tumbling out of the missing page" width="1254" height="1254" fetchpriority="high" />
+        <span class="lost__oops" aria-hidden="true">wrong<br />button!!</span>
       </div>
 
-      <div class="lost__actions">
-        <a class="button button--pink" href="/">take me home <i class="ph-fill ph-house" aria-hidden="true"></i></a>
-        <a class="button button--white" href="/content">watch something <i class="ph-fill ph-play-circle" aria-hidden="true"></i></a>
+      <div class="lost__copy">
+        <p class="lost__eyebrow"><i class="ph-fill ph-game-controller" aria-hidden="true"></i> map failed to load</p>
+        <h1 id="lost-title">i fell out<br /><em>of the map.</em></h1>
+        <p>i pressed something before reading it. the page is gone now. unrelated, obviously.</p>
+        <div class="lost__actions">
+          <a class="button button--pink" href="/">respawn at home <i class="ph-fill ph-house" aria-hidden="true"></i></a>
+          <a class="button button--white" href="/content">watch something <i class="ph-fill ph-play-circle" aria-hidden="true"></i></a>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="lost__ribbon" aria-hidden="true">
+    <div class="lost__ticker" aria-hidden="true">
       <div>
         {[0, 1].map(() => (
-          <span>{["lost", "not found", "oops", "try home ♡", "lost", "not found"].map((word) => <i>{word}</i>)}</span>
+          <span><i>page missing</i><i>inventory intact</i><i>foxes uninvolved</i><i>try respawning</i></span>
         ))}
       </div>
     </div>

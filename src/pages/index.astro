@@ -74,21 +74,6 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
       </div>
     </section>
 
-    <section class="section-pad friend-feature">
-      <div class="shell friend-feature__grid">
-        <div class="friend-feature__photo">
-          <img src="/assets/friends/mochiko-jannik-pose-3.webp" alt="Mochiko and Jannik standing together" width="788" height="1400" loading="lazy" />
-          <span>PLAYER 2</span>
-        </div>
-        <div>
-          <p class="section-kicker">me & Jannik</p>
-          <h2 class="section-title mt-4">player two<br /><em>has entered</em></h2>
-          <p class="body-lede mt-6">we play together a lot. somehow the easy part always takes us the longest.</p>
-          <a class="button button--ink mt-7" href="https://www.jannikjbi.de/" target="_blank" rel="noreferrer">Jannik’s website <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-        </div>
-      </div>
-    </section>
-
     <section class="section-pad favorites-preview decorated-section" id="favorites">
       <div class="shell">
         <div class="soft-heading">
@@ -115,49 +100,13 @@ import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from ".
               <span>on repeat!!</span>
               <h3>{favoriteMusic.song}</h3>
               <p>{favoriteMusic.songDetail}</p>
-              <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+              <div class="music-preview__links">
+                <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+                <a href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> my playlist</a>
+              </div>
             </div>
             <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
           </div>
-
-          <article class="playlist-embed">
-            <div class="playlist-embed__bar">
-              <span><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.provider.toLowerCase()} · {playlist.label}</span>
-              <div aria-hidden="true"><i></i><i></i><i></i></div>
-            </div>
-
-            <div class="playlist-embed__body">
-              <div class="playlist-embed__cover">
-                <img src={playlist.cover} alt="" width="1000" height="1000" loading="lazy" />
-                <span aria-hidden="true"><i class="ph-fill ph-play"></i></span>
-              </div>
-
-              <div class="playlist-embed__screen">
-                <span class="playlist-embed__eyebrow">playlist</span>
-                <h3>{playlist.title}</h3>
-                <p>{playlist.note}</p>
-
-                <ol class="playlist-embed__queue">
-                  <li><b>01</b><span>{playlist.topTrack}</span><i class="ph-fill ph-waveform" aria-hidden="true"></i></li>
-                  <li><b>02</b><span>everything else i refuse to skip</span><i class="ph ph-dots-three" aria-hidden="true"></i></li>
-                </ol>
-
-                <div class="playlist-embed__transport">
-                  <div class="playlist-embed__controls" aria-hidden="true">
-                    <i class="ph-fill ph-skip-back"></i>
-                    <span><i class="ph-fill ph-play"></i></span>
-                    <i class="ph-fill ph-skip-forward"></i>
-                    <i class="ph-fill ph-repeat"></i>
-                  </div>
-                  <div class="playlist-embed__progress" aria-hidden="true"><i></i></div>
-                </div>
-
-                <a class="playlist-embed__open" href={playlist.href} target="_blank" rel="noreferrer">
-                  open on {playlist.provider} <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>

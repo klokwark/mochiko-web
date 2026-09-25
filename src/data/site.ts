@@ -114,10 +114,5 @@ export const favoriteMusic = {
 
 export const playlist = {
   label: "my playlist",
-  provider: "Spotify",
   href: "https://open.spotify.com/playlist/1UrOF3ADsifzUjULkN0KWD",
-  title: "the loop i live in",
-  note: "fast, catchy and bassy. genre is not really a factor, energy is.",
-  cover: "/assets/favorites/bass-cannon.jpg",
-  topTrack: "Bass Cannon — Crankdat Remix",
 };
