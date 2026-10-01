@@ -1,0 +1,23 @@
+---
+// Kanade's illustrated welcome header and layered waves, adapted for Mochiko.
+import { socials } from "../../data/site";
+interface Props { title: string; subtitle: string; home?: boolean; image?: string; }
+const { title, subtitle, home = false, image = "/assets/scenes/sunset-rooftop.webp" } = Astro.props;
+---
+<section class:list={["welcome-section", { compact: !home }]}>
+  <img class="hero-background" src={image} alt="" width="1672" height="941" fetchpriority="high" />
+  <div class="hero-shade"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">{home ? "GAMES · STREAMS · LITTLE THINGS" : "MOCHIKO’S LITTLE CORNER"}</span>
+    <h1>{title}<span class="hero-sparkle" aria-hidden="true">✧</span></h1>
+    <p>{subtitle}</p>
+    {home && <>
+      <div class="hero-buttons"><a class="hero-explore" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer"><i class="ph ph-twitch-logo" aria-hidden="true"></i>watch me on Twitch</a><a class="hero-explore" href="/content">my videos<i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+      <nav class="hero-socials" aria-label="Find Mochiko online">{socials.map(social => <a href={social.href} target="_blank" rel="noreferrer"><i class:list={["ph", social.icon]} aria-hidden="true"></i><span>{social.label}</span></a>)}</nav>
+    </>}
+  </div>
+  <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
+    <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" /></defs>
+    <g><use href="#gentle-wave" x="48" y="0" opacity=".5" /><use href="#gentle-wave" x="38" y="3" opacity=".65" /><use href="#gentle-wave" x="48" y="7" /></g>
+  </svg>
+</section>

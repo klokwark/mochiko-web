@@ -1,0 +1,20 @@
+---
+import { favoriteGames, socials } from "../../data/site";
+const entries = [
+  { title: "Home", description: "Mochiko’s streams, videos and social links", href: "/" },
+  { title: "About Mochiko", description: "Mochi, plushies, foxes, tech and horror movies", href: "/about" },
+  { title: "Streams & videos", description: "Live Twitch stream, newest YouTube uploads and VODs", href: "/content" },
+  { title: "Stream schedule", description: "Upcoming streams in your timezone", href: "/schedule" },
+  { title: "Music & playlist", description: "Crankdat, Bass Cannon and Spotify", href: "/about#music" },
+  { title: "Privacy", description: "External media and your privacy choices", href: "/privacy" },
+  ...favoriteGames.map(game => ({ title: game.title, description: "One of my favorite games", href: "/about#favorites" })),
+  ...socials.map(social => ({ title: social.label, description: social.handle, href: social.href })),
+];
+---
+<dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
+  <div class="search-heading"><h2 id="search-title">find something</h2><button type="button" class="icon-button" data-close-search aria-label="Close search"><i class="ph ph-x" aria-hidden="true"></i></button></div>
+  <label class="search-field"><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input type="search" data-search-input aria-label="Search pages, games and social links" placeholder="videos, games, about me…" autocomplete="off" /></label>
+  <p class="search-hint">pages, favorites & places to find me</p>
+  <ul class="search-results">{entries.map(entry => <li data-search-result data-search-text={(entry.title + " " + entry.description).toLowerCase()}><a href={entry.href} target={entry.href.startsWith("https:") ? "_blank" : undefined} rel={entry.href.startsWith("https:") ? "noreferrer" : undefined}><span><strong>{entry.title}</strong><small>{entry.description}</small></span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></a></li>)}</ul>
+  <p data-search-empty role="status" hidden>nothing here yet. try “videos” or “Minecraft”.</p>
+</dialog>

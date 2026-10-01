@@ -85,7 +85,9 @@ export const GET: APIRoute = async () => {
 
     const value = (result: PromiseSettledResult<string>) => result.status === "fulfilled" ? result.value : "";
     const uptime = value(uptimeResult);
-    const isLive = Boolean(uptime && uptime.toLowerCase() !== "offline" && !uptime.toLowerCase().includes("is offline"));
+    // Upstream error text must never be interpreted as a live stream.
+    const isOffline = uptime.toLowerCase() === "offline" || uptime.toLowerCase().includes("is offline");
+    const isLive = !isOffline && /\d+\s+(?:years?|months?|weeks?|days?|hours?|minutes?|seconds?)/i.test(uptime);
     const title = value(titleResult);
     const gameName = value(gameResult);
     const viewerCount = Number.parseInt(value(viewersResult), 10);
@@ -105,7 +107,7 @@ export const GET: APIRoute = async () => {
         viewerCount: Number.isFinite(viewerCount) ? viewerCount : null,
         uptime,
         url: `https://www.twitch.tv/${CHANNEL}`,
-      } : { isLive: false },
+      } : isOffline ? { isLive: false } : null,
       video: videoUrl.startsWith("http") ? {
         id: videoUrl.split("/").filter(Boolean).at(-1),
         title: videoTitle || "latest stream",
@@ -114,6 +116,7 @@ export const GET: APIRoute = async () => {
         url: videoUrl,
       } : null,
       schedule: scheduleResult.status === "fulfilled" ? scheduleResult.value : [],
+      scheduleAvailable: scheduleResult.status === "fulfilled",
     });
   } catch (error) {
     console.error("DecAPI Twitch error", error);

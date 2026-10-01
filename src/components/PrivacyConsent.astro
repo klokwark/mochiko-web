@@ -1,47 +1,12 @@
-<aside class="privacy-consent" data-privacy-consent role="dialog" aria-modal="true" aria-labelledby="privacy-consent-title">
-  <div class="privacy-consent__icon" aria-hidden="true"><img src="/assets/emotions/wondering.webp" alt="" width="1254" height="1254" /></div>
+<aside class="privacy-consent" data-privacy-consent aria-labelledby="privacy-consent-title">
+  <img src="/assets/emotions/wondering.webp" alt="" width="90" height="110" />
   <div class="privacy-consent__copy">
-    <strong id="privacy-consent-title">tiny privacy thing!</strong>
-    <p>
-      <span class="privacy-consent__detail">i don’t track you. data is not tasty anyway. Twitch and YouTube stay tucked away until you say okay.</span>
-      <span class="privacy-consent__summary">Twitch and YouTube stay off until you choose.</span>
-      <a href="/privacy">what gets loaded?</a>
-    </p>
+    <strong id="privacy-consent-title">a tiny privacy thing</strong>
+    <p>Twitch and YouTube only load if you say okay. <a href="/privacy">What gets loaded?</a></p>
   </div>
   <div class="privacy-consent__actions">
-    <button class="button button--pink" type="button" data-privacy-accept>okay, load them</button>
-    <button class="privacy-consent__no" type="button" data-privacy-decline>no thanks</button>
+    <button class="btn" type="button" data-privacy-accept>okay, load them</button>
+    <button class="btn secondary" type="button" data-privacy-decline>no thanks</button>
   </div>
 </aside>
-
-<script>
-  const privacyKey = "mochiko_privacy_choice";
-  const privacyWindow = window as typeof window & { __mochikoPrivacyBound?: boolean; mochikoSyncPrivacy?: () => void };
-
-  if (!privacyWindow.__mochikoPrivacyBound) {
-    privacyWindow.__mochikoPrivacyBound = true;
-
-    document.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-
-      const choice = target.closest("[data-privacy-accept]")
-        ? "accepted"
-        : target.closest("[data-privacy-decline]")
-          ? "declined"
-          : null;
-
-      if (choice) {
-        try { localStorage.setItem(privacyKey, choice); } catch {}
-        document.documentElement.dataset.privacyChoice = choice;
-        document.querySelector<HTMLElement>("[data-privacy-consent]")?.removeAttribute("data-open");
-        window.dispatchEvent(new CustomEvent("mochiko:privacy-choice", { detail: { choice } }));
-        return;
-      }
-
-      if (!target.closest("[data-open-privacy]")) return;
-      event.preventDefault();
-      document.querySelector<HTMLElement>("[data-privacy-consent]")?.setAttribute("data-open", "true");
-    });
-  }
-</script>
+<noscript><div class="noscript-note">External media stays off without JavaScript. You can still use all channel links.</div></noscript>

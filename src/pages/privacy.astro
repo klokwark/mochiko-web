@@ -1,28 +1,10 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteHeader from "../components/SiteHeader.astro";
-import SiteFooter from "../components/SiteFooter.astro";
+import CreatorLayout from "../layouts/CreatorLayout.astro";
 ---
-
-<BaseLayout title="Privacy | Mochiko" description="Privacy information for mochikotv.com.">
-  <SiteHeader />
-  <main>
-    <section class="privacy-hero">
-      <div class="shell privacy-hero__grid">
-        <div>
-          <p class="section-kicker">privacy</p>
-          <h1 class="page-title mt-4">what this site<br /><em>loads & why</em></h1>
-          <p class="body-lede mt-6">This page explains which data may be processed when you visit mochikotv.com and when optional Twitch or YouTube content is enabled.</p>
-          <button class="button button--white mt-7" type="button" data-open-privacy>change privacy choice</button>
-        </div>
-        <img src="/assets/book.webp" alt="Mochiko holding a book" width="1086" height="1448" />
-      </div>
-    </section>
-
-    <section class="section-pad privacy-paper decorated-section">
-      <img class="section-corner-art section-corner-art--privacy" src="/assets/outfits/outfit-2.webp" alt="Mochiko in a black outfit" width="941" height="1672" loading="lazy" />
-      <article class="shell privacy-copy">
-        <p class="privacy-copy__updated">Last updated: 18 September 2026</p>
+<CreatorLayout title="Privacy | Mochiko" description="Privacy information for mochikotv.com." heroTitle="what this site loads & why" heroSubtitle="your choices, explained." wide>
+  <article class="card page-card prose privacy-copy">
+    <button class="btn secondary" type="button" data-open-privacy>Change privacy choice</button>
+        <p class="updated">Last updated: 1 October 2026</p>
 
         <h2>1. Controller and contact</h2>
         <p>The provider responsible for this website and the relevant contact information are identified in the <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a>.</p>
@@ -33,6 +15,8 @@ import SiteFooter from "../components/SiteFooter.astro";
         <h2>3. Privacy preference stored on your device</h2>
         <p>The site stores the key <code>mochiko_privacy_choice</code> in local storage with the value “accepted” or “declined”. It is used only to remember whether optional external media may load. It has no automatic expiry and remains until you clear site data or change the choice above. This storage is technically necessary to retain the privacy choice.</p>
 
+        <p>The key <code>mochiko_theme</code> stores your chosen light or dark appearance on your device. It is not sent to an external service and remains until you clear site data or change the theme.</p>
+
         <h2>4. Twitch and DecAPI</h2>
         <p>Live status and the newest VOD are disabled until you consent. After consent, this site’s server requests public Twitch information through DecAPI, a third-party API operated independently from this website. The embedded player then connects your browser to Twitch only after consent. Twitch may receive connection data such as your IP address, browser data, page URL, and time of access, and may use cookies or similar storage under its own responsibility. DecAPI may process the server request and related technical data. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. Twitch is operated by Twitch Interactive, Inc. in the United States.</p>
 
@@ -40,7 +24,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         <p>The latest-video feed and YouTube thumbnails are disabled until you consent. After consent, this site’s server requests YouTube’s public RSS feed and your browser may load thumbnail media supplied by YouTube or Google. Google may receive connection data and may process data in the United States and other countries. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. YouTube is a service of Google Ireland Limited / Google LLC.</p>
 
         <h2>6. External links</h2>
-        <p>The site links to Twitch, YouTube, X, Discord, Ko-fi, Spotify, IGDB, Crankdat, and c-r.link. These links do not load content from those providers automatically. If you follow one, the destination provider processes the resulting request under its own privacy terms.</p>
+        <p>The site links to Twitch, YouTube, X, Discord, Ko-fi, Spotify, IGDB, Crankdat, c-r.link, and GitHub. These links do not load content from those providers automatically. If you follow one, the destination provider processes the resulting request under its own privacy terms.</p>
 
         <h2>7. No analytics, advertising, or contact forms</h2>
         <p>This website does not use analytics tools, advertising pixels, user accounts, or contact forms. Fonts, icons, character artwork, game covers, and music artwork used in the page design are served from this website’s own Vercel deployment.</p>
@@ -58,8 +42,6 @@ import SiteFooter from "../components/SiteFooter.astro";
           <li><a href="https://decapi.me/privacy-policy" target="_blank" rel="noreferrer">DecAPI Privacy Policy</a></li>
           <li><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google Privacy Policy</a></li>
         </ul>
-      </article>
-    </section>
-  </main>
-  <SiteFooter />
-</BaseLayout>
+
+  </article>
+</CreatorLayout>

@@ -26,7 +26,27 @@ This repository is the production source for Mochiko’s personal VTuber website
 - `src/pages/api/`: credential-free server endpoints/proxies for public Twitch and YouTube information.
 - `public/assets/`: all artwork served locally by Vercel.
 
-## Design direction
+## Kanade creator-theme branch
+
+On `codex/kanade-creator-theme`, the user requested the Kanade theme from
+`sudoriaa/Kanade-Astro` (`codex/astro-theme`) repurposed for a content creator,
+with English UI and visible original-developer credit in the footer.
+
+- Preserve the illustrated header, SVG waves, pastel cards, three-column desktop
+  layout, and light/dark modes. These supersede the older design direction below.
+- Keep the `Kanade by sudoriaa` footer links and `THEME-CREDITS.md` attribution.
+- `CreatorLayout.astro` owns the shared chrome; `BaseLayout.astro` owns metadata.
+- `scripts/site.ts` handles navigation, search, theme, and consent;
+  `scripts/media.ts` handles optional media. Native page navigation initializes
+  scripts once per page; Astro ClientRouter is not used on this branch.
+- Keep the source repository's social links, favorite games, playlist, artwork,
+  APIs, Vercel deployment, and privacy page. Do not introduce sample blog posts,
+  developer portfolio content, invented stream dates, or a local-only guestbook.
+- The existing source removed personal Jannik sections. Do not restore them;
+  retain the existing Impressum destination.
+- Keep all changes on this feature branch; do not merge or push to main.
+
+## Earlier design direction (superseded on the Kanade branch)
 
 The target is soft, bubbly, girly, playful, and custom-made. It should feel polished enough to be commissioned work, while still feeling like Mochiko decorated it herself.
 

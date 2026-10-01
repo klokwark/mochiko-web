@@ -1,74 +1,18 @@
 ---
 import { navigation } from "../data/site";
-
-const path = Astro.url.pathname;
-const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+const icons = ["ph-house", "ph-user-circle", "ph-play-circle", "ph-calendar-dots"];
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
-
-<header class="site-header">
-  <div class="shell site-header__inner">
-    <a href="/" class="brand-lockup focus-ring" aria-label="Mochiko home">
-      <span class="brand-mark-wrap">
-        <img src="/assets/mochiko-logo-bunny-black.webp" alt="" class="brand-mark" width="1254" height="1254" />
-      </span>
-      <span><b class="brand-name">Mochiko</b><small>online-ish</small></span>
-    </a>
-
-    <nav class="nav-dock" aria-label="Main navigation">
-      {navigation.map((item, index) => (
-        <a class:list={["nav-link focus-ring", { "is-active": isActive(item.href) }]} href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
-          <span>0{index + 1}</span>{item.label}
-        </a>
-      ))}
+<header class="nav-header" data-site-header>
+  <div class="nav-inner shell">
+    <a class="brand" href="/" aria-label="Mochiko home"><img src="/assets/bunny-mark.webp" width="36" height="36" alt="" />Mochiko<span class="brand-dot">.</span></a>
+    <nav id="main-navigation" aria-label="Main navigation">
+      {navigation.map((item, index) => <a href={item.href} aria-current={path === item.href ? "page" : undefined}><i class:list={["ph", icons[index]]} aria-hidden="true"></i>{item.label}{item.href === "/content" && <span class="nav-live" data-nav-live hidden>LIVE</span>}</a>)}
     </nav>
-
-    <div class="header-actions">
-      <a class="live-button" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
-        <span class="live-dot" aria-hidden="true"></span>
-        <span data-live-label>Twitch</span>
-        <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-      </a>
-
-      <details class="mobile-menu">
-        <summary class="focus-ring" aria-label="Open navigation">
-          <i class="ph ph-list" aria-hidden="true"></i>
-        </summary>
-        <nav class="mobile-menu__panel" aria-label="Mobile navigation">
-          {navigation.map((item) => (
-            <a class:list={["mobile-menu__link", { "is-active": isActive(item.href) }]} href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
-              <span>{item.label}</span><i class="ph ph-heart" aria-hidden="true"></i>
-            </a>
-          ))}
-          <a class="mobile-menu__live" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
-            <span data-live-label>Twitch</span><i class="ph ph-twitch-logo" aria-hidden="true"></i>
-          </a>
-        </nav>
-      </details>
+    <div class="nav-actions">
+      <button type="button" data-open-search aria-label="Search this site" title="Search (Ctrl / ⌘ K)"><i class="ph ph-magnifying-glass" aria-hidden="true"></i></button>
+      <button type="button" data-toggle-theme aria-label="Switch color theme"><i class="ph ph-sun" aria-hidden="true"></i></button>
+      <button class="menu-toggle" type="button" data-toggle-menu aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation"><i class="ph ph-list" aria-hidden="true"></i></button>
     </div>
   </div>
 </header>
-
-<script>
-  const updateLiveNavigation = async () => {
-    try {
-      const response = await fetch("/api/twitch");
-      if (!response.ok) return;
-      const data = await response.json();
-      if (!data.live?.isLive) return;
-      document.documentElement.dataset.live = "true";
-      document.querySelectorAll("[data-live-label]").forEach((label) => {
-        label.textContent = "live now!";
-      });
-    } catch {
-      // The normal Twitch link remains useful if the live-status service is unavailable.
-    }
-  };
-
-  const maybeUpdateLiveNavigation = () => {
-    if (document.documentElement.dataset.privacyChoice === "accepted") updateLiveNavigation();
-  };
-
-  maybeUpdateLiveNavigation();
-  window.addEventListener("mochiko:privacy-choice", maybeUpdateLiveNavigation);
-  document.addEventListener("astro:page-load", maybeUpdateLiveNavigation);
-</script>

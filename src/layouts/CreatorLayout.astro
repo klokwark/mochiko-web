@@ -1,0 +1,20 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Welcome from "../components/header/Welcome.astro";
+import LeftSidebar from "../components/home/LeftSidebar.astro";
+import RightSidebar from "../components/home/RightSidebar.astro";
+interface Props { title?: string; description?: string; heroTitle: string; heroSubtitle: string; home?: boolean; image?: string; wide?: boolean; }
+const { title, description, heroTitle, heroSubtitle, home, image, wide = false } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <SiteHeader />
+  <Welcome title={heroTitle} subtitle={heroSubtitle} home={home} image={image} />
+  <div class:list={["shell", wide ? "wide-layout" : "blog-grid"]}>
+    {!wide && <LeftSidebar />}
+    <main class="page-content" id="main-content" tabindex="-1"><slot /></main>
+    {!wide && <RightSidebar />}
+  </div>
+  <SiteFooter />
+</BaseLayout>

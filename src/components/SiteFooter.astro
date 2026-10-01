@@ -1,55 +1,11 @@
 ---
-import { navigation, playlist } from "../data/site";
-
-const year = new Date().getFullYear();
-
-const exits = [
-  { label: "Twitch", href: "https://www.twitch.tv/mochikolive", icon: "ph-twitch-logo", tone: "twitch" },
-  { label: "YouTube", href: "https://www.youtube.com/@mochikotv", icon: "ph-youtube-logo", tone: "youtube" },
-  { label: "X", href: "https://x.com/mochikotv", icon: "ph-x-logo", tone: "x" },
-  { label: playlist.label, href: playlist.href, icon: "ph-spotify-logo", tone: "playlist" },
-  { label: "Discord", href: "https://discord.gg/xZHrPBvFty", icon: "ph-discord-logo", tone: "discord" },
-  { label: "Ko-fi", href: "https://ko-fi.com/mochikotv", icon: "ph-coffee", tone: "kofi" },
-];
+import { socials, playlist } from "../data/site";
 ---
-
 <footer class="site-footer">
-  <div class="shell footer-shell">
-    <div class="footer-card">
-      <img class="footer-sitter" src="/assets/cute-pose-1.webp" alt="Mochiko sitting with a bunny plush" width="1086" height="1448" loading="lazy" />
-
-      <div class="footer-card__top">
-        <div class="footer-bye">
-          <p class="footer-bye__eyebrow">you made it all the way down!!</p>
-          <h2>okay bye,<br /><em>see u soon ♡</em></h2>
-          <p class="footer-bye__note">i’m probably still rearranging things on my desk.</p>
-        </div>
-
-        <nav class="footer-index" aria-label="Footer navigation">
-          {navigation.map((item, index) => (
-            <a href={item.href}>
-              <b>0{index + 1}</b>
-              <strong>{item.label}</strong>
-              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-            </a>
-          ))}
-        </nav>
-      </div>
-
-      <div class="footer-exits">
-        {exits.map((exit) => (
-          <a class:list={["footer-exit", `footer-exit--${exit.tone}`]} href={exit.href} target="_blank" rel="noreferrer">
-            <i class:list={["ph-fill", exit.icon]} aria-hidden="true"></i>
-            <span>{exit.label}</span>
-            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© {year} Mochiko</p>
-      <p class="footer-legal">art by klokwark ୨୧ <a href="/privacy">privacy</a> <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">impressum</a></p>
-    </div>
-  </div>
+  <a class="footer-mark" href="/"><span class="accent" aria-hidden="true">✿</span>Mochiko.</a>
+  <p>okay bye, see u soon ♡</p>
+  <nav class="footer-socials" aria-label="Footer social links">{socials.map(social => <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>)}<a href={playlist.href} target="_blank" rel="noreferrer">Spotify</a></nav>
+  <p>© {new Date().getFullYear()} Mochiko · art by klokwark</p>
+  <p class="theme-credit">Based on <a href="https://github.com/sudoriaa/Kanade-Astro/tree/codex/astro-theme" target="_blank" rel="noreferrer">Kanade</a> by <a href="https://github.com/sudoriaa" target="_blank" rel="noreferrer">sudoriaa</a> · made with Astro</p>
+  <div class="footer-legal"><a href="/privacy">Privacy</a><button type="button" data-open-privacy>Privacy choices</button><a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a></div>
 </footer>
