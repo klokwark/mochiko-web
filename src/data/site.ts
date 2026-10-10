@@ -11,54 +11,35 @@ export const socials = [
     handle: "mochikolive",
     href: "https://www.twitch.tv/mochikolive",
     icon: "ph-twitch-logo",
+    blurb: "mostly minecraft and genshin, sometimes something random. come hang out!",
   },
   {
     label: "YouTube",
     handle: "@mochikotv",
     href: "https://www.youtube.com/@mochikotv",
     icon: "ph-youtube-logo",
+    blurb: "stream highlights and other videos",
   },
   {
     label: "X",
     handle: "@mochikotv",
     href: "https://x.com/mochikotv",
     icon: "ph-x-logo",
-  },
-  {
-    label: "Ko-fi",
-    handle: "support me ♡",
-    href: "https://ko-fi.com/mochikotv",
-    icon: "ph-coffee",
+    blurb: "updates, schedule changes and random stuff",
   },
   {
     label: "Discord",
     handle: "come say hi!",
     href: "https://discord.gg/xZHrPBvFty",
     icon: "ph-discord-logo",
-  },
-];
-
-export const contentCards = [
-  {
-    title: "Games",
-    copy: "cute games, loud games, and the strategy stuff i pretend is a short session.",
-    image: "/assets/content-gaming.webp",
-    alt: "Mochiko in a gaming outfit with a controller",
-    icon: "ph-game-controller",
+    blurb: "my server! come say hi",
   },
   {
-    title: "Chatting",
-    copy: "stories that go nowhere, tech rambling, and reading everything in chat.",
-    image: "/assets/blue-phone.webp",
-    alt: "Mochiko holding a blue phone",
-    icon: "ph-chat-circle-dots",
-  },
-  {
-    title: "Collections",
-    copy: "plushies, screenshots, and things i got way too invested in.",
-    image: "/assets/content-cute.webp",
-    alt: "Mochiko sitting with a bunny plush",
-    icon: "ph-heart",
+    label: "Ko-fi",
+    handle: "mochikotv",
+    href: "https://ko-fi.com/mochikotv",
+    icon: "ph-coffee",
+    blurb: "if you want to support me (thank you!!)",
   },
 ];
 

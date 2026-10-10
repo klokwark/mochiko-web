@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title = "Mochiko | VTuber",
-  description = "The official home of Mochiko: streams, videos, games, and an unreasonable number of plushies.",
+  description = "Mochiko is a VTuber from northern Germany. Streams on Twitch, videos on YouTube.",
   image = "/assets/mochikobanner.jpg",
   robots = "index, follow",
 } = Astro.props;
@@ -27,22 +27,22 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const pagePop = {
   forwards: {
-    old: { name: "mochi-panel-out", duration: "340ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
-    new: { name: "mochi-panel-in", duration: "680ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+    old: { name: "mochi-peel-out", duration: "380ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-snap-in", duration: "560ms", delay: "260ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
   },
   backwards: {
-    old: { name: "mochi-panel-out-back", duration: "340ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
-    new: { name: "mochi-panel-in-back", duration: "680ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
+    old: { name: "mochi-peel-out-back", duration: "380ms", easing: "cubic-bezier(.55,.06,.68,.19)", fillMode: "both" },
+    new: { name: "mochi-snap-in-back", duration: "560ms", delay: "260ms", easing: "cubic-bezier(.16,1,.3,1)", fillMode: "both" },
   },
 };
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth" transition:animate="none">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ff79ae" />
+    <meta name="theme-color" content="#241b2b" />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta property="og:type" content="website" />
@@ -76,40 +76,9 @@ const pagePop = {
       }
       window.mochikoSyncPrivacy();
     </script>
-    <script is:inline>
-      if (!window.mochikoSceneParallaxBound) {
-        window.mochikoSceneParallaxBound = true;
-        let ticking = false;
-
-        window.mochikoUpdateSceneParallax = function () {
-          ticking = false;
-          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          document.querySelectorAll("[data-scene-parallax]").forEach(function (scene) {
-            const backdrop = scene.querySelector(".scene-hero__backdrop");
-            if (!backdrop) return;
-            if (reduceMotion) {
-              backdrop.style.setProperty("--scene-shift", "0px");
-              return;
-            }
-            const rect = scene.getBoundingClientRect();
-            const shift = Math.max(-48, Math.min(48, rect.top * -0.08));
-            backdrop.style.setProperty("--scene-shift", shift + "px");
-          });
-        };
-
-        window.addEventListener("scroll", function () {
-          if (ticking) return;
-          ticking = true;
-          window.requestAnimationFrame(window.mochikoUpdateSceneParallax);
-        }, { passive: true });
-        window.addEventListener("resize", window.mochikoUpdateSceneParallax);
-        document.addEventListener("astro:page-load", window.mochikoUpdateSceneParallax);
-      }
-      window.mochikoUpdateSceneParallax();
-    </script>
     <title>{title}</title>
   </head>
-  <body class="min-h-screen overflow-x-clip bg-paper text-white antialiased">
+  <body>
     <div class="page-swap" transition:name="mochiko-page" transition:animate={pagePop}>
       <slot />
     </div>

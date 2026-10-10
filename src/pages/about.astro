@@ -3,116 +3,172 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
-import { favoriteGames, favoriteMusic } from "../data/site";
+import { favoriteGames, favoriteMusic, playlist } from "../data/site";
+
+const [first, ...rest] = favoriteGames;
+const seconds = rest.filter((game) => game.rank === "2");
+const others = rest.filter((game) => game.rank !== "2");
 ---
 
 <BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
   <SiteHeader />
   <main>
-    <section class="about-diary-hero">
-      <span class="about-diary-hero__star" aria-hidden="true">✦</span>
-      <span class="about-diary-hero__heart" aria-hidden="true">♡</span>
-      <div class="shell about-diary-hero__grid">
-        <div class="about-diary-hero__copy">
-          <p class="section-kicker">about me</p>
-          <h1>my name is<br /><em>Mochiko!</em></h1>
-          <p class="about-pronounce"><span>name_audio.txt</span> ˈmɔtʃiːˌkoː</p>
-          <p>most people just say Mochi. i live somewhere in northern germany, in front of a pc i built myself.</p>
-          <div class="about-diary-hero__facts">
-            <span>foxes</span><span>blue everything</span><span>horror movies</span><span>city builders</span><span>plushies</span>
+    <section class="about-hero">
+      <div class="shell about-hero__grid">
+        <div class="about-hero__art">
+          <div class="about-hero__window">
+            <img src="/assets/red-dress-umbressa.webp" alt="Mochiko in a red and black dress holding a frilly umbrella" width="1086" height="1448" fetchpriority="high" />
           </div>
-          <a class="button button--pink mt-7" href="#favorites">the important stuff <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          <span class="sticker-label about-hero__note">this dress!!</span>
+          <span class="about-hero__star" aria-hidden="true">✦</span>
         </div>
-        <div class="about-diary-hero__art">
-          <div class="about-diary-hero__frame" aria-hidden="true"></div>
-          <img src="/assets/red-dress-umbressa.webp" alt="Mochiko in a red dress holding an umbrella" width="1086" height="1448" fetchpriority="high" />
-          <span class="about-diary-hero__note">i picked the outfit first ♡</span>
+
+        <div class="about-hero__copy">
+          <p class="kicker">about me</p>
+          <h1 class="title-xl about-hero__title">my name is<br /><em>Mochiko!</em></h1>
+          <p class="pronounce"><span>pronounced</span> ˈmɔtʃiːˌkoː</p>
+          <p class="lede">but you can just call me mochi! i’m from northern germany, i stream on twitch and sometimes i make youtube videos.</p>
+          <ul class="chip-row" aria-label="Things Mochiko likes">
+            <li>foxes</li>
+            <li>blue everything</li>
+            <li>horror movies</li>
+            <li>city builders</li>
+            <li>plushies</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button--pink" href="#favorites">my favorites <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <Marquee />
+    <Marquee tone="pink" phrases={["foxes", "plushies", "horror movies", "city builders", "fast music", "blue everything"]} />
 
     <section class="section-pad about-profile">
+      <div class="shell about-profile__grid">
+        <div class="about-profile__copy">
+          <p class="kicker">a bit more</p>
+          <h2 class="title-lg">i’m actually<br /><em>really shy</em></h2>
+          <p class="lede">in real life i barely talk. on stream i don’t stop. no idea how that works either.</p>
+          <ul class="about-notes">
+            <li><b><i class="ph-fill ph-game-controller" aria-hidden="true"></i> playing rn</b>minecraft, genshin, roblox and way too many city builders</li>
+            <li><b><i class="ph-fill ph-headphones" aria-hidden="true"></i> listening to</b>fast bassy stuff, mostly crankdat lately</li>
+            <li><b><i class="ph-fill ph-warning-circle" aria-hidden="true"></i> good to know</b>i love horror movies but i will never play a horror game. also no horses pls</li>
+          </ul>
+        </div>
+        <div class="about-profile__art">
+          <span class="about-profile__disc" aria-hidden="true"></span>
+          <img class="die-cut" src="/assets/outfits/outfit-4.webp" alt="Mochiko in her black and white gaming outfit, holding her headphones" width="941" height="1672" loading="lazy" />
+          <span class="sticker-label about-profile__stamp">stream outfit</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad about-files scallop-top">
       <div class="shell">
-        <div class="about-profile__grid">
-          <div class="about-profile__copy">
-            <p class="section-kicker">the short version</p>
-            <h2 class="section-title mt-4">loud online.<br /><em>houseplant offline.</em></h2>
-            <p class="body-lede mt-6">online i do not stop talking. in person i am the one on the sofa hoping nobody needs anything. both versions are attached to the same plushie.</p>
-            <div class="about-profile__notes mt-8">
-              <p><i class="ph-fill ph-game-controller" aria-hidden="true"></i><span><b>currently playing</b>Minecraft, Genshin, Roblox, and a city builder i said would be a short session</span></p>
-              <p><i class="ph-fill ph-headphones" aria-hidden="true"></i><span><b>currently listening</b>anything fast and bassy. genre is not really a factor, energy is</span></p>
-              <p><i class="ph-fill ph-heart" aria-hidden="true"></i><span><b>very important</b>horror movies yes, horror games absolutely not, horses no thank you</span></p>
+        <p class="kicker">my desk</p>
+        <h2 class="title-lg">what’s on <em>my desk</em></h2>
+        <div class="about-files__grid">
+          <img class="about-files__me die-cut" src="/assets/console-2.webp" alt="" width="1086" height="1448" loading="lazy" />
+          <article class="file-window">
+            <p class="file-window__bar"><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> desk.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">4 plushies, my fox mug and a screwdriver that’s been lying there for weeks</p>
+          </article>
+          <article class="file-window file-window--lilac">
+            <p class="file-window__bar"><i class="ph-fill ph-file-text" aria-hidden="true"></i> my_pc.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">i built my pc myself!! ask me about it and i’ll explain every part</p>
+          </article>
+          <article class="file-window file-window--pink">
+            <p class="file-window__bar"><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> help.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">i alt-tab for one second and suddenly two hours are gone. every time</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad about-ranking scallop-top" id="favorites">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">favorite games</p>
+            <h2 class="title-lg">my top <em>games</em></h2>
+          </div>
+          <p class="sticker-label about-ranking__note">two #2s because i can’t decide</p>
+        </div>
+
+        <div class="podium">
+          <a class="podium__first" href={first.href} target="_blank" rel="noreferrer">
+            <span class="podium__cover"><img src={first.image} alt={`${first.title} cover`} width="600" height="800" loading="lazy" /></span>
+            <span class="podium__rank">#{first.rank}</span>
+            <strong>{first.title}</strong>
+            <small>always my #1</small>
+          </a>
+
+          <div class="podium__tie">
+            {seconds.map((game) => (
+              <a class="podium__second" href={game.href} target="_blank" rel="noreferrer">
+                <span class="podium__cover"><img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" /></span>
+                <span class="podium__rank">#{game.rank}</span>
+                <strong>{game.title}</strong>
+              </a>
+            ))}
+            <span class="podium__tie-tag" aria-hidden="true">tie</span>
+          </div>
+
+          <ol class="rank-list">
+            {others.map((game) => (
+              <li>
+                <a href={game.href} target="_blank" rel="noreferrer">
+                  <b>#{game.rank}</b>
+                  <img src={game.image} alt="" width="600" height="800" loading="lazy" />
+                  <span><strong>{game.title}</strong>{game.note && <small>{game.note}</small>}</span>
+                  <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad about-music">
+      <div class="shell">
+        <div class="mixtape">
+          <img class="mixtape__me" src="/assets/outfits/outfit-1.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" loading="lazy" />
+
+          <div class="mixtape__heading">
+            <p class="kicker">music</p>
+            <h2 class="title-lg">on <em>repeat</em></h2>
+            <p>i mostly listen to fast, bassy stuff. this one’s been on repeat for weeks</p>
+          </div>
+
+          <a class="mixtape__artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer">
+            <img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="800" height="800" loading="lazy" />
+            <span>fav artist</span>
+            <strong>{favoriteMusic.artist}</strong>
+          </a>
+
+          <div class="mixtape__song">
+            <a class="cassette" href={favoriteMusic.songHref} target="_blank" rel="noreferrer" aria-label={`Listen to ${favoriteMusic.song}, ${favoriteMusic.songDetail}`}>
+              <span class="cassette__label">
+                <small>side a · fav song</small>
+                <strong>{favoriteMusic.song}</strong>
+                <em>{favoriteMusic.songDetail}</em>
+              </span>
+              <span class="cassette__window" aria-hidden="true"><i></i><i></i></span>
+              <img class="cassette__cover" src={favoriteMusic.songImage} alt="" width="800" height="800" loading="lazy" />
+            </a>
+            <div class="mixtape__links">
+              <a class="button button--pink" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+              <a class="button button--cream" href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.label}</a>
             </div>
           </div>
-          <div class="about-profile__art">
-            <span class="about-profile__stamp">player one</span>
-            <img src="/assets/outfits/outfit-4.webp" alt="Mochiko in her gaming outfit" width="941" height="1672" loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad desktop-files decorated-section">
-      <img class="files-pose" src="/assets/console-2.webp" alt="Mochiko playing on a handheld console" width="1086" height="1448" loading="lazy" />
-      <div class="shell">
-        <p class="section-kicker">important files</p>
-        <h2 class="section-title mt-4">stuff my computer knows</h2>
-        <div class="desktop-files__grid mt-9">
-          <article class="desktop-file"><span><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> inventory.log</span><p>four plushies on the desk, a fox mug, and a screwdriver i keep meaning to put away.</p></article>
-          <article class="desktop-file desktop-file--lilac"><span><i class="ph-fill ph-file-text" aria-hidden="true"></i> specs.txt</span><p>yes i built it myself. yes i will tell you about it without being asked.</p></article>
-          <article class="desktop-file desktop-file--pink"><span><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> save_final_FINAL</span><p>alt-tabbed for one second, looked up, lost two hours. every time.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad about-scrapbook" id="favorites">
-      <div class="shell">
-        <div class="about-scrapbook__heading">
-          <p class="section-kicker">favorite games</p>
-          <h2 class="section-title mt-4">my game ranking</h2>
-          <p>yes, there are two #2s. no, i’m not fixing it.</p>
         </div>
 
-        <div class="game-ranking mt-10">
-          {favoriteGames.map((game) => (
-            <a class="game-rank-card" href={game.href} target="_blank" rel="noreferrer">
-              <div class="game-rank-card__cover">
-                <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
-                <span>#{game.rank}</span>
-              </div>
-              <div class="game-rank-card__copy">
-                <h3>{game.title}</h3>
-                {game.note && <p>{game.note}</p>}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <section class="music-detail">
-          <div class="music-detail__heading">
-            <p class="section-kicker">music</p>
-            <h2 class="section-title mt-4">on repeat</h2>
-            <p>if it is fast and it hits hard, it is going in.</p>
-          </div>
-          <a class="music-detail__artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer">
-            <img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
-            <span>favorite artist rn</span>
-            <h3>{favoriteMusic.artist}</h3>
-          </a>
-          <a class="music-detail__song" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">
-            <img src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
-            <div><span>favorite song</span><h3>{favoriteMusic.song}</h3><p>{favoriteMusic.songDetail}</p></div>
-            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
-          </a>
-          <img class="music-detail__mochiko" src="/assets/outfits/outfit-1.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" loading="lazy" />
-        </section>
-
-        <div class="about-end-note">
+        <div class="about-end">
           <span aria-hidden="true">୨୧</span>
-          <p>that’s enough about me!! go look at the videos now ♡</p>
-          <a class="button button--pink" href="/content">okay show me <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <p>okay that’s enough about me! wanna watch something?</p>
+          <a class="button button--pink" href="/content">videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>
