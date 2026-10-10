@@ -6,237 +6,325 @@ import SiteFooter from "../components/SiteFooter.astro";
 
 <BaseLayout title="Content | Mochiko" description="Watch Mochiko’s newest YouTube videos, latest Twitch VOD, and live stream.">
   <SiteHeader />
-  <main>
-    <section class="content-hero scene-hero" data-scene-parallax>
-      <div class="scene-hero__backdrop scene-hero__backdrop--gaming" aria-hidden="true"></div>
-      <div class="shell content-hero__grid">
-        <div class="content-hero__copy">
-          <p class="section-kicker">watch stuff</p>
-          <h1>streams,<br /><em>videos & more ♡</em></h1>
-          <p>the newest things are all here. no digging through a channel page.</p>
+  <main data-content-page>
+    <section class="scene-hero">
+      <div class="shell scene-hero__grid">
+        <div class="scene-frame">
+          <img src="/assets/scenes/gaming-bedroom.webp" alt="" width="1672" height="941" fetchpriority="high" />
+        </div>
+        <div class="scene-card">
+          <p class="kicker">content</p>
+          <h1 class="title-xl">streams<br /><em>& videos</em></h1>
+          <p class="lede">my newest stream and videos, all in one place</p>
+          <nav class="jump-row" aria-label="Jump to">
+            <a href="#live"><i class="ph-fill ph-broadcast" aria-hidden="true"></i> live</a>
+            <a href="#videos"><i class="ph-fill ph-youtube-logo" aria-hidden="true"></i> videos</a>
+            <a href="#vod"><i class="ph-fill ph-film-strip" aria-hidden="true"></i> last stream</a>
+          </nav>
         </div>
       </div>
     </section>
 
-    <section class="section-pad live-candy">
+    <section class="section-pad content-live" id="live">
       <div class="shell">
-        <div class="soft-heading">
+        <div class="section-head">
           <div>
-            <p class="section-kicker">Twitch</p>
-            <h2 class="section-title mt-4">live right now?</h2>
+            <p class="kicker">Twitch</p>
+            <h2 class="title-lg">live right <em>now?</em></h2>
           </div>
-          <span class="live-status-pill" data-stream-status><i class="ph-fill ph-circle" aria-hidden="true"></i><span>checking...</span></span>
         </div>
 
-        <div class="stream-card mt-9">
-          <div class="stream-card__player">
-            <iframe
-              data-twitch-player
-              data-src="https://player.twitch.tv/?channel=mochikolive&parent=mochikotv.com&parent=www.mochikotv.com&autoplay=true&muted=true"
-              title="Mochiko’s Twitch stream"
-              allow="autoplay; fullscreen"
-              allowfullscreen
-              loading="eager"
-            ></iframe>
-            <div class="embed-locked" data-embed-locked>
-              <i class="ph ph-lock-key" aria-hidden="true"></i>
-              <strong>Twitch is not loaded yet</strong>
-              <span>choose “okay, load them” in the privacy box to show the player.</span>
-              <button type="button" data-open-privacy>privacy choices</button>
+        <div class="live-grid" data-live-panel data-state="unset">
+          <div class="player-window">
+            <p class="player-window__bar">
+              <span class="player-window__dots" aria-hidden="true"></span>
+              <span class="player-window__url">twitch.tv/mochikolive</span>
+              <span class="live-pill" data-live-pill><i class="ph-fill ph-circle" aria-hidden="true"></i><span>off</span></span>
+            </p>
+            <div class="player-window__screen">
+              <iframe
+                data-twitch-player
+                data-src="https://player.twitch.tv/?channel=mochikolive&parent=mochikotv.com&parent=www.mochikotv.com&autoplay=true&muted=true"
+                title="Mochiko’s Twitch stream"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+              ></iframe>
+              <div class="embed-locked" data-embed-locked>
+                <i class="ph-fill ph-lock-key" aria-hidden="true"></i>
+                <strong data-embed-title>twitch isn’t loaded yet</strong>
+                <span data-embed-copy>click “okay, load them” in the privacy box to see the player</span>
+                <button class="button button--pink" type="button" data-open-privacy>privacy choices</button>
+              </div>
             </div>
           </div>
-          <div class="stream-card__side">
-            <img class="stream-card__art" src="/assets/blue-phone.webp" alt="Mochiko holding a blue phone" width="1086" height="1448" loading="lazy" />
-            <span class="cute-chip cute-chip--white"><i class="ph ph-twitch-logo" aria-hidden="true"></i> Twitch</span>
-            <h3 data-stream-title>press play ♡</h3>
-            <p data-stream-copy>when i’m live it starts here on its own. chat lives on Twitch.</p>
-            <a class="button button--ink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer">open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-          </div>
+
+          <aside class="live-side">
+            <div class="live-side__copy">
+              <span class="sticker-label" data-live-status>twitch</span>
+              <h3 data-live-title>not loaded yet</h3>
+              <p data-live-copy>accept the privacy box to load the player. when i’m live it starts by itself (muted)</p>
+              <a class="button button--ink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer"><span data-live-cta>open Twitch</span> <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+            <img class="live-side__face" src="/assets/emotions/wondering.webp" alt="" width="1254" height="1254" data-live-face />
+          </aside>
         </div>
       </div>
     </section>
 
-    <section class="section-pad bg-white">
+    <section class="section-pad content-videos scallop-top" id="videos">
       <div class="shell">
-        <div class="soft-heading">
+        <div class="section-head content-videos__head">
           <div>
-            <p class="section-kicker">YouTube</p>
-            <h2 class="section-title mt-4">newest videos</h2>
+            <p class="kicker">YouTube</p>
+            <h2 class="title-lg">newest videos</h2>
           </div>
-          <a class="text-link" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">open my channel <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          <a class="text-link" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">my channel <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          <img class="content-videos__me" src="/assets/avatar-main2.webp" alt="" width="1024" height="1536" loading="lazy" />
         </div>
 
-        <div class="video-grid mt-9" data-youtube-grid aria-live="polite">
+        <div class="video-grid" data-youtube-grid aria-live="polite">
           {[0, 1, 2, 3].map(() => (
-            <div class="video-skeleton" aria-hidden="true"><span></span><b></b><i></i></div>
+            <div class="video-card video-card--skeleton" aria-hidden="true"><span class="video-card__thumb"></span><span class="video-card__copy"><b></b><b></b><i></i></span></div>
           ))}
         </div>
-        <div class="feed-fallback mt-6 hidden" data-youtube-fallback>
-          <i class="ph ph-youtube-logo" aria-hidden="true"></i>
-          <div><strong>the videos are over here ♡</strong><span>open YouTube to see the newest ones</span></div>
-          <a href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">YouTube <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+
+        <div class="notice-card hidden" data-youtube-notice>
+          <span class="porthole"><img src="/assets/emotions/wondering.webp" alt="" width="1254" height="1254" loading="lazy" data-youtube-notice-face /></span>
+          <div>
+            <strong data-youtube-notice-title>youtube isn’t loaded yet</strong>
+            <span data-youtube-notice-copy>accept the privacy box to see my newest videos here</span>
+          </div>
+          <div class="notice-card__actions">
+            <a class="button button--ink" href="https://www.youtube.com/@mochikotv" target="_blank" rel="noreferrer">YouTube <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            <button class="button button--cream" type="button" data-open-privacy data-youtube-notice-privacy hidden>privacy choices</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section-pad bg-paper">
+    <section class="section-pad content-vod" id="vod">
       <div class="shell">
-        <p class="section-kicker">Twitch</p>
-        <h2 class="section-title mt-4">latest VOD</h2>
-        <div class="vod-card mt-9" data-vod-card aria-live="polite">
-          <div class="vod-card__placeholder"><i class="ph ph-spinner-gap" aria-hidden="true"></i></div>
-          <div class="vod-card__copy"><span class="cute-chip">loading...</span><h3>getting the newest one ♡</h3></div>
+        <div class="vod-card" data-vod-card data-state="unset" aria-live="polite">
+          <div class="vod-card__art">
+            <span class="vod-card__tape" aria-hidden="true">REC</span>
+            <img src="/assets/gaming-2.webp" alt="" width="1086" height="1448" loading="lazy" />
+          </div>
+          <div class="vod-card__copy">
+            <p class="kicker">Twitch</p>
+            <h2 class="title-lg">last <em>stream</em></h2>
+            <span class="sticker-label" data-vod-chip>last vod</span>
+            <h3 data-vod-title>missed a stream?</h3>
+            <p data-vod-copy>accept the privacy box and my newest vod shows up here</p>
+            <div class="button-row">
+              <a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer" data-vod-link><span data-vod-cta>all vods</span> <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+              <button class="button button--cream" type="button" data-open-privacy data-vod-privacy>privacy choices</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
   <SiteFooter />
-
-  <script>
-    type VideoItem = {
-      title: string;
-      url: string;
-      thumbnailUrl: string;
-      publishedAt: string;
-    };
-
-    const prettyDate = (value: string) => new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" }).format(new Date(value));
-
-    const makeVideoCard = (video: VideoItem) => {
-      const link = document.createElement("a");
-      link.className = "video-card";
-      link.href = video.url;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-
-      const imageWrap = document.createElement("span");
-      imageWrap.className = "video-card__image";
-      const image = document.createElement("img");
-      image.src = video.thumbnailUrl;
-      image.alt = "";
-      image.loading = "lazy";
-      imageWrap.append(image);
-
-      const copy = document.createElement("span");
-      copy.className = "video-card__copy";
-      const title = document.createElement("strong");
-      title.textContent = video.title;
-      const date = document.createElement("small");
-      date.textContent = prettyDate(video.publishedAt);
-      copy.append(title, date);
-
-      const arrow = document.createElement("i");
-      arrow.className = "ph ph-arrow-up-right";
-      arrow.setAttribute("aria-hidden", "true");
-      link.append(imageWrap, copy, arrow);
-      return link;
-    };
-
-    const loadYouTube = async () => {
-      const grid = document.querySelector<HTMLElement>("[data-youtube-grid]");
-      const fallback = document.querySelector("[data-youtube-fallback]");
-      if (!grid || !fallback || grid.dataset.loaded === "true") return;
-      grid.dataset.loaded = "true";
-      try {
-        const response = await fetch("/api/youtube");
-        const data = await response.json();
-        if (!response.ok || !data.videos?.length) throw new Error("No videos available");
-        grid.replaceChildren(...data.videos.slice(0, 4).map(makeVideoCard));
-      } catch {
-        grid.classList.add("hidden");
-        fallback.classList.remove("hidden");
-      }
-    };
-
-    const loadTwitch = async () => {
-      const status = document.querySelector("[data-stream-status]");
-      const statusText = status?.querySelector("span");
-      const title = document.querySelector("[data-stream-title]");
-      const copy = document.querySelector("[data-stream-copy]");
-      const vodCard = document.querySelector("[data-vod-card]");
-      try {
-        const response = await fetch("/api/twitch");
-        const data = await response.json();
-        if (data.live?.isLive) {
-          status?.classList.add("is-live");
-          if (statusText) statusText.textContent = "live now!!";
-          if (title) title.textContent = data.live.title || "i’m live right now!!";
-          if (copy) copy.textContent = data.live.gameName ? `playing ${data.live.gameName} right now ♡` : "the stream is on right now ♡";
-        } else if (statusText) {
-          statusText.textContent = "offline for now";
-        }
-
-        if (vodCard && data.video) {
-          const link = document.createElement("a");
-          link.className = "vod-card__image";
-          link.href = data.video.url;
-          link.target = "_blank";
-          link.rel = "noreferrer";
-          const image = document.createElement("img");
-          image.src = data.video.thumbnailUrl || "/assets/gaming-2.webp";
-          image.alt = "";
-          image.loading = "lazy";
-          if (!data.video.thumbnailUrl) image.className = "vod-card__local-art";
-          link.append(image);
-
-          const details = document.createElement("div");
-          details.className = "vod-card__copy";
-          const chip = document.createElement("span");
-          chip.className = "cute-chip";
-          chip.textContent = data.video.publishedAt ? `latest VOD · ${prettyDate(data.video.publishedAt)}` : "latest VOD";
-          const heading = document.createElement("h3");
-          heading.textContent = data.video.title;
-          const watch = document.createElement("a");
-          watch.className = "button button--pink";
-          watch.href = data.video.url;
-          watch.target = "_blank";
-          watch.rel = "noreferrer";
-          watch.textContent = "watch the VOD ♡";
-          details.append(chip, heading, watch);
-          vodCard.replaceChildren(link, details);
-        } else if (vodCard) {
-          vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs ♡</a></div>`;
-        }
-      } catch {
-        if (statusText) statusText.textContent = "check Twitch ♡";
-        if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-twitch-logo" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">Twitch VODs</span><h3>the newest one is on Twitch</h3><a class="button button--pink" href="https://www.twitch.tv/mochikolive/videos" target="_blank" rel="noreferrer">open VODs ♡</a></div>`;
-      }
-    };
-
-    const showBlockedContent = () => {
-      const statusText = document.querySelector("[data-stream-status] span");
-
-      const grid = document.querySelector("[data-youtube-grid]");
-      if (grid) grid.innerHTML = `<div class="privacy-locked-card"><i class="ph ph-lock-key" aria-hidden="true"></i><div><strong>YouTube is not loaded</strong><span>You said no to optional media. You can change that in privacy choices.</span></div><button type="button" data-open-privacy>change choice</button></div>`;
-
-      const vodCard = document.querySelector("[data-vod-card]");
-      if (vodCard) vodCard.innerHTML = `<div class="vod-card__placeholder"><i class="ph ph-lock-key" aria-hidden="true"></i></div><div class="vod-card__copy"><span class="cute-chip">not loaded</span><h3>Twitch is tucked away</h3><button class="button button--pink" type="button" data-open-privacy>privacy choices</button></div>`;
-
-      const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
-      const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
-      player?.removeAttribute("src");
-      if (locked) locked.hidden = false;
-    };
-
-    const maybeLoadExternalContent = () => {
-      const choice = document.documentElement.dataset.privacyChoice;
-      if (choice === "declined") {
-        showBlockedContent();
-        return;
-      }
-      if (choice !== "accepted") return;
-
-      const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
-      const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
-      if (player?.dataset.src && !player.hasAttribute("src")) player.src = player.dataset.src;
-      if (locked) locked.hidden = true;
-
-      loadYouTube();
-      loadTwitch();
-    };
-
-    maybeLoadExternalContent();
-    window.addEventListener("mochiko:privacy-choice", maybeLoadExternalContent);
-    document.addEventListener("astro:page-load", maybeLoadExternalContent);
-  </script>
 </BaseLayout>
+
+<script>
+  import { formatStreamTime, getTwitch, onPrivacyChoice, upcomingStreams, type PrivacyChoice } from "../scripts/live";
+
+  type VideoItem = { title: string; url: string; thumbnailUrl: string; publishedAt: string };
+  type LiveState = "unset" | "declined" | "loading" | "live" | "offline" | "error";
+
+  const faces: Record<LiveState, string> = {
+    unset: "wondering",
+    declined: "wondering",
+    loading: "loading",
+    live: "happy",
+    offline: "sad",
+    error: "surprised",
+  };
+
+  const prettyDate = (value: string) => new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" }).format(new Date(value));
+
+  const setText = (root: ParentNode, selector: string, value: string) => {
+    const element = root.querySelector(selector);
+    if (element) element.textContent = value;
+  };
+
+  const renderLive = (state: LiveState, text: { pill: string; status: string; title: string; copy: string; cta?: string }) => {
+    const panel = document.querySelector<HTMLElement>("[data-live-panel]");
+    if (!panel) return;
+    panel.dataset.state = state;
+    setText(panel, "[data-live-pill] span", text.pill);
+    setText(panel, "[data-live-status]", text.status);
+    setText(panel, "[data-live-title]", text.title);
+    setText(panel, "[data-live-copy]", text.copy);
+    setText(panel, "[data-live-cta]", text.cta ?? "open Twitch");
+    const face = panel.querySelector<HTMLImageElement>("[data-live-face]");
+    if (face) face.src = `/assets/emotions/${faces[state]}.webp`;
+  };
+
+  const setPlayer = (choice: PrivacyChoice) => {
+    const player = document.querySelector<HTMLIFrameElement>("[data-twitch-player]");
+    const locked = document.querySelector<HTMLElement>("[data-embed-locked]");
+    if (!player || !locked) return;
+    if (choice === "accepted") {
+      if (player.dataset.src && player.getAttribute("src") !== player.dataset.src) player.src = player.dataset.src;
+      locked.hidden = true;
+      return;
+    }
+    player.removeAttribute("src");
+    locked.hidden = false;
+    setText(locked, "[data-embed-title]", choice === "declined" ? "twitch is off" : "twitch isn’t loaded yet");
+    setText(locked, "[data-embed-copy]", choice === "declined"
+      ? "you said no to external stuff, so nothing loads here. that’s totally fine!"
+      : "click “okay, load them” in the privacy box to see the player");
+  };
+
+  const makeVideoCard = (video: VideoItem, index: number) => {
+    const link = document.createElement("a");
+    link.className = index === 0 ? "video-card video-card--featured" : "video-card";
+    link.href = video.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+
+    const thumb = document.createElement("span");
+    thumb.className = "video-card__thumb";
+    const image = document.createElement("img");
+    image.src = video.thumbnailUrl;
+    image.alt = "";
+    image.loading = "lazy";
+    image.width = 480;
+    image.height = 360;
+    const play = document.createElement("i");
+    play.className = "ph-fill ph-play";
+    play.setAttribute("aria-hidden", "true");
+    thumb.append(image, play);
+
+    const copy = document.createElement("span");
+    copy.className = "video-card__copy";
+    if (index === 0) {
+      const tag = document.createElement("small");
+      tag.className = "video-card__tag";
+      tag.textContent = "new";
+      copy.append(tag);
+    }
+    const title = document.createElement("strong");
+    title.textContent = video.title;
+    const date = document.createElement("small");
+    date.textContent = prettyDate(video.publishedAt);
+    copy.append(title, date);
+
+    link.append(thumb, copy);
+    return link;
+  };
+
+  const showVideoNotice = (kind: "fallback" | "locked" | "unset") => {
+    const grid = document.querySelector<HTMLElement>("[data-youtube-grid]");
+    const notice = document.querySelector<HTMLElement>("[data-youtube-notice]");
+    if (!grid || !notice) return;
+    grid.classList.add("hidden");
+    notice.classList.remove("hidden");
+    notice.dataset.kind = kind;
+    const face = notice.querySelector<HTMLImageElement>("[data-youtube-notice-face]");
+    if (face) face.src = `/assets/emotions/${kind === "fallback" ? "surprised" : "wondering"}.webp`;
+    setText(notice, "[data-youtube-notice-title]", kind === "fallback" ? "youtube isn’t answering" : kind === "locked" ? "youtube is off" : "youtube isn’t loaded yet");
+    setText(notice, "[data-youtube-notice-copy]", kind === "fallback"
+      ? "my videos are still on my channel though!"
+      : kind === "locked"
+        ? "you said no to external stuff. you can change that anytime"
+        : "accept the privacy box to see my newest videos here");
+    const privacy = notice.querySelector<HTMLElement>("[data-youtube-notice-privacy]");
+    if (privacy) privacy.hidden = kind === "fallback";
+  };
+
+  const loadYouTube = async () => {
+    const grid = document.querySelector<HTMLElement>("[data-youtube-grid]");
+    const notice = document.querySelector<HTMLElement>("[data-youtube-notice]");
+    if (!grid || !notice || grid.dataset.loaded === "true") return;
+    grid.dataset.loaded = "true";
+    try {
+      const response = await fetch("/api/youtube");
+      const data = await response.json();
+      if (!response.ok || !data.videos?.length) throw new Error("No videos available");
+      grid.replaceChildren(...(data.videos as VideoItem[]).slice(0, 4).map(makeVideoCard));
+      grid.classList.remove("hidden");
+      notice.classList.add("hidden");
+    } catch {
+      showVideoNotice("fallback");
+    }
+  };
+
+  const renderVod = (state: "unset" | "declined" | "loading" | "ready" | "fallback", video?: { title: string; url: string }) => {
+    const card = document.querySelector<HTMLElement>("[data-vod-card]");
+    if (!card) return;
+    card.dataset.state = state;
+    const link = card.querySelector<HTMLAnchorElement>("[data-vod-link]");
+    const privacy = card.querySelector<HTMLElement>("[data-vod-privacy]");
+    if (privacy) privacy.hidden = state !== "unset" && state !== "declined";
+    if (link) link.href = video?.url ?? "https://www.twitch.tv/mochikolive/videos";
+
+    const copy = {
+      unset: ["last vod", "missed a stream?", "accept the privacy box and my newest vod shows up here", "all vods"],
+      declined: ["twitch is off", "can’t show it here", "you can still find all my vods on twitch", "all vods"],
+      loading: ["loading...", "one sec!", "getting the newest one...", "all vods"],
+      ready: ["last vod", video?.title ?? "my last stream", "the full stream, in case you missed it", "watch it"],
+      fallback: ["twitch vods", "it’s on twitch", "couldn’t load it here, but it’s on my twitch page", "all vods"],
+    }[state];
+
+    setText(card, "[data-vod-chip]", copy[0]);
+    setText(card, "[data-vod-title]", copy[1]);
+    setText(card, "[data-vod-copy]", copy[2]);
+    setText(card, "[data-vod-cta]", copy[3]);
+  };
+
+  onPrivacyChoice((choice) => {
+    if (!document.querySelector("[data-content-page]")) return;
+    setPlayer(choice);
+
+    if (choice !== "accepted") {
+      const grid = document.querySelector<HTMLElement>("[data-youtube-grid]");
+      if (grid) grid.dataset.loaded = "";
+      showVideoNotice(choice === "declined" ? "locked" : "unset");
+      renderVod(choice);
+      renderLive(choice, choice === "declined"
+        ? { pill: "off", status: "twitch is off", title: "no player", copy: "you said no to twitch stuff, that’s okay! you can still watch on twitch directly" }
+        : { pill: "off", status: "twitch", title: "not loaded yet", copy: "accept the privacy box to load the player. when i’m live it starts by itself (muted)" });
+      return;
+    }
+
+    loadYouTube();
+    const panel = document.querySelector<HTMLElement>("[data-live-panel]");
+    if (panel?.dataset.state !== "live" && panel?.dataset.state !== "offline") {
+      renderLive("loading", { pill: "checking...", status: "checking", title: "one sec!", copy: "checking if i’m live..." });
+      renderVod("loading");
+    }
+
+    getTwitch()
+      .then((data) => {
+        if (data.live?.isLive) {
+          renderLive("live", {
+            pill: "live!",
+            status: data.live.gameName ? `playing ${data.live.gameName}` : "live now",
+            title: data.live.title || "i’m live!",
+            copy: data.live.viewerCount ? `${data.live.viewerCount} people watching. it’s muted, click it to unmute` : "it’s muted, click it to unmute",
+            cta: "open chat",
+          });
+        } else {
+          const next = upcomingStreams(data.schedule)[0];
+          renderLive("offline", {
+            pill: "offline",
+            status: "offline",
+            title: "not live rn",
+            copy: next
+              ? `next stream: ${formatStreamTime(next.startTime)}${next.category ? ` · ${next.category}` : ""}`
+              : "no stream planned yet. the player starts by itself when i go live",
+          });
+        }
+        if (data.video?.url) renderVod("ready", data.video);
+        else renderVod("fallback");
+      })
+      .catch(() => {
+        renderLive("error", { pill: "twitch", status: "hmm", title: "twitch isn’t answering", copy: "try the channel directly, it should still work" });
+        renderVod("fallback");
+      });
+  });
+</script>

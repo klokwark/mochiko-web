@@ -3,182 +3,251 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Marquee from "../components/Marquee.astro";
-import { contentCards, favoriteGames, favoriteMusic, playlist, socials } from "../data/site";
+import { favoriteGames, favoriteMusic, playlist, socials } from "../data/site";
+
+const [twitch, ...channels] = socials;
+const channelTones = ["cream", "lilac", "ink", "butter"];
 ---
 
 <BaseLayout>
   <SiteHeader />
   <main>
-    <section class="soft-hero">
-      <div class="soft-dots" aria-hidden="true"></div>
-      <span class="doodle doodle--heart" aria-hidden="true">♡</span>
-      <span class="doodle doodle--bow" aria-hidden="true">୨୧</span>
-      <div class="shell soft-hero__grid">
-        <div class="soft-hero__copy">
-          <p class="bubble-label">hiii!! you found me</p>
-          <h1 class="soft-hero__title">hii, i’m<br /><em>Mochiko!</em></h1>
-          <p class="soft-hero__lede">loud here, extremely quiet in real life. i play games, collect things i do not need, and get distracted by every single one of them.</p>
-          <div class="mt-7 flex flex-wrap gap-3">
-            <a class="button button--pink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-live-link>
-              <i class="ph-fill ph-heart" aria-hidden="true"></i><span data-live-label>come watch me!</span>
+    <section class="home-hero">
+      <div class="shell home-hero__grid">
+        <div class="home-hero__copy">
+          <p class="sticker-label sticker-label--tilt">hiii!!</p>
+          <h1 class="title-xl home-hero__title">hii, i’m<br /><em>Mochiko!</em></h1>
+          <p class="lede">i’m a vtuber from northern germany! i stream games on twitch, mostly minecraft and genshin, and post the best parts on youtube.</p>
+          <div class="button-row">
+            <a class="button button--pink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer">
+              <i class="ph-fill ph-twitch-logo" aria-hidden="true"></i><span data-hero-live-label>watch on twitch</span>
             </a>
-            <a class="button button--white" href="/content">my videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button--cream" href="/content">videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
           </div>
-          <nav class="hero-socials" aria-label="Find Mochiko online">
+          <nav class="home-hero__socials" aria-label="Find Mochiko online">
+            <span>also on</span>
             {socials.map((social) => (
-              <a href={social.href} target="_blank" rel="noreferrer">
-                <i class:list={["ph", social.icon]} aria-hidden="true"></i>
-                <span>{social.label}</span>
+              <a href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}>
+                <i class:list={["ph-fill", social.icon]} aria-hidden="true"></i>
               </a>
             ))}
           </nav>
-          <div class="mini-note"><span>status.exe</span><strong>probably still in the settings menu</strong></div>
         </div>
 
-        <div class="soft-hero__art">
-          <div class="hero-cloud" aria-hidden="true"></div>
-          <span class="sticker sticker--top" aria-hidden="true">look!!<br />it’s me</span>
-          <span class="sticker sticker--bottom" aria-hidden="true">♡</span>
-          <img src="/assets/model.webp" alt="Mochiko" width="1200" height="1600" fetchpriority="high" />
-        </div>
-      </div>
-    </section>
-
-    <section class="home-live" data-home-live>
-      <div class="shell home-live__inner">
-        <img class="home-live__acrobat" src="/assets/acrobat.webp" alt="" width="1254" height="1254" loading="lazy" />
-        <span class="home-live__badge"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>checking Twitch...</span></span>
-        <div class="home-live__copy">
-          <strong data-home-live-title>am i live?</strong>
-          <span data-home-live-detail>one sec, i’m looking!!</span>
-        </div>
-        <a class="button button--white" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer" data-home-live-button>open Twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-      </div>
-    </section>
-
-    <Marquee sitter={{ src: "/assets/cute-pose2.webp", alt: "Mochiko sitting with a bunny plush", width: 1086, height: 1448 }} />
-
-    <section class="section-pad bg-white">
-      <div class="shell grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-18">
-        <div class="soft-photo">
-          <div class="soft-photo__dots" aria-hidden="true"></div>
-          <img src="/assets/about.webp" alt="Mochiko smiling" width="900" height="1125" loading="lazy" />
-          <span class="soft-photo__tag">hiii ♡</span>
-        </div>
-        <div class="min-w-0">
-          <p class="section-kicker">about me</p>
-          <h2 class="section-title mt-4">i said one round<br /><em>that was four hours ago</em></h2>
-          <p class="body-lede mt-6">it was supposed to be a short session. then i started one more district, opened one more menu, and the sun came up.</p>
-          <a class="button button--ink mt-7" href="/about">there’s more <i class="ph ph-heart" aria-hidden="true"></i></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad favorites-preview decorated-section" id="favorites">
-      <div class="shell">
-        <div class="soft-heading">
-          <div>
-            <p class="section-kicker">current favorites</p>
-            <h2 class="section-title mt-4">stuff i’m stuck on</h2>
+        <div class="figure-box-wrap">
+          <div class="figure-box">
+            <span class="figure-box__hang" aria-hidden="true"></span>
+            <p class="figure-box__top" aria-hidden="true"><span>collectible</span><span>series 01</span></p>
+            <div class="figure-box__window">
+              <img class="figure-box__me" src="/assets/model.webp" alt="Mochiko hugging her bunny plush" width="960" height="1280" fetchpriority="high" />
+            </div>
+            <div class="figure-box__plate">
+              <img src="/assets/mochiko-wordmark.webp" alt="" width="960" height="439" />
+                          </div>
+            <span class="figure-box__seal" aria-hidden="true">new!!</span>
           </div>
-          <a class="text-link" href="/about#favorites">the full ranking <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-live scallop-top" data-home-live data-state="unset" aria-live="polite">
+      <div class="shell home-live__inner">
+        <img class="home-live__face die-cut" src="/assets/emotions/wondering.webp" alt="" width="1254" height="1254" data-home-live-face />
+        <div class="home-live__copy">
+          <span class="home-live__badge"><i class="ph-fill ph-circle" aria-hidden="true"></i><span data-home-live-status>twitch</span></span>
+          <strong data-home-live-title>am i live?</strong>
+          <span data-home-live-detail>click okay in the privacy box and i’ll check for you</span>
+        </div>
+        <div class="home-live__actions">
+          <a class="button button--ink" href="https://www.twitch.tv/mochikolive" target="_blank" rel="noreferrer"><span data-home-live-cta>open Twitch</span> <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          <button class="home-live__privacy" type="button" data-open-privacy data-home-live-privacy hidden>change privacy choice</button>
+        </div>
+      </div>
+    </section>
+
+    <Marquee />
+
+    <section class="section-pad home-about">
+      <div class="shell home-about__grid">
+        <figure class="snapshot">
+          <span class="tape tape--left" aria-hidden="true"></span>
+          <span class="tape tape--right" aria-hidden="true"></span>
+          <div class="snapshot__photo">
+            <img src="/assets/about.webp" alt="Mochiko sitting on the floor with her bunny plush, laughing" width="900" height="1200" loading="lazy" />
+          </div>
+          <figcaption>me + bunny</figcaption>
+        </figure>
+
+        <div class="home-about__copy">
+          <p class="kicker">about me</p>
+          <h2 class="title-lg">nice to<br /><em>meet u!</em></h2>
+          <p class="lede">most people call me mochi. i built my own pc, my desk is full of plushies and i really, really love foxes.</p>
+          <ul class="chip-row" aria-label="Some things Mochiko likes">
+            <li>foxes</li>
+            <li>blue everything</li>
+            <li>city builders</li>
+            <li>horror movies</li>
+          </ul>
+          <a class="button button--cream" href="/about">more about me <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad home-faves scallop-top" id="favorites">
+      <img class="home-faves__me" src="/assets/gaming-3.webp" alt="" width="1086" height="1448" loading="lazy" />
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">favorites</p>
+            <h2 class="title-lg">what i’m into <em>rn</em></h2>
+          </div>
+          <a class="text-link" href="/about#favorites">full list <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
 
-        <div class="favorites-preview__grid mt-10">
-          <div class="mini-game-stack" aria-label="Top three favorite games">
-            {favoriteGames.slice(0, 3).map((game, index) => (
-              <a class="mini-game" href={game.href} target="_blank" rel="noreferrer" style={`--stack-index:${index}`}>
-                <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
-                <span>#{game.rank}</span>
+        <div class="home-faves__grid">
+          <div class="game-fan">
+            <p class="game-fan__label">my top 3</p>
+            <div class="game-fan__cards">
+              {favoriteGames.slice(0, 3).map((game, index) => (
+                <a class="game-fan__card" href={game.href} target="_blank" rel="noreferrer" style={`--i:${index}`}>
+                  <img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" />
+                  <span>#{game.rank}</span>
+                </a>
+              ))}
+            </div>
+            <ul class="game-fan__names">
+              {favoriteGames.slice(0, 3).map((game) => <li data-rank={game.rank}>{game.title}</li>)}
+            </ul>
+          </div>
+
+          <div class="record-card">
+            <div class="record-card__deck" aria-hidden="true">
+              <span class="record-card__disc"><img src={favoriteMusic.artistImage} alt="" width="800" height="800" loading="lazy" /></span>
+              <img class="record-card__sleeve" src={favoriteMusic.songImage} alt="" width="800" height="800" loading="lazy" />
+            </div>
+            <div class="record-card__copy">
+              <span class="record-card__tag">on repeat</span>
+              <h3>{favoriteMusic.song}</h3>
+              <p>{favoriteMusic.songDetail}</p>
+              <div class="record-card__links">
+                <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+                <a href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.label}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad home-channels">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <p class="kicker">socials</p>
+            <h2 class="title-lg">where to <em>find me</em></h2>
+          </div>
+          <a class="text-link" href="/content">newest videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="channels">
+          <article class="channel-main">
+            <span class="channel-main__icon"><i class:list={["ph-fill", twitch.icon]} aria-hidden="true"></i></span>
+            <p class="channel-main__handle">twitch.tv/{twitch.handle}</p>
+            <h3>streams</h3>
+            <p>{twitch.blurb}</p>
+            <div class="button-row">
+              <a class="button button--ink" href={twitch.href} target="_blank" rel="noreferrer">watch live <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+              <a class="button button--cream" href="/schedule">schedule <i class="ph ph-calendar-heart" aria-hidden="true"></i></a>
+            </div>
+          </article>
+
+          <div class="channel-stack">
+            <img class="channel-stack__me die-cut" src="/assets/blue-phone.webp" alt="" width="1086" height="1448" loading="lazy" />
+            {channels.map((channel, index) => (
+              <a class:list={["channel-card", `channel-card--${channelTones[index]}`]} href={channel.href} target="_blank" rel="noreferrer">
+                <span class="channel-card__top">
+                  <i class:list={["ph-fill", channel.icon]} aria-hidden="true"></i>
+                  <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+                </span>
+                <strong>{channel.label}</strong>
+                <small>{channel.blurb}</small>
               </a>
             ))}
           </div>
-
-          <div class="music-preview">
-            <img class="music-preview__cover" src={favoriteMusic.songImage} alt={`${favoriteMusic.song} cover`} width="1000" height="1000" loading="lazy" />
-            <div class="music-preview__copy">
-              <span>on repeat!!</span>
-              <h3>{favoriteMusic.song}</h3>
-              <p>{favoriteMusic.songDetail}</p>
-              <div class="music-preview__links">
-                <a href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
-                <a href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> my playlist</a>
-              </div>
-            </div>
-            <img class="music-preview__artist" src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="1080" height="1080" loading="lazy" />
-          </div>
         </div>
       </div>
     </section>
-
-    <section class="section-pad bg-paper">
-      <div class="shell">
-        <div class="soft-heading">
-          <div>
-            <p class="section-kicker">what i post</p>
-            <h2 class="section-title mt-4">pick something ♡</h2>
-          </div>
-          <a class="text-link" href="/content">see the newest stuff <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="mt-10 grid gap-5 md:grid-cols-3">
-          {contentCards.map((card) => (
-            <a class="squishy-card" href="/content">
-              <div class="squishy-card__image"><img src={card.image} alt={card.alt} width="800" height="600" loading="lazy" /></div>
-              <div class="squishy-card__body">
-                <span class="squishy-card__icon"><i class:list={["ph", card.icon]} aria-hidden="true"></i></span>
-                <div><h3>{card.title}</h3><p>{card.copy}</p></div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
   </main>
   <SiteFooter />
 </BaseLayout>
 
 <script>
-  const updateHomeLive = () => {
-    const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
-    if (!homeLive) return;
-    const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
-    const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
-    const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
-    const button = homeLive.querySelector<HTMLElement>("[data-home-live-button]");
+  import { formatStreamTime, getTwitch, onPrivacyChoice, upcomingStreams } from "../scripts/live";
 
-    fetch("/api/twitch")
-      .then((response) => response.json())
+  type LiveState = "unset" | "loading" | "live" | "offline" | "declined" | "error";
+
+  const faces: Record<LiveState, string> = {
+    unset: "wondering",
+    loading: "loading",
+    live: "happy",
+    offline: "sad",
+    declined: "wondering",
+    error: "surprised",
+  };
+
+  const render = (root: HTMLElement, state: LiveState, text: { status: string; title: string; detail: string; cta?: string }) => {
+    root.dataset.state = state;
+    const set = (selector: string, value: string) => {
+      const element = root.querySelector(selector);
+      if (element) element.textContent = value;
+    };
+    set("[data-home-live-status]", text.status);
+    set("[data-home-live-title]", text.title);
+    set("[data-home-live-detail]", text.detail);
+    set("[data-home-live-cta]", text.cta ?? "open Twitch");
+    const face = root.querySelector<HTMLImageElement>("[data-home-live-face]");
+    if (face) face.src = `/assets/emotions/${faces[state]}.webp`;
+    const privacy = root.querySelector<HTMLElement>("[data-home-live-privacy]");
+    if (privacy) privacy.hidden = state !== "declined";
+    const heroLabel = document.querySelector("[data-hero-live-label]");
+    if (heroLabel) heroLabel.textContent = state === "live" ? "i’m live rn!" : "watch on twitch";
+  };
+
+  onPrivacyChoice((choice) => {
+    const root = document.querySelector<HTMLElement>("[data-home-live]");
+    if (!root) return;
+
+    if (choice === "unset") {
+      render(root, "unset", { status: "twitch", title: "am i live?", detail: "click okay in the privacy box and i’ll check for you" });
+      return;
+    }
+    if (choice === "declined") {
+      render(root, "declined", { status: "twitch is off", title: "can’t check right now", detail: "you said no to twitch stuff, that’s okay! the button still works" });
+      return;
+    }
+
+    if (root.dataset.state !== "live" && root.dataset.state !== "offline") {
+      render(root, "loading", { status: "checking...", title: "one sec!", detail: "looking..." });
+    }
+
+    getTwitch()
       .then((data) => {
-        const live = data?.live?.isLive === true;
-        homeLive.dataset.isLive = String(live);
-        if (status) status.textContent = live ? "live right now!!" : "not live rn";
-        if (title) title.textContent = live ? (data.live.title || "come watch!!") : "the chair is empty";
-        if (detail) detail.textContent = live ? (data.live.gameName || "we’re doing something") : "i’ll be back. probably with a different game than the one i announced.";
-        if (button) button.firstChild!.textContent = live ? "watch now " : "open Twitch ";
+        if (data.live?.isLive) {
+          const detail = [data.live.gameName, data.live.viewerCount ? `${data.live.viewerCount} watching` : ""].filter(Boolean).join(" · ");
+          render(root, "live", { status: "live now!", title: data.live.title || "i’m live!", detail: detail || "come hang out", cta: "watch" });
+          return;
+        }
+        const next = upcomingStreams(data.schedule)[0];
+        render(root, "offline", {
+          status: "offline",
+          title: "not live rn",
+          detail: next
+            ? `next stream: ${formatStreamTime(next.startTime)}${next.category ? ` · ${next.category}` : ""}`
+            : "no stream planned yet, check back later",
+        });
       })
       .catch(() => {
-        if (status) status.textContent = "Twitch";
-        if (title) title.textContent = "go peek?";
-        if (detail) detail.textContent = "Twitch didn’t tell me anything.";
+        render(root, "error", { status: "hmm", title: "twitch isn’t answering", detail: "just check the channel directly" });
       });
-  };
-
-  const maybeUpdateHomeLive = () => {
-    const homeLive = document.querySelector<HTMLElement>("[data-home-live]");
-    if (!homeLive) return;
-    if (document.documentElement.dataset.privacyChoice === "accepted") updateHomeLive();
-    else if (document.documentElement.dataset.privacyChoice === "declined") {
-        const status = homeLive.querySelector<HTMLElement>("[data-home-live-status]");
-        const title = homeLive.querySelector<HTMLElement>("[data-home-live-title]");
-        const detail = homeLive.querySelector<HTMLElement>("[data-home-live-detail]");
-        if (status) status.textContent = "not loaded";
-        if (title) title.textContent = "Twitch is tucked away";
-        if (detail) detail.textContent = "you can still open the channel directly.";
-    }
-  };
-
-  maybeUpdateHomeLive();
-  window.addEventListener("mochiko:privacy-choice", maybeUpdateHomeLive);
-  document.addEventListener("astro:page-load", maybeUpdateHomeLive);
+  });
 </script>
