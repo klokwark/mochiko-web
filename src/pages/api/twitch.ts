@@ -1,8 +1,10 @@
 import type { APIRoute } from "astro";
+import { upcomingFromCalendar } from "../../lib/ical";
 
 export const prerender = false;
 
 const CHANNEL = "mochikolive";
+const BROADCASTER_ID = "741408479";
 const DECAPI = "https://decapi.me/twitch";
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
@@ -19,68 +21,29 @@ const getText = async (path: string) => {
     signal: AbortSignal.timeout(6500),
   });
   if (!response.ok) throw new Error(`DecAPI returned ${response.status}`);
-  return (await response.text()).trim();
+  const text = (await response.text()).trim();
+  if (/^(an error occurred|\[error)/i.test(text)) throw new Error(`DecAPI error: ${text.slice(0, 120)}`);
+  return text;
 };
 
-const unfoldIcal = (input: string) => input.replace(/\r?\n[ \t]/g, "");
-const unescapeIcal = (input: string) => input.replace(/\\n/gi, " ").replace(/\\,/g, ",").replace(/\\;/g, ";").replace(/\\\\/g, "\\");
-
-const parseIcalDate = (line: string) => {
-  const value = line.slice(line.indexOf(":") + 1).trim();
-  const match = value.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})(Z?)$/);
-  if (!match) return "";
-  const [, year, month, day, hour, minute, second, utc] = match;
-  if (utc === "Z") return `${year}-${month}-${day}T${hour}:${minute}:${second}Z`;
-
-  const zone = line.match(/TZID=([^:;]+)/)?.[1];
-  const target = Date.UTC(+year, +month - 1, +day, +hour, +minute, +second);
-  if (!zone) return new Date(target).toISOString();
-
-  let instant = target;
-  for (let pass = 0; pass < 2; pass += 1) {
-    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
-      timeZone: zone, year: "numeric", month: "2-digit", day: "2-digit",
-      hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
-    }).formatToParts(new Date(instant)).filter((part) => part.type !== "literal").map((part) => [part.type, part.value]));
-    const shown = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute, +parts.second);
-    instant += target - shown;
-  }
-  return new Date(instant).toISOString();
-};
-
-const getSchedule = async (broadcasterId: string) => {
-  const response = await fetch(`https://api.twitch.tv/helix/schedule/icalendar?broadcaster_id=${encodeURIComponent(broadcasterId)}`, {
+const getSchedule = async () => {
+  const response = await fetch(`https://api.twitch.tv/helix/schedule/icalendar?broadcaster_id=${BROADCASTER_ID}`, {
     headers: { "User-Agent": "MochikoWebsite/1.0" },
     signal: AbortSignal.timeout(6500),
   });
   if (!response.ok) throw new Error(`Twitch calendar returned ${response.status}`);
-  const calendar = unfoldIcal(await response.text());
-  const now = Date.now() - 60 * 60 * 1000;
-  return calendar.split("BEGIN:VEVENT").slice(1).map((block) => {
-    const lines = block.split(/\r?\n/);
-    const startLine = lines.find((line) => line.startsWith("DTSTART")) ?? "";
-    const endLine = lines.find((line) => line.startsWith("DTEND")) ?? "";
-    const field = (name: string) => unescapeIcal((lines.find((line) => line.startsWith(`${name}:`)) ?? "").slice(name.length + 1).trim());
-    return {
-      title: field("SUMMARY") || "streamzeit!",
-      startTime: parseIcalDate(startLine),
-      endTime: parseIcalDate(endLine),
-      category: field("CATEGORIES") || null,
-      canceledUntil: null,
-    };
-  }).filter((event) => event.startTime && new Date(event.startTime).getTime() > now).sort((a, b) => a.startTime.localeCompare(b.startTime)).slice(0, 6);
+  return upcomingFromCalendar(await response.text());
 };
 
 export const GET: APIRoute = async () => {
   try {
-    const userId = await getText(`userid/${CHANNEL}`);
     const [uptimeResult, titleResult, gameResult, viewersResult, videoResult, scheduleResult] = await Promise.allSettled([
       getText(`uptime/${CHANNEL}?offline_msg=offline`),
       getText(`title/${CHANNEL}`),
       getText(`game/${CHANNEL}`),
       getText(`viewercount/${CHANNEL}`),
       getText(`videos/${CHANNEL}?limit=1&video_format=%24%7Btitle%7D%7C%7C%7C%24%7Burl%7D`),
-      getSchedule(userId),
+      getSchedule(),
     ]);
 
     const value = (result: PromiseSettledResult<string>) => result.status === "fulfilled" ? result.value : "";
