@@ -15,7 +15,9 @@ const json = (body: unknown, status = 200, cache = "public, s-maxage=60, stale-w
   },
 });
 
-const DECAPI_ERROR = /^(An error occurred retrieving data from the API\.?$|\[Error from Twitch API\])/i;
+const DECAPI_ERROR = /^(An error occurred retrieving data from the API\.?$|\[Error from Twitch API\]|Unable to get stream information for |User not found)/i;
+const UPTIME = /\b\d+\s+(second|minute|hour|day|week)s?\b/i;
+const DEGRADED = "public, s-maxage=15, stale-while-revalidate=30";
 
 const getText = async (path: string) => {
   const response = await fetch(`${DECAPI}/${path}`, {
@@ -34,7 +36,9 @@ const getSchedule = async () => {
     signal: AbortSignal.timeout(6500),
   });
   if (!response.ok) throw new Error(`Twitch calendar returned ${response.status}`);
-  return upcomingFromCalendar(await response.text());
+  const calendar = await response.text();
+  if (!/^BEGIN:VCALENDAR/m.test(calendar)) throw new Error("Twitch calendar response is not an iCalendar");
+  return upcomingFromCalendar(calendar);
 };
 
 export const GET: APIRoute = async () => {
@@ -49,15 +53,14 @@ export const GET: APIRoute = async () => {
     ]);
 
     const value = (result: PromiseSettledResult<string>) => result.status === "fulfilled" ? result.value : "";
-    const liveKnown = uptimeResult.status === "fulfilled";
-    const scheduleKnown = scheduleResult.status === "fulfilled";
-    if (!liveKnown && !scheduleKnown) {
-      console.error("Twitch sources unavailable", uptimeResult.reason, scheduleResult.reason);
-      return json({ configured: true, source: "decapi", live: null, video: null, schedule: null, error: "Twitch macht grad ein kleines Nickerchen." }, 502, "no-store");
-    }
-
     const uptime = value(uptimeResult);
-    const isLive = Boolean(uptime && uptime.toLowerCase() !== "offline" && !uptime.toLowerCase().includes("is offline"));
+    const isOffline = uptime.toLowerCase() === "offline" || uptime.toLowerCase().includes("is offline");
+    const isLive = !isOffline && UPTIME.test(uptime);
+    const liveKnown = isOffline || isLive;
+    const scheduleKnown = scheduleResult.status === "fulfilled";
+    if (!liveKnown || !scheduleKnown) {
+      console.error("Twitch source unavailable", { uptime: uptimeResult.status === "rejected" ? uptimeResult.reason : uptime, schedule: scheduleResult.status === "rejected" ? scheduleResult.reason : "ok" });
+    }
     const title = value(titleResult);
     const gameName = value(gameResult);
     const viewerCount = Number.parseInt(value(viewersResult), 10);
@@ -86,9 +89,10 @@ export const GET: APIRoute = async () => {
         url: videoUrl,
       } : null,
       schedule: scheduleKnown ? scheduleResult.value : null,
-    }, 200, liveKnown && scheduleKnown ? undefined : "public, s-maxage=15, stale-while-revalidate=30");
+      ...(liveKnown && scheduleKnown ? {} : { error: "Twitch macht grad ein kleines Nickerchen." }),
+    }, 200, liveKnown && scheduleKnown ? undefined : DEGRADED);
   } catch (error) {
     console.error("DecAPI Twitch error", error);
-    return json({ configured: true, source: "decapi", live: null, video: null, schedule: null, error: "Twitch macht grad ein kleines Nickerchen." }, 502, "no-store");
+    return json({ configured: true, source: "decapi", live: null, video: null, schedule: null, error: "Twitch macht grad ein kleines Nickerchen." }, 502, DEGRADED);
   }
 };

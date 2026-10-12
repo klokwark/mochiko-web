@@ -60,7 +60,7 @@ const toInstant = (time: LocalTime) => {
 };
 
 const splitProperty = (line: string) => {
-  const match = line.match(/^((?:[^":]|"[^"]*")*):(.*)$/);
+  const match = line.match(/^((?:[^":]|"[^"]*")*):([\s\S]*)$/);
   if (!match) return { name: line.trim().toUpperCase(), params: "", value: "" };
   return { name: match[1].split(";")[0].trim().toUpperCase(), params: match[1], value: match[2] };
 };

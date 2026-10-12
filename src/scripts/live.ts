@@ -15,17 +15,22 @@ export type TwitchData = {
 };
 
 const CACHE_MS = 60_000;
-let cached: { at: number; request: Promise<TwitchData> } | null = null;
+const FAILURE_CACHE_MS = 20_000;
+let cached: { at: number; request: Promise<TwitchData>; failed: boolean } | null = null;
 
 export const getTwitch = () => {
-  if (cached && Date.now() - cached.at < CACHE_MS) return cached.request;
+  if (cached && Date.now() - cached.at < (cached.failed ? FAILURE_CACHE_MS : CACHE_MS)) return cached.request;
   const request = fetch("/api/twitch").then(async (response) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data?.error ?? `Twitch route returned ${response.status}`);
     return data as TwitchData;
   });
-  cached = { at: Date.now(), request };
-  request.catch(() => { cached = null; });
+  const entry = { at: Date.now(), request, failed: false };
+  cached = entry;
+  request.catch(() => {
+    entry.failed = true;
+    entry.at = Date.now();
+  });
   return request;
 };
 
