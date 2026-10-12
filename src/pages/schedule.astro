@@ -219,8 +219,8 @@ const fallbackDays = ["mo", "di", "mi", "do", "fr", "sa", "so"];
       return;
     }
     if (choice === "declined") {
-      showFallback("twitch ist aus", "ohne twitch bleibt die liste hier leer. den ganzen plan gibt’s aber auf meiner twitch-seite", true);
-      setStatus("twitch ist aus", "hier lädt nix von twitch", "wondering");
+      showFallback("die liste bleibt leer", "du hast nein zu twitch gesagt, deshalb lädt hier nix. den ganzen plan gibt’s aber auf meiner twitch-seite", true);
+      setStatus("twitch ist aus", "deine entscheidung, alles gut", "wondering");
       return;
     }
     showFallback("noch nicht geladen", "klick im datenschutz-fenster auf „okay, laden“, dann tauchen meine nächsten streams hier auf", false);

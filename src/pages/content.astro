@@ -315,7 +315,7 @@ import SiteFooter from "../components/SiteFooter.astro";
             status: "offline",
             title: "nicht live grad",
             copy: next
-              ? `nächster stream: ${formatStreamTime(next.startTime)}${next.category ? ` · ${next.category}` : ""}`
+              ? `nächster stream: ${formatStreamTime(next.startTime)}${next.category ? ` ·\u00a0${next.category}` : ""}`
               : "noch kein stream geplant. wenn ich live geh, startet der player von allein",
           });
         }
