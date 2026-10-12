@@ -58,6 +58,9 @@ The target is soft, bubbly, girly, playful, and custom-made. It should feel poli
 
 Write in Mochiko’s first-person voice: short, direct, silly, cute, and natural.
 
+- All site copy is German. Playful copy addresses the visitor with a casual lowercase “du”; the privacy policy is a formal German Datenschutzerklärung.
+- Format dates and times with the `de-DE` locale, always in the visitor’s own timezone.
+
 - Prefer lowercase for playful UI copy.
 - Keep jokes specific to games, outfits, buttons, files, PCs, saving, loading, and getting distracted.
 - A little retro-computer language is good. Do not put `.exe`, fake system text, or data jokes on every section.
