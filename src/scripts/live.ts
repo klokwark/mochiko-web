@@ -42,8 +42,8 @@ export const upcomingStreams = (schedule: ScheduledStream[] = []) => schedule
   .filter((stream) => !stream.canceledUntil && new Date(stream.startTime).getTime() > Date.now() - 15 * 60_000)
   .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-export const formatStreamTime = (value: string) => new Intl.DateTimeFormat(undefined, {
+export const formatStreamTime = (value: string) => new Intl.DateTimeFormat("de-DE", {
   weekday: "short",
   hour: "numeric",
   minute: "2-digit",
-}).format(new Date(value)).toLowerCase();
+}).format(new Date(value)).replace(/\./g, "").toLowerCase();

@@ -4,63 +4,63 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 ---
 
-<BaseLayout title="Privacy | Mochiko" description="Privacy information for mochikotv.com.">
+<BaseLayout title="Datenschutz | Mochiko" description="Datenschutzerklärung für mochikotv.com.">
   <SiteHeader />
   <main>
     <section class="privacy-hero">
       <div class="shell privacy-hero__grid">
         <div class="privacy-hero__copy">
-          <p class="kicker">privacy</p>
-          <h1 class="title-xl">privacy<br /><em>policy</em></h1>
-          <p class="lede">This page explains which data may be processed when you visit mochikotv.com and when optional Twitch or YouTube content is enabled.</p>
+          <p class="kicker">datenschutz</p>
+          <h1 class="title-xl">datenschutz-<br /><em>erklärung</em></h1>
+          <p class="lede">Auf dieser Seite erfahren Sie, welche Daten verarbeitet werden können, wenn Sie mochikotv.com besuchen und wenn optionale Inhalte von Twitch oder YouTube aktiviert werden.</p>
           <div class="button-row">
-            <button class="button button--cream" type="button" data-open-privacy>change privacy choice</button>
+            <button class="button button--cream" type="button" data-open-privacy>datenschutz-einstellung ändern</button>
           </div>
         </div>
         <div class="privacy-hero__art">
           <span class="privacy-hero__disc" aria-hidden="true"></span>
-          <img class="die-cut" src="/assets/book.webp" alt="Mochiko holding a book" width="1086" height="1448" fetchpriority="high" />
+          <img class="die-cut" src="/assets/book.webp" alt="Mochiko mit einem Buch in der Hand" width="1086" height="1448" fetchpriority="high" />
         </div>
       </div>
     </section>
 
     <section class="section-pad privacy-paper scallop-top">
       <article class="shell privacy-sheet">
-        <p class="privacy-sheet__updated">Last updated: 18 September 2026</p>
+        <p class="privacy-sheet__updated">Stand: 12. Oktober 2026</p>
 
-        <h2>1. Controller and contact</h2>
-        <p>The provider responsible for this website and the relevant contact information are identified in the <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a>.</p>
+        <h2>1. Verantwortlicher und Kontakt</h2>
+        <p>Der für diese Website verantwortliche Anbieter und die zugehörigen Kontaktdaten sind im <a href="https://www.jannikjbi.de/impressum" target="_blank" rel="noreferrer">Impressum</a> angegeben.</p>
 
-        <h2>2. Hosting by Vercel</h2>
-        <p>This website is hosted by Vercel Inc. When a page is requested, technically necessary connection data may be processed, including the IP address, requested URL, date and time, referrer, browser information, and server response data. This processing is necessary to deliver and secure the website. The legal basis is Article 6(1)(f) GDPR. Vercel may process data in the United States and other countries subject to its applicable transfer safeguards.</p>
+        <h2>2. Hosting durch Vercel</h2>
+        <p>Diese Website wird von Vercel Inc. gehostet. Beim Aufruf einer Seite können technisch notwendige Verbindungsdaten verarbeitet werden, darunter die IP-Adresse, die aufgerufene URL, Datum und Uhrzeit, der Referrer, Browserinformationen sowie Daten zur Serverantwort. Diese Verarbeitung ist erforderlich, um die Website bereitzustellen und abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Vercel kann Daten in den Vereinigten Staaten und in anderen Ländern verarbeiten; dabei gelten die jeweils anwendbaren Garantien von Vercel für Datenübermittlungen in Drittländer.</p>
 
-        <h2>3. Privacy preference stored on your device</h2>
-        <p>The site stores the key <code>mochiko_privacy_choice</code> in local storage with the value “accepted” or “declined”. It is used only to remember whether optional external media may load. It has no automatic expiry and remains until you clear site data or change the choice above. This storage is technically necessary to retain the privacy choice.</p>
+        <h2>3. Auf Ihrem Gerät gespeicherte Datenschutzeinstellung</h2>
+        <p>Die Website speichert im lokalen Speicher Ihres Browsers (Local Storage) den Schlüssel <code>mochiko_privacy_choice</code> mit dem Wert „accepted“ oder „declined“. Dieser Eintrag hält ausschließlich fest, ob optionale externe Medien geladen werden dürfen. Er läuft nicht automatisch ab und bleibt bestehen, bis Sie die Websitedaten löschen oder Ihre Auswahl oben ändern. Diese Speicherung ist technisch erforderlich, damit Ihre Datenschutzeinstellung erhalten bleibt.</p>
 
-        <h2>4. Twitch and DecAPI</h2>
-        <p>Live status and the newest VOD are disabled until you consent. After consent, this site’s server requests public Twitch information through DecAPI, a third-party API operated independently from this website. The embedded player then connects your browser to Twitch only after consent. Twitch may receive connection data such as your IP address, browser data, page URL, and time of access, and may use cookies or similar storage under its own responsibility. DecAPI may process the server request and related technical data. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. Twitch is operated by Twitch Interactive, Inc. in the United States.</p>
+        <h2>4. Twitch und DecAPI</h2>
+        <p>Der Livestatus und das neueste VOD sind deaktiviert, bis Sie einwilligen. Nach Ihrer Einwilligung ruft der Server dieser Website öffentliche Twitch-Informationen über DecAPI ab. DecAPI ist eine Drittanbieter-API, die unabhängig von dieser Website betrieben wird. Auch der eingebettete Player verbindet Ihren Browser erst nach Ihrer Einwilligung mit Twitch. Twitch kann dabei Verbindungsdaten wie Ihre IP-Adresse, Browserdaten, die URL der Seite und den Zeitpunkt des Zugriffs erhalten und in eigener Verantwortung Cookies oder ähnliche Speichertechnologien einsetzen. DecAPI kann die Serveranfrage und die damit verbundenen technischen Daten verarbeiten. Rechtsgrundlage für das optionale Laden ist Art. 6 Abs. 1 lit. a DSGVO sowie § 25 Abs. 1 TDDDG. Twitch wird von der Twitch Interactive, Inc. in den Vereinigten Staaten betrieben.</p>
 
-        <h2>5. YouTube and Google</h2>
-        <p>The latest-video feed and YouTube thumbnails are disabled until you consent. After consent, this site’s server requests YouTube’s public RSS feed and your browser may load thumbnail media supplied by YouTube or Google. Google may receive connection data and may process data in the United States and other countries. The legal basis for optional loading is Article 6(1)(a) GDPR and section 25(1) TDDDG. YouTube is a service of Google Ireland Limited / Google LLC.</p>
+        <h2>5. YouTube und Google</h2>
+        <p>Der Feed mit den neuesten Videos und die YouTube-Vorschaubilder sind deaktiviert, bis Sie einwilligen. Nach Ihrer Einwilligung ruft der Server dieser Website den öffentlichen RSS-Feed von YouTube ab, und Ihr Browser kann Vorschaubilder laden, die von YouTube oder Google bereitgestellt werden. Google kann dabei Verbindungsdaten erhalten und Daten in den Vereinigten Staaten und in anderen Ländern verarbeiten. Rechtsgrundlage für das optionale Laden ist Art. 6 Abs. 1 lit. a DSGVO sowie § 25 Abs. 1 TDDDG. YouTube ist ein Dienst der Google Ireland Limited / Google LLC.</p>
 
-        <h2>6. External links</h2>
-        <p>The site links to Twitch, YouTube, X, Discord, Ko-fi, Spotify, IGDB, Crankdat, and c-r.link. These links do not load content from those providers automatically. If you follow one, the destination provider processes the resulting request under its own privacy terms.</p>
+        <h2>6. Externe Links</h2>
+        <p>Diese Website enthält Links zu Twitch, YouTube, X, Discord, Ko-fi, Spotify, IGDB, Crankdat und c-r.link. Die Links laden nicht automatisch Inhalte dieser Anbieter. Wenn Sie einem Link folgen, verarbeitet der jeweilige Anbieter die dadurch ausgelöste Anfrage nach seinen eigenen Datenschutzbestimmungen.</p>
 
-        <h2>7. No analytics, advertising, or contact forms</h2>
-        <p>This website does not use analytics tools, advertising pixels, user accounts, or contact forms. Fonts, icons, character artwork, game covers, and music artwork used in the page design are served from this website’s own Vercel deployment.</p>
+        <h2>7. Keine Analysetools, Werbung oder Kontaktformulare</h2>
+        <p>Diese Website verwendet keine Analysetools, Werbepixel, Benutzerkonten oder Kontaktformulare. Die im Seitendesign verwendeten Schriftarten, Icons, Charakterillustrationen sowie Spiele- und Musikcover werden über das eigene Vercel-Deployment dieser Website ausgeliefert.</p>
 
-        <h2>8. Consent and withdrawal</h2>
-        <p>You can refuse optional media without losing access to the rest of the website. Consent can be withdrawn at any time by selecting “change privacy choice” above and choosing “no thanks”. Withdrawal does not affect processing that occurred before withdrawal.</p>
+        <h2>8. Einwilligung und Widerruf</h2>
+        <p>Sie können optionale Medien ablehnen, ohne den Zugang zum Rest der Website zu verlieren. Ihre Einwilligung können Sie jederzeit widerrufen, indem Sie oben auf „datenschutz-einstellung ändern“ und anschließend auf „nein danke“ klicken. Verarbeitungen, die vor dem Widerruf erfolgt sind, bleiben davon unberührt.</p>
 
-        <h2>9. Your rights</h2>
-        <p>Subject to the GDPR’s conditions, you may have rights of access, rectification, erasure, restriction, data portability, and objection. You may also lodge a complaint with a competent data protection supervisory authority.</p>
+        <h2>9. Ihre Rechte</h2>
+        <p>Unter den Voraussetzungen der DSGVO haben Sie gegebenenfalls das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem können Sie bei einer zuständigen Datenschutzaufsichtsbehörde Beschwerde einlegen.</p>
 
-        <h2>10. Provider notices</h2>
+        <h2>10. Datenschutzhinweise der Anbieter</h2>
         <ul>
-          <li><a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Vercel Privacy Notice</a></li>
-          <li><a href="https://legal.twitch.com/legal/privacy-notice/" target="_blank" rel="noreferrer">Twitch Privacy Notice</a></li>
-          <li><a href="https://decapi.me/privacy-policy" target="_blank" rel="noreferrer">DecAPI Privacy Policy</a></li>
-          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google Privacy Policy</a></li>
+          <li><a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Datenschutzhinweise von Vercel</a></li>
+          <li><a href="https://legal.twitch.com/legal/privacy-notice/" target="_blank" rel="noreferrer">Datenschutzhinweise von Twitch</a></li>
+          <li><a href="https://decapi.me/privacy-policy" target="_blank" rel="noreferrer">Datenschutzerklärung von DecAPI</a></li>
+          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Datenschutzerklärung von Google</a></li>
         </ul>
       </article>
     </section>

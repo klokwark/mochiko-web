@@ -50,6 +50,6 @@ export const GET: APIRoute = async () => {
     return json({ configured: true, source: "youtube-rss", videos });
   } catch (error) {
     console.error("YouTube RSS error", error);
-    return json({ configured: true, source: "youtube-rss", videos: [], error: "YouTube is taking a tiny nap." }, 502);
+    return json({ configured: true, source: "youtube-rss", videos: [], error: "YouTube macht grad ein kleines Nickerchen." }, 502);
   }
 };

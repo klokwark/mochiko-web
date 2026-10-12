@@ -62,7 +62,7 @@ const getSchedule = async (broadcasterId: string) => {
     const endLine = lines.find((line) => line.startsWith("DTEND")) ?? "";
     const field = (name: string) => unescapeIcal((lines.find((line) => line.startsWith(`${name}:`)) ?? "").slice(name.length + 1).trim());
     return {
-      title: field("SUMMARY") || "stream time!",
+      title: field("SUMMARY") || "streamzeit!",
       startTime: parseIcalDate(startLine),
       endTime: parseIcalDate(endLine),
       category: field("CATEGORIES") || null,
@@ -100,7 +100,7 @@ export const GET: APIRoute = async () => {
       source: "decapi",
       live: isLive ? {
         isLive: true,
-        title: title || "i’m live right now!!",
+        title: title || "ich bin grad live!!",
         gameName: gameName || null,
         viewerCount: Number.isFinite(viewerCount) ? viewerCount : null,
         uptime,
@@ -108,7 +108,7 @@ export const GET: APIRoute = async () => {
       } : { isLive: false },
       video: videoUrl.startsWith("http") ? {
         id: videoUrl.split("/").filter(Boolean).at(-1),
-        title: videoTitle || "latest stream",
+        title: videoTitle || "letzter stream",
         publishedAt: null,
         thumbnailUrl: null,
         url: videoUrl,
@@ -117,6 +117,6 @@ export const GET: APIRoute = async () => {
     });
   } catch (error) {
     console.error("DecAPI Twitch error", error);
-    return json({ configured: true, source: "decapi", live: null, video: null, schedule: [], error: "Twitch is taking a tiny nap." }, 502);
+    return json({ configured: true, source: "decapi", live: null, video: null, schedule: [], error: "Twitch macht grad ein kleines Nickerchen." }, 502);
   }
 };

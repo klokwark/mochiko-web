@@ -1,8 +1,8 @@
 export const navigation = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Content", href: "/content" },
-  { label: "Schedule", href: "/schedule" },
+  { label: "Start", href: "/" },
+  { label: "Über mich", href: "/about" },
+  { label: "Videos", href: "/content" },
+  { label: "Streamplan", href: "/schedule" },
 ];
 
 export const socials = [
@@ -11,35 +11,35 @@ export const socials = [
     handle: "mochikolive",
     href: "https://www.twitch.tv/mochikolive",
     icon: "ph-twitch-logo",
-    blurb: "mostly minecraft and genshin, sometimes something random. come hang out!",
+    blurb: "minecraft, genshin oder einfach irgendwas random. komm vorbei!",
   },
   {
     label: "YouTube",
     handle: "@mochikotv",
     href: "https://www.youtube.com/@mochikotv",
     icon: "ph-youtube-logo",
-    blurb: "stream highlights and other videos",
+    blurb: "highlights aus den streams und andere videos",
   },
   {
     label: "X",
     handle: "@mochikotv",
     href: "https://x.com/mochikotv",
     icon: "ph-x-logo",
-    blurb: "updates, schedule changes and random stuff",
+    blurb: "updates, planänderungen und random kram",
   },
   {
     label: "Discord",
-    handle: "come say hi!",
+    handle: "sag hi!",
     href: "https://discord.gg/xZHrPBvFty",
     icon: "ph-discord-logo",
-    blurb: "my server! come say hi",
+    blurb: "mein server! sag einfach mal hi",
   },
   {
     label: "Ko-fi",
     handle: "mochikotv",
     href: "https://ko-fi.com/mochikotv",
     icon: "ph-coffee",
-    blurb: "if you want to support me (thank you!!)",
+    blurb: "falls du mich unterstützen willst (danke!!)",
   },
 ];
 
@@ -79,7 +79,7 @@ export const favoriteGames = [
     title: "GTA V",
     image: "/assets/favorites/gta-v.jpg",
     href: "https://www.igdb.com/games/grand-theft-auto-v",
-    note: "single player or FiveM",
+    note: "singleplayer oder FiveM",
   },
 ];
 
@@ -94,6 +94,6 @@ export const favoriteMusic = {
 };
 
 export const playlist = {
-  label: "my playlist",
+  label: "meine playlist",
   href: "https://open.spotify.com/playlist/1UrOF3ADsifzUjULkN0KWD",
 };

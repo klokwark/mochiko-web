@@ -3,10 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
-const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const fallbackDays = ["mo", "di", "mi", "do", "fr", "sa", "so"];
 ---
 
-<BaseLayout title="Schedule | Mochiko" description="See Mochiko’s upcoming Twitch streams in your own timezone.">
+<BaseLayout title="Streamplan | Mochiko" description="Wann Mochiko als Nächstes auf Twitch live ist, direkt in deiner Zeitzone.">
   <SiteHeader />
   <main data-schedule-page>
     <section class="scene-hero scene-hero--right">
@@ -15,12 +15,12 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
           <img src="/assets/scenes/sunset-rooftop.webp" alt="" width="1672" height="941" fetchpriority="high" />
         </div>
         <div class="scene-card">
-          <p class="kicker">schedule</p>
-          <h1 class="title-xl">when am i<br /><em>live?</em></h1>
-          <p class="lede">all times are already in your timezone, so no math needed</p>
+          <p class="kicker">streamplan</p>
+          <h1 class="title-xl">wann bin ich<br /><em>live?</em></h1>
+          <p class="lede">die zeiten sind schon in deiner zeitzone, du musst also nix umrechnen</p>
           <div class="jump-row">
-            <span><i class="ph-fill ph-clock" aria-hidden="true"></i> <b data-schedule-zone>your timezone</b></span>
-            <a href="#planner"><i class="ph ph-arrow-down" aria-hidden="true"></i> the list</a>
+            <span><i class="ph-fill ph-clock" aria-hidden="true"></i> <b data-schedule-zone>deine zeitzone</b></span>
+            <a href="#planner"><i class="ph ph-arrow-down" aria-hidden="true"></i> zur liste</a>
           </div>
         </div>
       </div>
@@ -31,16 +31,16 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
         <article class="planner">
           <div class="planner__head">
             <div>
-              <p class="kicker">coming up</p>
-              <h2 class="title-lg">next <em>streams</em></h2>
+              <p class="kicker">demnächst</p>
+              <h2 class="title-lg">nächste <em>streams</em></h2>
             </div>
             <div class="planner__status" data-schedule-status>
               <span class="porthole"><img src="/assets/emotions/wondering.webp" alt="" width="1254" height="1254" data-schedule-mood /></span>
-              <span><b data-schedule-state>not loaded yet</b><small data-schedule-note>accept the privacy box first</small></span>
+              <span><b data-schedule-state>noch nicht geladen</b><small data-schedule-note>sag erst im datenschutz-fenster okay</small></span>
             </div>
           </div>
 
-          <ul class="planner__week" data-schedule-week aria-label="Days with a stream planned">
+          <ul class="planner__week" data-schedule-week aria-label="Tage mit geplantem Stream">
             {fallbackDays.map((day) => <li><span>{day}</span></li>)}
           </ul>
 
@@ -50,33 +50,33 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
           <div class="planner__empty hidden" data-schedule-fallback>
             <i class="ph-fill ph-calendar-x" aria-hidden="true"></i>
-            <div><strong data-schedule-fallback-title>nothing here right now</strong><span data-schedule-fallback-copy>check twitch in case something changed</span></div>
-            <button class="button button--cream" type="button" data-open-privacy data-schedule-privacy hidden>privacy choices</button>
+            <div><strong data-schedule-fallback-title>grad nix da</strong><span data-schedule-fallback-copy>guck mal auf twitch, falls sich was geändert hat</span></div>
+            <button class="button button--cream" type="button" data-open-privacy data-schedule-privacy hidden>datenschutz-einstellungen</button>
           </div>
 
           <a class="text-link planner__open" href="https://www.twitch.tv/mochikolive/schedule" target="_blank" rel="noreferrer">
-            full schedule on twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+            ganzer streamplan auf twitch <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
           </a>
         </article>
 
         <aside class="sched-pose">
           <div class="sched-pose__arch">
-            <img src="/assets/outfits/outfit-5.webp" alt="Mochiko in a frilly black and white outfit, holding her headphones" width="941" height="1672" loading="lazy" />
+            <img src="/assets/outfits/outfit-5.webp" alt="Mochiko in einem schwarz-weißen Rüschenoutfit, die Kopfhörer in der Hand" width="941" height="1672" loading="lazy" />
           </div>
-          <p class="sticker-label sched-pose__note">see u there!</p>
+          <p class="sticker-label sched-pose__note">man sieht sich!</p>
         </aside>
       </div>
     </section>
 
     <section class="sched-note scallop-top">
       <div class="shell sched-note__grid">
-        <img class="sched-note__art" src="/assets/umbrella-2.webp" alt="Mochiko holding a closed umbrella" width="1122" height="1402" loading="lazy" />
+        <img class="sched-note__art" src="/assets/umbrella-2.webp" alt="Mochiko mit einem zugeklappten Regenschirm" width="1122" height="1402" loading="lazy" />
         <div>
-          <p class="kicker">small note</p>
-          <h2 class="title-lg">plans change <em>sometimes</em></h2>
-          <p class="lede">if a stream moves, this list updates by itself because it comes straight from twitch.</p>
+          <p class="kicker">kurz noch was</p>
+          <h2 class="title-lg">pläne ändern sich <em>manchmal</em></h2>
+          <p class="lede">wenn sich ein stream verschiebt, passt sich die liste von allein an. die kommt nämlich direkt von twitch.</p>
         </div>
-        <a class="button button--pink" href="/content">watch something now <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="button button--pink" href="/content">jetzt was gucken <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
       </div>
     </section>
   </main>
@@ -87,11 +87,11 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
   import { getTwitch, onPrivacyChoice, upcomingStreams, type ScheduledStream } from "../scripts/live";
 
   const weekdayLabels = () => {
-    const formatter = new Intl.DateTimeFormat(undefined, { weekday: "short" });
+    const formatter = new Intl.DateTimeFormat("de-DE", { weekday: "short" });
     // 2024-01-01 was a Monday, so this walks Mon..Sun in order.
     return Array.from({ length: 7 }, (_, index) => {
       const day = new Date(Date.UTC(2024, 0, 1 + index, 12));
-      return { index: day.getUTCDay(), label: formatter.format(day).toLowerCase() };
+      return { index: day.getUTCDay(), label: formatter.format(day).toLowerCase().replace(/\.$/, "") };
     });
   };
 
@@ -136,8 +136,8 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     const start = new Date();
     start.setHours(0, 0, 0, 0);
     const diff = Math.round((new Date(date).setHours(0, 0, 0, 0) - start.getTime()) / 86_400_000);
-    if (diff === 0) return "today";
-    if (diff === 1) return "tomorrow";
+    if (diff === 0) return "heute";
+    if (diff === 1) return "morgen";
     return "";
   };
 
@@ -149,11 +149,11 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     const dateTile = document.createElement("time");
     dateTile.dateTime = stream.startTime;
     const weekday = document.createElement("span");
-    weekday.textContent = new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(date).toLowerCase();
+    weekday.textContent = new Intl.DateTimeFormat("de-DE", { weekday: "short" }).format(date).toLowerCase().replace(/\.$/, "");
     const day = document.createElement("strong");
-    day.textContent = new Intl.DateTimeFormat(undefined, { day: "numeric" }).format(date);
+    day.textContent = new Intl.DateTimeFormat("de-DE", { day: "numeric" }).format(date);
     const month = document.createElement("small");
-    month.textContent = new Intl.DateTimeFormat(undefined, { month: "short" }).format(date).toLowerCase();
+    month.textContent = new Intl.DateTimeFormat("de-DE", { month: "short" }).format(date).toLowerCase().replace(/\.$/, "");
     dateTile.append(weekday, day, month);
 
     const copy = document.createElement("div");
@@ -166,12 +166,12 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     const heading = document.createElement("h3");
     heading.textContent = stream.title || "stream!";
     const meta = document.createElement("p");
-    meta.textContent = stream.category || "game tba";
+    meta.textContent = stream.category || "game steht noch nicht fest";
     copy.append(heading, meta);
 
     const time = document.createElement("span");
     time.className = "schedule-item__time";
-    time.textContent = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(date);
+    time.textContent = new Intl.DateTimeFormat("de-DE", { hour: "numeric", minute: "2-digit" }).format(date);
 
     card.append(dateTile, copy, time);
     return card;
@@ -181,23 +181,23 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     const list = document.querySelector("[data-schedule-list]");
     const fallback = document.querySelector("[data-schedule-fallback]");
     if (!list || !fallback) return;
-    setStatus("checking...", "one sec!", "loading");
+    setStatus("checke grad...", "eine sek!", "loading");
     try {
       const data = await getTwitch();
       const streams = upcomingStreams(data.schedule);
       if (!streams.length) {
-        showFallback("nothing planned yet", "check back soon or look on twitch in case something changed", false);
-        setStatus("nothing planned", "check back soon", "sad");
+        showFallback("noch nix geplant", "guck bald nochmal rein oder direkt auf twitch, falls sich was geändert hat", false);
+        setStatus("nix geplant", "noch alles leer", "sad");
         return;
       }
       list.replaceChildren(...streams.map(makeItem));
       list.classList.remove("hidden");
       fallback.classList.add("hidden");
       renderWeek(new Set(streams.map((stream) => new Date(stream.startTime).getDay())));
-      setStatus(`${streams.length} stream${streams.length === 1 ? "" : "s"} planned`, "shown in your timezone", "happy");
+      setStatus(`${streams.length} stream${streams.length === 1 ? "" : "s"} geplant`, "alles in deiner zeitzone", "happy");
     } catch {
-      showFallback("couldn’t load the schedule", "twitch isn’t answering right now, but the full schedule is on my channel", false);
-      setStatus("hmm", "twitch isn’t answering", "surprised");
+      showFallback("konnte den streamplan nicht laden", "twitch antwortet grad nicht, aber der ganze plan steht auf meinem kanal", false);
+      setStatus("hmm", "da hakt was", "surprised");
     }
   };
 
@@ -205,9 +205,9 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
     const zone = document.querySelector("[data-schedule-zone]");
     if (!zone) return;
     try {
-      zone.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone?.replace(/_/g, " ") || "your timezone";
+      zone.textContent = Intl.DateTimeFormat("de-DE").resolvedOptions().timeZone?.replace(/_/g, " ") || "deine zeitzone";
     } catch {
-      zone.textContent = "your timezone";
+      zone.textContent = "deine zeitzone";
     }
   };
 
@@ -219,11 +219,11 @@ const fallbackDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
       return;
     }
     if (choice === "declined") {
-      showFallback("twitch is off", "you said no to twitch stuff. the full schedule is still on my twitch page", true);
-      setStatus("twitch is off", "nothing loads from twitch here", "wondering");
+      showFallback("twitch ist aus", "ohne twitch bleibt die liste hier leer. den ganzen plan gibt’s aber auf meiner twitch-seite", true);
+      setStatus("twitch ist aus", "hier lädt nix von twitch", "wondering");
       return;
     }
-    showFallback("not loaded yet", "accept the privacy box and my next streams show up here", false);
-    setStatus("not loaded yet", "accept the privacy box first", "wondering");
+    showFallback("noch nicht geladen", "klick im datenschutz-fenster auf „okay, laden“, dann tauchen meine nächsten streams hier auf", false);
+    setStatus("noch nicht geladen", "sag erst im datenschutz-fenster okay", "wondering");
   });
 </script>

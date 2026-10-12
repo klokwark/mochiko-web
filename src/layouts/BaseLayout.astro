@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title = "Mochiko | VTuber",
-  description = "Mochiko is a VTuber from northern Germany. Streams on Twitch, videos on YouTube.",
+  description = "Mochiko ist VTuberin aus Norddeutschland. Streams auf Twitch, Videos auf YouTube.",
   image = "/assets/mochikobanner.jpg",
   robots = "index, follow",
 } = Astro.props;
@@ -38,7 +38,7 @@ const pagePop = {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="de" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -46,6 +46,7 @@ const pagePop = {
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />

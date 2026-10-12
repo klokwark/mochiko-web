@@ -10,77 +10,77 @@ const seconds = rest.filter((game) => game.rank === "2");
 const others = rest.filter((game) => game.rank !== "2");
 ---
 
-<BaseLayout title="About Mochiko | VTuber" description="A little bit about Mochiko and the things she likes.">
+<BaseLayout title="Über Mochiko | VTuber" description="Ein bisschen was über Mochiko und die Sachen, die sie mag.">
   <SiteHeader />
   <main>
     <section class="about-hero">
       <div class="shell about-hero__grid">
         <div class="about-hero__art">
           <div class="about-hero__window">
-            <img src="/assets/red-dress-umbressa.webp" alt="Mochiko in a red and black dress holding a frilly umbrella" width="1086" height="1448" fetchpriority="high" />
+            <img src="/assets/red-dress-umbressa.webp" alt="Mochiko in einem rot-schwarzen Kleid mit einem Rüschenschirm in der Hand" width="1086" height="1448" fetchpriority="high" />
           </div>
-          <span class="sticker-label about-hero__note">this dress!!</span>
+          <span class="sticker-label about-hero__note">dieses kleid!!</span>
           <span class="about-hero__star" aria-hidden="true">✦</span>
         </div>
 
         <div class="about-hero__copy">
-          <p class="kicker">about me</p>
-          <h1 class="title-xl about-hero__title">my name is<br /><em>Mochiko!</em></h1>
-          <p class="pronounce"><span>pronounced</span> ˈmɔtʃiːˌkoː</p>
-          <p class="lede">but you can just call me mochi! i’m from northern germany, i stream on twitch and sometimes i make youtube videos.</p>
-          <ul class="chip-row" aria-label="Things Mochiko likes">
-            <li>foxes</li>
-            <li>blue everything</li>
-            <li>horror movies</li>
-            <li>city builders</li>
-            <li>plushies</li>
+          <p class="kicker">über mich</p>
+          <h1 class="title-xl about-hero__title">ich heiße<br /><em>Mochiko!</em></h1>
+          <p class="pronounce"><span>ausgesprochen</span> ˈmɔtʃiːˌkoː</p>
+          <p class="lede">aber nenn mich ruhig einfach mochi! ich komm aus norddeutschland, streame auf twitch und mach ab und zu youtube-videos.</p>
+          <ul class="chip-row" aria-label="Dinge, die Mochiko mag">
+            <li>füchse</li>
+            <li>alles in blau</li>
+            <li>horrorfilme</li>
+            <li>aufbauspiele</li>
+            <li>plüschtiere</li>
           </ul>
           <div class="button-row">
-            <a class="button button--pink" href="#favorites">my favorites <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+            <a class="button button--pink" href="#favorites">meine favoriten <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <Marquee tone="pink" phrases={["foxes", "plushies", "horror movies", "city builders", "fast music", "blue everything"]} />
+    <Marquee tone="pink" phrases={["füchse", "plüschtiere", "horrorfilme", "aufbauspiele", "schnelle musik", "alles in blau"]} />
 
     <section class="section-pad about-profile">
       <div class="shell about-profile__grid">
         <div class="about-profile__copy">
-          <p class="kicker">a bit more</p>
-          <h2 class="title-lg">i’m actually<br /><em>really shy</em></h2>
-          <p class="lede">in real life i barely talk. on stream i don’t stop. no idea how that works either.</p>
+          <p class="kicker">noch ein bisschen mehr</p>
+          <h2 class="title-lg">eigentlich bin ich<br /><em>voll schüchtern</em></h2>
+          <p class="lede">im echten leben sag ich kaum was. im stream krieg ich den mund nicht mehr zu. frag mich nicht, wie das geht.</p>
           <ul class="about-notes">
-            <li><b><i class="ph-fill ph-game-controller" aria-hidden="true"></i> playing rn</b>minecraft, genshin, roblox and way too many city builders</li>
-            <li><b><i class="ph-fill ph-headphones" aria-hidden="true"></i> listening to</b>fast bassy stuff, mostly crankdat lately</li>
-            <li><b><i class="ph-fill ph-warning-circle" aria-hidden="true"></i> good to know</b>i love horror movies but i will never play a horror game. also no horses pls</li>
+            <li><b><i class="ph-fill ph-game-controller" aria-hidden="true"></i> spiel ich grad</b>minecraft, genshin, roblox und viel zu viele aufbauspiele</li>
+            <li><b><i class="ph-fill ph-headphones" aria-hidden="true"></i> hör ich grad</b>schnellen kram mit viel bass, in letzter zeit meistens crankdat</li>
+            <li><b><i class="ph-fill ph-warning-circle" aria-hidden="true"></i> gut zu wissen</b>ich liebe horrorfilme, aber horrorgames spiel ich nie im leben. und keine pferde pls</li>
           </ul>
         </div>
         <div class="about-profile__art">
           <span class="about-profile__disc" aria-hidden="true"></span>
-          <img class="die-cut" src="/assets/outfits/outfit-4.webp" alt="Mochiko in her black and white gaming outfit, holding her headphones" width="941" height="1672" loading="lazy" />
-          <span class="sticker-label about-profile__stamp">stream outfit</span>
+          <img class="die-cut" src="/assets/outfits/outfit-4.webp" alt="Mochiko in ihrem schwarz-weißen Gaming-Outfit mit ihren Kopfhörern in der Hand" width="941" height="1672" loading="lazy" />
+          <span class="sticker-label about-profile__stamp">stream-outfit</span>
         </div>
       </div>
     </section>
 
     <section class="section-pad about-files scallop-top">
       <div class="shell">
-        <p class="kicker">my desk</p>
-        <h2 class="title-lg">what’s on <em>my desk</em></h2>
+        <p class="kicker">mein schreibtisch</p>
+        <h2 class="title-lg">was hier so <em>rumliegt</em></h2>
         <div class="about-files__grid">
           <img class="about-files__me die-cut" src="/assets/console-2.webp" alt="" width="1086" height="1448" loading="lazy" />
           <article class="file-window">
-            <p class="file-window__bar"><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> desk.txt <span aria-hidden="true"></span></p>
-            <p class="file-window__body">4 plushies, my fox mug and a screwdriver that’s been lying there for weeks</p>
+            <p class="file-window__bar"><i class="ph-fill ph-folder-simple" aria-hidden="true"></i> schreibtisch.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">4 plüschtiere, meine fuchstasse und ein schraubenzieher, der da schon seit wochen liegt</p>
           </article>
           <article class="file-window file-window--lilac">
-            <p class="file-window__bar"><i class="ph-fill ph-file-text" aria-hidden="true"></i> my_pc.txt <span aria-hidden="true"></span></p>
-            <p class="file-window__body">i built my pc myself!! ask me about it and i’ll explain every part</p>
+            <p class="file-window__bar"><i class="ph-fill ph-file-text" aria-hidden="true"></i> mein_pc.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">meinen pc hab ich selbst gebaut!! frag mich was dazu und ich erklär dir jedes einzelne teil</p>
           </article>
           <article class="file-window file-window--pink">
-            <p class="file-window__bar"><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> help.txt <span aria-hidden="true"></span></p>
-            <p class="file-window__body">i alt-tab for one second and suddenly two hours are gone. every time</p>
+            <p class="file-window__bar"><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i> hilfe.txt <span aria-hidden="true"></span></p>
+            <p class="file-window__body">einmal kurz alt-tab und plötzlich sind zwei stunden weg. jedes mal</p>
           </article>
         </div>
       </div>
@@ -90,29 +90,29 @@ const others = rest.filter((game) => game.rank !== "2");
       <div class="shell">
         <div class="section-head">
           <div>
-            <p class="kicker">favorite games</p>
-            <h2 class="title-lg">my top <em>games</em></h2>
+            <p class="kicker">lieblingsspiele</p>
+            <h2 class="title-lg">meine <em>top games</em></h2>
           </div>
-          <p class="sticker-label about-ranking__note">two #2s because i can’t decide</p>
+          <p class="sticker-label about-ranking__note">zweimal #2, weil ich mich nicht entscheiden kann</p>
         </div>
 
         <div class="podium">
           <a class="podium__first" href={first.href} target="_blank" rel="noreferrer">
-            <span class="podium__cover"><img src={first.image} alt={`${first.title} cover`} width="600" height="800" loading="lazy" /></span>
+            <span class="podium__cover"><img src={first.image} alt={`Cover von ${first.title}`} width="600" height="800" loading="lazy" /></span>
             <span class="podium__rank">#{first.rank}</span>
             <strong>{first.title}</strong>
-            <small>always my #1</small>
+            <small>für immer meine #1</small>
           </a>
 
           <div class="podium__tie">
             {seconds.map((game) => (
               <a class="podium__second" href={game.href} target="_blank" rel="noreferrer">
-                <span class="podium__cover"><img src={game.image} alt={`${game.title} cover`} width="600" height="800" loading="lazy" /></span>
+                <span class="podium__cover"><img src={game.image} alt={`Cover von ${game.title}`} width="600" height="800" loading="lazy" /></span>
                 <span class="podium__rank">#{game.rank}</span>
                 <strong>{game.title}</strong>
               </a>
             ))}
-            <span class="podium__tie-tag" aria-hidden="true">tie</span>
+            <span class="podium__tie-tag" aria-hidden="true">gleichstand</span>
           </div>
 
           <ol class="rank-list">
@@ -134,24 +134,24 @@ const others = rest.filter((game) => game.rank !== "2");
     <section class="section-pad about-music">
       <div class="shell">
         <div class="mixtape">
-          <img class="mixtape__me" src="/assets/outfits/outfit-1.webp" alt="Mochiko holding a pair of white headphones" width="941" height="1672" loading="lazy" />
+          <img class="mixtape__me" src="/assets/outfits/outfit-1.webp" alt="Mochiko hält weiße Kopfhörer in der Hand" width="941" height="1672" loading="lazy" />
 
           <div class="mixtape__heading">
-            <p class="kicker">music</p>
-            <h2 class="title-lg">on <em>repeat</em></h2>
-            <p>i mostly listen to fast, bassy stuff. this one’s been on repeat for weeks</p>
+            <p class="kicker">musik</p>
+            <h2 class="title-lg">auf <em>repeat</em></h2>
+            <p>hauptsache schnell und basslastig. der song hier läuft seit wochen rauf und runter</p>
           </div>
 
           <a class="mixtape__artist" href={favoriteMusic.artistHref} target="_blank" rel="noreferrer">
             <img src={favoriteMusic.artistImage} alt={favoriteMusic.artist} width="800" height="800" loading="lazy" />
-            <span>fav artist</span>
+            <span>lieblingskünstler</span>
             <strong>{favoriteMusic.artist}</strong>
           </a>
 
           <div class="mixtape__song">
-            <a class="cassette" href={favoriteMusic.songHref} target="_blank" rel="noreferrer" aria-label={`Listen to ${favoriteMusic.song}, ${favoriteMusic.songDetail}`}>
+            <a class="cassette" href={favoriteMusic.songHref} target="_blank" rel="noreferrer" aria-label={`${favoriteMusic.song} (${favoriteMusic.songDetail}) anhören`}>
               <span class="cassette__label">
-                <small>side a · fav song</small>
+                <small>seite a · lieblingssong</small>
                 <strong>{favoriteMusic.song}</strong>
                 <em>{favoriteMusic.songDetail}</em>
               </span>
@@ -159,7 +159,7 @@ const others = rest.filter((game) => game.rank !== "2");
               <img class="cassette__cover" src={favoriteMusic.songImage} alt="" width="800" height="800" loading="lazy" />
             </a>
             <div class="mixtape__links">
-              <a class="button button--pink" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">listen <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+              <a class="button button--pink" href={favoriteMusic.songHref} target="_blank" rel="noreferrer">anhören <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
               <a class="button button--cream" href={playlist.href} target="_blank" rel="noreferrer"><i class="ph-fill ph-spotify-logo" aria-hidden="true"></i> {playlist.label}</a>
             </div>
           </div>
@@ -167,7 +167,7 @@ const others = rest.filter((game) => game.rank !== "2");
 
         <div class="about-end">
           <span aria-hidden="true">୨୧</span>
-          <p>okay that’s enough about me! wanna watch something?</p>
+          <p>okay, genug von mir! lust, was zu gucken?</p>
           <a class="button button--pink" href="/content">videos <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>

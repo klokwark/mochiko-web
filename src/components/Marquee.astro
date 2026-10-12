@@ -4,7 +4,7 @@ interface Props {
   tone?: "night" | "pink";
 }
 
-const { phrases = ["see u on stream", "minecraft", "new videos", "plushies", "genshin", "fox stuff"], tone = "night" } = Astro.props;
+const { phrases = ["wir sehen uns im stream", "minecraft", "neue videos", "plüschtiere", "genshin", "fuchskram"], tone = "night" } = Astro.props;
 ---
 
 <div class:list={["marquee", `marquee--${tone}`]} role="marquee" aria-label={phrases.join(", ")}>
