@@ -184,6 +184,7 @@ const fallbackDays = ["mo", "di", "mi", "do", "fr", "sa", "so"];
     setStatus("checke grad...", "eine sek!", "loading");
     try {
       const data = await getTwitch();
+      if (!data.schedule) throw new Error("Schedule unavailable");
       const streams = upcomingStreams(data.schedule);
       if (!streams.length) {
         showFallback("noch nix geplant", "guck bald nochmal rein oder direkt auf twitch, falls sich was geändert hat", false);

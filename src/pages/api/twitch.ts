@@ -7,13 +7,15 @@ const CHANNEL = "mochikolive";
 const BROADCASTER_ID = "741408479";
 const DECAPI = "https://decapi.me/twitch";
 
-const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
+const json = (body: unknown, status = 200, cache = "public, s-maxage=60, stale-while-revalidate=300") => new Response(JSON.stringify(body), {
   status,
   headers: {
     "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+    "Cache-Control": cache,
   },
 });
+
+const DECAPI_ERROR = /^(An error occurred retrieving data from the API\.?$|\[Error from Twitch API\])/i;
 
 const getText = async (path: string) => {
   const response = await fetch(`${DECAPI}/${path}`, {
@@ -22,7 +24,7 @@ const getText = async (path: string) => {
   });
   if (!response.ok) throw new Error(`DecAPI returned ${response.status}`);
   const text = (await response.text()).trim();
-  if (/^(an error occurred|\[error)/i.test(text)) throw new Error(`DecAPI error: ${text.slice(0, 120)}`);
+  if (DECAPI_ERROR.test(text)) throw new Error(`DecAPI error: ${text.slice(0, 120)}`);
   return text;
 };
 
@@ -47,6 +49,13 @@ export const GET: APIRoute = async () => {
     ]);
 
     const value = (result: PromiseSettledResult<string>) => result.status === "fulfilled" ? result.value : "";
+    const liveKnown = uptimeResult.status === "fulfilled";
+    const scheduleKnown = scheduleResult.status === "fulfilled";
+    if (!liveKnown && !scheduleKnown) {
+      console.error("Twitch sources unavailable", uptimeResult.reason, scheduleResult.reason);
+      return json({ configured: true, source: "decapi", live: null, video: null, schedule: null, error: "Twitch macht grad ein kleines Nickerchen." }, 502, "no-store");
+    }
+
     const uptime = value(uptimeResult);
     const isLive = Boolean(uptime && uptime.toLowerCase() !== "offline" && !uptime.toLowerCase().includes("is offline"));
     const title = value(titleResult);
@@ -61,7 +70,7 @@ export const GET: APIRoute = async () => {
     return json({
       configured: true,
       source: "decapi",
-      live: isLive ? {
+      live: !liveKnown ? null : isLive ? {
         isLive: true,
         title: title || "ich bin grad live!!",
         gameName: gameName || null,
@@ -76,10 +85,10 @@ export const GET: APIRoute = async () => {
         thumbnailUrl: null,
         url: videoUrl,
       } : null,
-      schedule: scheduleResult.status === "fulfilled" ? scheduleResult.value : [],
-    });
+      schedule: scheduleKnown ? scheduleResult.value : null,
+    }, 200, liveKnown && scheduleKnown ? undefined : "public, s-maxage=15, stale-while-revalidate=30");
   } catch (error) {
     console.error("DecAPI Twitch error", error);
-    return json({ configured: true, source: "decapi", live: null, video: null, schedule: [], error: "Twitch macht grad ein kleines Nickerchen." }, 502);
+    return json({ configured: true, source: "decapi", live: null, video: null, schedule: null, error: "Twitch macht grad ein kleines Nickerchen." }, 502, "no-store");
   }
 };

@@ -232,7 +232,8 @@ const channelTones = ["cream", "lilac", "ink", "butter"];
 
     getTwitch()
       .then((data) => {
-        if (data.live?.isLive) {
+        if (!data.live) throw new Error("Live status unknown");
+        if (data.live.isLive) {
           const detail = [data.live.gameName, data.live.viewerCount ? `${data.live.viewerCount} zuschauer` : ""].filter(Boolean).join(" ·\u00a0");
           render(root, "live", { status: "live!", title: data.live.title || "bin live!", detail: detail || "komm vorbei", cta: "zuschauen" });
           return;
@@ -243,7 +244,7 @@ const channelTones = ["cream", "lilac", "ink", "butter"];
           title: "nicht live grad",
           detail: next
             ? `nächster stream: ${formatStreamTime(next.startTime)}${next.category ? ` ·\u00a0${next.category}` : ""}`
-            : "noch kein stream geplant, guck später nochmal rein",
+            : data.schedule ? "noch kein stream geplant, guck später nochmal rein" : "den streamplan gibt’s grad nur auf twitch",
         });
       })
       .catch(() => {

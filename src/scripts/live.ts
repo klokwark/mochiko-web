@@ -11,7 +11,7 @@ export type ScheduledStream = {
 export type TwitchData = {
   live: { isLive: boolean; title?: string; gameName?: string | null; viewerCount?: number | null } | null;
   video: { title: string; url: string; thumbnailUrl: string | null; publishedAt: string | null } | null;
-  schedule: ScheduledStream[];
+  schedule: ScheduledStream[] | null;
 };
 
 const CACHE_MS = 60_000;
@@ -38,7 +38,7 @@ export const onPrivacyChoice = (handler: (choice: PrivacyChoice) => void) => {
   window.addEventListener("mochiko:privacy-choice", () => handler(privacyChoice()));
 };
 
-export const upcomingStreams = (schedule: ScheduledStream[] = []) => schedule
+export const upcomingStreams = (schedule?: ScheduledStream[] | null) => (schedule ?? [])
   .filter((stream) => !stream.canceledUntil && new Date(stream.startTime).getTime() > Date.now() - 15 * 60_000)
   .sort((a, b) => a.startTime.localeCompare(b.startTime));
 

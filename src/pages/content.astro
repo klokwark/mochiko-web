@@ -300,7 +300,9 @@ import SiteFooter from "../components/SiteFooter.astro";
 
     getTwitch()
       .then((data) => {
-        if (data.live?.isLive) {
+        if (!data.live) {
+          renderLive("error", { pill: "twitch", status: "hmm", title: "twitch antwortet nicht", copy: "probier’s direkt auf meinem kanal, da sollte es trotzdem gehen" });
+        } else if (data.live.isLive) {
           renderLive("live", {
             pill: "live!",
             status: data.live.gameName ? `zocke ${data.live.gameName}` : "grad live",
@@ -316,7 +318,7 @@ import SiteFooter from "../components/SiteFooter.astro";
             title: "nicht live grad",
             copy: next
               ? `nächster stream: ${formatStreamTime(next.startTime)}${next.category ? ` ·\u00a0${next.category}` : ""}`
-              : "noch kein stream geplant. wenn ich live geh, startet der player von allein",
+              : data.schedule ? "noch kein stream geplant. wenn ich live geh, startet der player von allein" : "wenn ich live geh, startet der player von allein. den streamplan gibt’s grad nur auf twitch",
           });
         }
         if (data.video?.url) renderVod("ready", data.video);
